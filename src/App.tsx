@@ -1,13 +1,14 @@
-import { Button } from './components/ui/button';
-import './global.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Router } from './router';
+
+const queryClient = new QueryClient();
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-500">¡Hola, Tailwind!</h1>
-      <Button>Click me</Button>
-    </div>
-  );
-};
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Router />
+        </QueryClientProvider>
+    );
+}
 
 export default App;
