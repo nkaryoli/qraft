@@ -19,14 +19,14 @@ module.exports = {
             jsx: true,
         },
     },
-        settings: {
+    settings: {
         react: {
             version: 'detect',
         },
     },
-        rules: {
+    rules: {
         'react/react-in-jsx-scope': 'off', // No necesario con React 17+
         'import/order': ['warn', { 'newlines-between': 'always' }],
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        },
+    },
 };
