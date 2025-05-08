@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { IoClose } from "react-icons/io5";
-import { TiThMenu } from "react-icons/ti";
+import { IoClose } from 'react-icons/io5';
+import { TiThMenu } from 'react-icons/ti';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +21,7 @@ const Navbar = () => {
         { to: '/qrScanner', label: 'QR Scanner' },
         { to: '/about', label: 'About' },
         { to: '/faq', label: 'FAQ' },
-		{ to: '/qrGenerator', label: 'Create QR'}
+        { to: '/qrGenerator', label: 'Create QR' },
     ];
 
     return (
@@ -34,8 +34,17 @@ const Navbar = () => {
                     Qraft
                 </NavLink>
                 {isMobile && (
-                    <button onClick={() => setIsOpen(!isOpen)} aria-label={isOpen ? 'Close menu' : 'Open menu'}>
-                        {isOpen ? <div className='absolute right-6 top-5 z-50 text-3xl'><IoClose /></div> : <TiThMenu className='text-3xl'/>}
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                    >
+                        {isOpen ? (
+                            <div className="absolute right-6 top-5 z-50 text-3xl">
+                                <IoClose />
+                            </div>
+                        ) : (
+                            <TiThMenu className="text-3xl" />
+                        )}
                     </button>
                 )}
                 <ul className={`${isMobile ? 'hidden' : 'flex'} items-center font-headerText`}>
@@ -63,10 +72,10 @@ const Navbar = () => {
                                         <NavLink
                                             to={to}
                                             onClick={() => setIsOpen(!isOpen)}
-											className={({ isActive }) =>
-												`flex items-center justify-center h-full py-4 transition-all duration-200 
+                                            className={({ isActive }) =>
+                                                `flex items-center justify-center h-full py-4 transition-all duration-200 
 												${isActive ? 'bg-muted border-l-4 border-secondary' : 'hover:text-ring hover:scale-105'}`
-											}
+                                            }
                                         >
                                             {label}
                                         </NavLink>
