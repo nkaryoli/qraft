@@ -1,5 +1,11 @@
+import Layout from '@/components/Layout';
+
 const FAQPage = () => {
-    return <div>FAQPage</div>;
+    return (
+        <Layout>
+            <div>FAQPage</div>
+        </Layout>
+    );
 };
 
 export default FAQPage;

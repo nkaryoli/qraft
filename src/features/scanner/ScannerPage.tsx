@@ -1,5 +1,11 @@
+import Layout from '@/components/Layout';
+
 const ScannerPage = () => {
-    return <div>ScannerPage</div>;
+    return (
+        <Layout>
+            <div>ScannerPage</div>
+        </Layout>
+    );
 };
 
 export default ScannerPage;
