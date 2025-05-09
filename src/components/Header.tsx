@@ -10,9 +10,19 @@ import {
 } from './ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { useIsMobile } from '@/hooks/useIsMobile';
+import { SignedIn, SignedOut, SignIn, UserButton } from '@clerk/clerk-react';
+import { Button } from './ui/button';
+import { useState } from 'react';
 
 const Header = () => {
-    const isMobile = useIsMobile(768);
+    const isMobile = useIsMobile(568);
+    const [ showSignin, setShowSignin ] = useState<boolean>(false);
+
+    const handleOverlayClick = (e: { target: unknown; currentTarget: unknown; }) => {
+        if (e.target === e.currentTarget) {
+            setShowSignin(false);
+        }
+    }
 
     const navigationLinks = [
         { to: '/', label: 'Home' },
@@ -60,20 +70,20 @@ const Header = () => {
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Services</NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                <ul className="gap-3 p-3 w-44">
+                                <ul className="gap-3  w-44">
                                     <li className="">
                                         <NavigationMenuLink asChild>
-                                            <NavLink to={'/qrGenerator'}>Create QR</NavLink>
+                                            <NavLink to={'/qrGenerator'} className='rounded-none'>Create QR</NavLink>
                                         </NavigationMenuLink>
                                     </li>
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <NavLink to={'/qrScanner'}>QR Reader</NavLink>
+                                            <NavLink to={'/qrScanner'} className='rounded-none'>QR Reader</NavLink>
                                         </NavigationMenuLink>
                                     </li>
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <NavLink to={'/qrGenerator'}>QR Reader</NavLink>
+                                            <NavLink to={'/qrGenerator'} className='rounded-none mb-6'>QR Reader</NavLink>
                                         </NavigationMenuLink>
                                     </li>
                                 </ul>
@@ -91,16 +101,29 @@ const Header = () => {
                                 <NavLink to={'/faq'}>Faqs</NavLink>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
-                        <NavigationMenuItem>
-                            <NavigationMenuLink asChild>
-                                <NavLink to={'/qrGenerator'} className="bg-primary ml-1">
-                                    Sign up
-                                </NavLink>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
                     </NavigationMenuList>
+                    <div className='flex ml-1.5'>
+                        <SignedOut>
+                            <Button size='lg' onClick={()=> setShowSignin(true)}>Sign in</Button>
+                        </SignedOut>
+                        <SignedIn>
+                            <div className='mt-2 ml-2 hover:drop-shadow-[0px_0px_10px_rgba(219,7,61,0.7)]'>
+                                <UserButton />
+                            </div>
+                        </SignedIn>
+                    </div>
                 </NavigationMenu>
             </nav>
+            {showSignin &&
+            <div className='fixed inset-0 flex items-center justify-center bg-black/50'
+                onClick={handleOverlayClick}
+            >
+                <SignIn 
+                    signUpFallbackRedirectUrl='/'
+                    fallback='/'
+                />
+            </div>
+            }
         </header>
     );
 };
