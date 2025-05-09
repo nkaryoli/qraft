@@ -116,16 +116,16 @@
     --background: #060c0f;
     --foreground: #ffffff;
 
-    --primary: #db073d;
+    --primary: rgb(219, 7, 61);
     --primary-foreground: #ffffff;
 
-    --secondary: #dba507;
+    --secondary: rgb(219, 165, 7);
     --secondary-foreground: #060c0f;
 
-    --accent: #0d6986;
+    --accent: rgb(13, 105, 134);
     --accent-foreground: #ffffff;
 
-    --muted: #07485b;
+    --muted: rgb(7, 72, 91);
     --muted-foreground: #8ec7d2;
 
     --card: #0d1317;
@@ -226,4 +226,48 @@ h6 {
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.cl-avatarBox
+{
+    width: 40px;
+    height: auto;
+}
+
+.cl-userButtonPopoverCard, .cl-cardBox {
+    border-radius: 9px;
+}
+.cl-internal-1hp5nqm,  .cl-userButtonPopoverMain {
+    background-color: #0d1317;
+}
+
+.cl-button__signOut:hover, .cl-button__manageAccount:hover {
+    background: rgba(7, 71, 91, 0.5);
+}
+.cl-internal-piyvrh {
+    background: repeating-linear-gradient(-45deg, rgba(13, 105, 134, 0.07), rgba(13, 105, 134, 0.07) 6px, rgba(13, 105, 134, 0.11) 6px, rgba(13, 105, 134, 0.11) 12px);
+    mask-image: linear-gradient(transparent 0%, black);
+}
+
+.cl-internal-16vtwdp, .cl-internal-lk7758 {
+    color:#db073d;
+}
+
+.cl-userButtonPopoverMain {
+    border-radius: 0;
+}
+
+.cl-navbar {
+    background: #0d1317;
+}
+
+.cl-internal-13u79ez {
+    background: repeating-linear-gradient(-45deg, rgba(7, 71, 91, 0.07), rgba(7, 71, 91, 0.07) 6px, rgba(7, 71, 91, 0.11) 6px, rgba(7, 71, 91, 0.11) 12px);
+}
+.cl-scrollBox {
+    background: #060c0f;
+}
+
+.cl-actionCard {
+    background: rgba(13, 106, 134, 0.08);
 }
