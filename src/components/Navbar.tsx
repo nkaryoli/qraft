@@ -25,7 +25,7 @@ const Navbar = () => {
     ];
 
     return (
-        <header className="fixed flex justify-center h-auto w-full px-6 md:px-9 shadow-lg shabow-bg-100 bg-muted/20 text-text-200/80">
+        <header className="fixed flex justify-center h-auto w-full px-6 md:px-9 shadow-lg shabow-bg-100 bg-gradient-to-b from-black to-transparent ">
             <nav className="flex justify-between h-16 w-full max-w-[1400px]">
                 <NavLink
                     to="/"
@@ -68,13 +68,13 @@ const Navbar = () => {
                         <div className="absolute top-0 right-0 w-fit h-[100vh] flex justify-end border-t text-center bg-black/50">
                             <ul className="text-center w-[250px] h-full text-xl py-14 bg-bg-200">
                                 {navigationLinks.map(({ to, label }) => (
-                                    <li className="">
+                                    <li key={to}>
                                         <NavLink
                                             to={to}
                                             onClick={() => setIsOpen(!isOpen)}
                                             className={({ isActive }) =>
                                                 `flex items-center justify-center h-full py-4 transition-all duration-200 
-												${isActive ? 'bg-muted border-l-4 border-secondary' : 'hover:text-ring hover:scale-105'}`
+												${isActive ? 'bg-accent border-l-4 border-secondary' : 'hover:text-ring hover:scale-105'}`
                                             }
                                         >
                                             {label}
