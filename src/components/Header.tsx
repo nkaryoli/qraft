@@ -1,11 +1,18 @@
 import { NavLink } from 'react-router-dom';
 import { TiThMenu } from 'react-icons/ti';
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+} from './ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { useIsMobile } from '@/hooks/useIsMobile';
 
 const Header = () => {
-    const  isMobile = useIsMobile(768);
+    const isMobile = useIsMobile(768);
 
     const navigationLinks = [
         { to: '/', label: 'Home' },
@@ -24,7 +31,9 @@ const Header = () => {
                 </NavLink>
                 {isMobile && (
                     <Sheet>
-                        <SheetTrigger><TiThMenu className="text-3xl" /></SheetTrigger>
+                        <SheetTrigger>
+                            <TiThMenu className="text-3xl" />
+                        </SheetTrigger>
                         <SheetContent>
                             <ul className="text-center w-full h-full pt-9">
                                 {navigationLinks.map(({ to, label }) => (
@@ -44,7 +53,9 @@ const Header = () => {
                         </SheetContent>
                     </Sheet>
                 )}
-                <NavigationMenu className={`${isMobile ? 'hidden' : 'flex'} items-center font-headerText`}>
+                <NavigationMenu
+                    className={`${isMobile ? 'hidden' : 'flex'} items-center font-headerText`}
+                >
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>Services</NavigationMenuTrigger>
@@ -52,17 +63,17 @@ const Header = () => {
                                 <ul className="gap-3 p-3 w-44">
                                     <li className="">
                                         <NavigationMenuLink asChild>
-                                            <NavLink to={'/qrGenerator'} >Create QR</NavLink>
+                                            <NavLink to={'/qrGenerator'}>Create QR</NavLink>
                                         </NavigationMenuLink>
                                     </li>
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <NavLink to={'/qrScanner'} >QR Reader</NavLink>
+                                            <NavLink to={'/qrScanner'}>QR Reader</NavLink>
                                         </NavigationMenuLink>
                                     </li>
                                     <li>
                                         <NavigationMenuLink asChild>
-                                            <NavLink to={'/qrGenerator'} >QR Reader</NavLink>
+                                            <NavLink to={'/qrGenerator'}>QR Reader</NavLink>
                                         </NavigationMenuLink>
                                     </li>
                                 </ul>
@@ -70,17 +81,21 @@ const Header = () => {
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild>
-                                <NavLink to={'/about'} className=' h-full'>About us</NavLink>
+                                <NavLink to={'/about'} className=" h-full">
+                                    About us
+                                </NavLink>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild>
-                                <NavLink to={'/faq'} >Faqs</NavLink>
+                                <NavLink to={'/faq'}>Faqs</NavLink>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild>
-                                <NavLink to={'/qrGenerator'} className='bg-primary ml-1' >Sign up</NavLink>
+                                <NavLink to={'/qrGenerator'} className="bg-primary ml-1">
+                                    Sign up
+                                </NavLink>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>
