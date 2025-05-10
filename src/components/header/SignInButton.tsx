@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { memo, useEffect, useState } from "react";
 
 const SignInBtn = ({onClick}:{onClick: () => void}) => {
