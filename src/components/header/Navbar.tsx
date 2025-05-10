@@ -14,8 +14,8 @@ const Navbar = ({ isMobile, onClick}:{ isMobile: boolean, onClick: () => void}) 
 					<NavigationMenuTrigger>Services</NavigationMenuTrigger>
 					<NavigationMenuContent >
 						<ul className="gap-3 w-72 text-sm">
-							{serviceLinks.map(({to, label, icon}) => (
-								<li key={to}>
+							{serviceLinks.map(({to, label, icon}, index) => (
+								<li key={index}>
 									<NavLink to={to} className='hover:bg-accent/10 hover:text-primary-foreground flex flex-row items-center gap-8 border-b pl-8 py-4 '>
 										{icon}
 										{label}
@@ -35,7 +35,7 @@ const Navbar = ({ isMobile, onClick}:{ isMobile: boolean, onClick: () => void}) 
 						</NavigationMenuItem>
 					))}
 			</NavigationMenuList>
-			<SignInBtn onClick={onClick}/>
+			<SignInBtn isMobile={isMobile} onClick={onClick}/>
 		</NavigationMenu>
 	)
 }
