@@ -1,17 +1,26 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SigninModal from './SigninModal';
 import Navbar from './Navbar';
 import BurgerMenu from './BurgerMenu';
+import SignInBtn from './SignInButton';
 
 const Header = () => {
     const isMobile = useIsMobile(768);
     const [ showSignin, setShowSignin ] = useState<boolean>(false);
+    const [ search, setSearch ] = useSearchParams();
+
+    useEffect(() => {
+        if (search.get('sign-in')) {
+            setShowSignin(true);
+        }
+    }, [search])
 
     const handleCloseSignin = useCallback(() => {
         setShowSignin(false);
-    }, []);
+        setSearch({});
+    }, [setSearch]);
 
     const handleOpenSignin = useCallback(() => {
         setShowSignin(true);
@@ -26,7 +35,10 @@ const Header = () => {
                 >
                     Qraft
                 </NavLink>
-                <BurgerMenu isMobile={isMobile} />
+                <div className='flex items-center gap-4'>
+                    {isMobile && <SignInBtn isMobile={isMobile} onClick={handleOpenSignin}/>}
+                    <BurgerMenu isMobile={isMobile} />
+                </div>
                 <Navbar isMobile={isMobile} onClick={handleOpenSignin} />
             </nav>
             <SigninModal isOpen={showSignin} onClose={handleCloseSignin} />
