@@ -228,10 +228,9 @@ h6 {
     }
 }
 
-.cl-avatarBox
-{
+.cl-avatarBox  {
     width: 40px;
-    height: auto;
+    height: 40px;
 }
 
 .cl-userButtonPopoverCard, .cl-cardBox {
@@ -241,12 +240,11 @@ h6 {
     background-color: #0d1317;
 }
 
-.cl-button__signOut:hover, .cl-button__manageAccount:hover {
+.cl-button:hover {
     background: rgba(7, 71, 91, 0.5);
 }
 .cl-internal-piyvrh {
     background: repeating-linear-gradient(-45deg, rgba(13, 105, 134, 0.07), rgba(13, 105, 134, 0.07) 6px, rgba(13, 105, 134, 0.11) 6px, rgba(13, 105, 134, 0.11) 12px);
-    mask-image: linear-gradient(transparent 0%, black);
 }
 
 .cl-internal-16vtwdp, .cl-internal-lk7758 {
@@ -264,10 +262,28 @@ h6 {
 .cl-internal-13u79ez {
     background: repeating-linear-gradient(-45deg, rgba(7, 71, 91, 0.07), rgba(7, 71, 91, 0.07) 6px, rgba(7, 71, 91, 0.11) 6px, rgba(7, 71, 91, 0.11) 12px);
 }
+
 .cl-scrollBox {
     background: #060c0f;
 }
 
 .cl-actionCard {
     background: rgba(13, 106, 134, 0.08);
+}
+
+.burgerFooter {
+    background: repeating-linear-gradient(-45deg, rgba(7, 71, 91, 0.09), rgba(7, 71, 91, 0.09) 6px, rgba(7, 71, 91, 0.13) 6px, rgba(7, 71, 91, 0.13) 12px);
+    mask-image: linear-gradient(transparent 0%, #000000);
+}
+
+@media screen and (max-width: 768px) {
+    .cl-avatarBox  {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .cl-userButtonPopoverCard  {
+        width: 60% !important;
+        left: 40% !important;
+    }
 }
