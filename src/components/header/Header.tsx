@@ -27,7 +27,7 @@ const Header = () => {
     }, []);
 
     return (
-        <header className="fixed flex justify-center h-auto w-full px-6 md:px-9 shadow-lg shabow-bg-100 bg-gradient-to-b from-black to-transparent ">
+        <header className="fixed top-0 flex justify-center h-auto w-full px-6 md:px-9 shadow-lg shabow-bg-100 bg-gradient-to-b from-black to-transparent ">
             <nav className="flex justify-between items-center w-full h-16">
                 <NavLink
                     to="/"

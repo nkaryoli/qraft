@@ -1,18 +1,17 @@
+import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './header/Header';
 
-interface LayoutProps {
-    children: React.ReactNode;
-}
-
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = () => {
     return (
-        <div className="min-h-screen flex flex-col">
+        <>
             <div className="grid-background"></div>
-            <Header />
-            <main className="flex-1 flex items-center justify-center">{children}</main>
-            <Footer />
-        </div>
+            <main className="min-h-screen flex flex-col items-center justify-between">
+                <Header />
+                <Outlet />
+                <Footer />
+            </main>
+        </>
     );
 };
 
