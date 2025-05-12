@@ -14,5 +14,5 @@ export const desktopNavLinks = [
 export const serviceLinks = [
 	{ to: '/qrGenerator', label: 'Create QR', icon: <ScanQrCode size={16}/>},
 	{ to: '/qrScanner', label: 'QR Reader', icon: <ScanLine size={16} />},
-	{ to: '/qrGenerator', label: 'Create a Badge', icon: <ImageUpscale size={16} />},
+	{ to: '/onboarding', label: 'Create a Badge', icon: <ImageUpscale size={16} />},
 ];
