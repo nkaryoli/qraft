@@ -1,5 +1,5 @@
 import AboutPage from '@/features/about/AboutPage';
-import OrgDashboard from '@/features/dashboard/OrgDashboard';
+import Dashboard from '@/features/dashboard/Dashboard';
 import FAQPage from '@/features/faq/FAQPage';
 import HomePage from '@/features/home/HomePage';
 import CustomPage from '@/features/custom/CustomPage';
@@ -40,7 +40,7 @@ export const router =  createBrowserRouter([
             },
             {
                 path: "/dashboard", 
-                element: <ProtectedRoute><OrgDashboard /></ProtectedRoute>,
+                element: <ProtectedRoute><Dashboard /></ProtectedRoute>,
             },
             {
                 path: "/customBadge", 
