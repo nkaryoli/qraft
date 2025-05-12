@@ -1,14 +1,14 @@
-// import ProtectedRoute from '@/components/ProtectedRoute';
 import AboutPage from '@/features/about/AboutPage';
 import OrgDashboard from '@/features/dashboard/OrgDashboard';
 import FAQPage from '@/features/faq/FAQPage';
 import HomePage from '@/features/home/HomePage';
 import CustomPage from '@/features/custom/CustomPage';
-import OnboardingPage from '@/features/onboarding/OnboardingPage';
+import CustomBadgePage from '@/features/onboarding/CustomBadgePage';
 import QrGeneratorPage from '@/features/qrGenerator/QrGeneratorPage';
 import ScannerPage from '@/features/scanner/ScannerPage';
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '@/components/Layout';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 export const router =  createBrowserRouter([
     {
@@ -20,7 +20,7 @@ export const router =  createBrowserRouter([
             },
             {
                 path: "/customization", 
-                element: <CustomPage />,
+                element: <ProtectedRoute><CustomPage /></ProtectedRoute>,
             },
             {
                 path: "/qrGenerator", 
@@ -40,11 +40,11 @@ export const router =  createBrowserRouter([
             },
             {
                 path: "/dashboard", 
-                element: <OrgDashboard />,
+                element: <ProtectedRoute><OrgDashboard /></ProtectedRoute>,
             },
             {
-                path: "/onboarding", 
-                element: <OnboardingPage />,
+                path: "/customBadge", 
+                element: <ProtectedRoute><CustomBadgePage /></ProtectedRoute>,
             },
         ]
     }
