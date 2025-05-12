@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { useSupabase } from '@/hooks/useSupabaseAuth';
 import { OrganizationsAPI } from '@/api/apiOrganizations';
-import type { Member, MemberInput, Organization, OrganizationInput } from '@/supabase/types';
+import type { Organization, OrganizationInput } from '@/supabase/types';
 import { BarLoader } from 'react-spinners';
-import { MembersAPI } from '@/api/apiMembers';
 
-const OrgDashboard = () => {
+const Dashboard = () => {
 	const { user } = useUser();
 	const supabase = useSupabase();
 	const [orgs, setOrgs] = useState<Organization[]>([]);
 	const [loading, setLoading] = useState(true);
 
-	const [members, setMembers] = useState<Member[]>([]);
 	console.log(user)
 	// Cargar organizaciones del usuario
 	useEffect(() => {
@@ -31,20 +29,6 @@ const OrgDashboard = () => {
 			}
 		};
 
-		const loadMembers = async () => {
-			try {
-				setLoading(true);
-				const membersApi = MembersAPI(supabase);
-				const dataMembers = await membersApi.getMembers();
-				setMembers(dataMembers);
-			} catch (error) {
-				console.error('Error loading Members:', error);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		loadMembers();
 		loadOrgs();
 	}, [supabase, user?.id]);
 
@@ -74,25 +58,6 @@ const OrgDashboard = () => {
 
 	if (loading) return <div>Loading organizations...</div>;
 
-	const handleCreateMember = async () => {
-		if (!supabase || !user?.id) return;
-
-		try {
-			const newMember: MemberInput = {
-				user_id: user.id,
-				role: 'member',
-				organization_id: 5,
-			};
-
-			const memberApi = MembersAPI(supabase);
-			const createdMember = await memberApi.create(newMember);
-			setMembers([...members, createdMember]);
-
-		} catch (error) {
-			alert('Error creating Member: ' + (error as Error).message);
-		}
-	};
-
 	return (
 		<>
 			{loading && <BarLoader className='absolute mb-4' width={'100%'} color='#db073d' />}
@@ -121,29 +86,8 @@ const OrgDashboard = () => {
 					</div>
 				</div>
 			}
-			{!loading &&
-				<div className="p-4">
-					<h1 className="text-2xl font-bold mb-4">Members</h1>
-					<button 
-						onClick={handleCreateMember}
-						className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-					>
-						Create New Member
-					</button>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-						{members.map((member) => (
-							<div key={member.id} className="border p-4 rounded-lg">
-								<h2 className="text-xl font-semibold">{member.role}</h2>
-								<p className="text-gray-600">{member.organization_id}</p>
-								<p className="text-gray-600">{member.user_id}</p>
-								<p className="text-gray-600">{member.id}</p>
-							</div>
-						))}
-					</div>
-				</div>
-			}
 		</>
 	);
 };
 
-export default OrgDashboard;
+export default Dashboard;
