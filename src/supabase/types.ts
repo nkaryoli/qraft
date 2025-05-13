@@ -20,3 +20,22 @@ export type OrganizationInput = {
     theme: ThemeConfig;
     owner_id: string;
 };
+
+export type QRCode = {
+    id: number;
+    qr_data: string;
+    user_id: string;
+    qr_template: {
+        qrColor: string,
+        backgroung: string,
+    }
+}
+
+export type QRCodeInput = {
+    qr_data: string;
+    user_id: string;
+    qr_template: {
+        qrColor: string,
+        backgroung: string,
+    }
+}
