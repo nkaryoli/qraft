@@ -9,7 +9,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const { isSignedIn, isLoaded } = useUser();
 
     if (isLoaded && !isSignedIn && isSignedIn !== undefined) {
-        return <Navigate to="/?sign-in=true" />;
+        return <Navigate to="/signin" />;
     }
 
     return children;
