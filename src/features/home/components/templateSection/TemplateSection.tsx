@@ -10,11 +10,12 @@ const TemplateSection = () => {
 	const [ openModal, setOpenModal ] = useState<boolean>(false);
 	const [ message, setMessage ] = useState<string>('');
 
+	console.log(user)
 	const handleCardClick = (role:string) => {
 		if (!isSignedIn) {
 			navigate('/dashboard');
 		} else if (user && user.unsafeMetadata.role === role) {
-			navigate('/onboarding');
+			navigate('/customBadge');
 		} else if (isSignedIn && user.unsafeMetadata.role !== role) {
 			setOpenModal(true);
 			setMessage(
