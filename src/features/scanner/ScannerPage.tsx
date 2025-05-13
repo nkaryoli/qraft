@@ -1,8 +1,5 @@
-
 const ScannerPage = () => {
-    return (
-            <div>ScannerPage</div>
-    );
+    return <div>ScannerPage</div>;
 };
 
 export default ScannerPage;

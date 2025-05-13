@@ -1,10 +1,9 @@
-
 const CustomPage = () => {
-	return (
-		<>
-			<div>CustomPage</div>
-		</>
-	)
-}
+    return (
+        <>
+            <div>CustomPage</div>
+        </>
+    );
+};
 
-export default CustomPage
+export default CustomPage;

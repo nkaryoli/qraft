@@ -11,46 +11,58 @@ import Layout from '@/components/Layout';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import SignInPage from '@/features/signin/SignInPage';
 
-export const router =  createBrowserRouter([
+export const router = createBrowserRouter([
     {
         element: <Layout />,
         children: [
             {
-                path: "/", 
+                path: '/',
                 element: <HomePage />,
             },
             {
-                path: "/signin", 
+                path: '/signin',
                 element: <SignInPage />,
             },
             {
-                path: "/customization", 
-                element: <ProtectedRoute><CustomPage /></ProtectedRoute>,
+                path: '/customization',
+                element: (
+                    <ProtectedRoute>
+                        <CustomPage />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: "/qrGenerator", 
+                path: '/qrGenerator',
                 element: <QrGeneratorPage />,
             },
             {
-                path: "/qrScanner", 
+                path: '/qrScanner',
                 element: <ScannerPage />,
             },
             {
-                path: "/about", 
+                path: '/about',
                 element: <AboutPage />,
             },
             {
-                path: "/faq", 
+                path: '/faq',
                 element: <FAQPage />,
             },
             {
-                path: "/dashboard", 
-                element: <ProtectedRoute><Dashboard /></ProtectedRoute>,
+                path: '/dashboard',
+                element: (
+                    <ProtectedRoute>
+                        <Dashboard />
+                    </ProtectedRoute>
+                ),
             },
             {
-                path: "/customBadge", 
-                element: <ProtectedRoute><CustomBadgePage /></ProtectedRoute>,
+                path: '/customBadge',
+                element: (
+                    <ProtectedRoute>
+                        <CustomBadgePage />
+                    </ProtectedRoute>
+                ),
             },
-        ]
-    }
+        ],
+    },
 ]);
