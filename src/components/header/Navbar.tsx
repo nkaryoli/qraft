@@ -5,6 +5,7 @@ import { desktopNavLinks, serviceLinks } from '@/constanst';
 import { memo } from 'react';
 
 const Navbar = ({ isMobile, onClick}:{ isMobile: boolean, onClick: () => void}) => {
+
 	if (isMobile) return null;
 
 	return (
@@ -35,7 +36,7 @@ const Navbar = ({ isMobile, onClick}:{ isMobile: boolean, onClick: () => void}) 
 						</NavigationMenuItem>
 					))}
 			</NavigationMenuList>
-			<SignInBtn isMobile={isMobile} onClick={onClick}/>
+			<SignInBtn isMobile={isMobile} onClick={() => onClick()}/>
 		</NavigationMenu>
 	)
 }

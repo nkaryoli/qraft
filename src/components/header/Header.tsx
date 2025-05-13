@@ -1,33 +1,18 @@
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/useIsMobile';
-import { useCallback, useEffect, useState } from 'react';
-import SigninModal from './SigninModal';
 import Navbar from './Navbar';
 import BurgerMenu from './BurgerMenu';
 import SignInBtn from './SignInButton';
 
 const Header = () => {
+    const navigate = useNavigate();
     const isMobile = useIsMobile(768);
-    const [ showSignin, setShowSignin ] = useState<boolean>(false);
-    const [ search, setSearch ] = useSearchParams();
 
-    useEffect(() => {
-        if (search.get('sign-in')) {
-            setShowSignin(true);
-        }
-    }, [search])
-
-    const handleCloseSignin = useCallback(() => {
-        setShowSignin(false);
-        setSearch({});
-    }, [setSearch]);
-
-    const handleOpenSignin = useCallback(() => {
-        setShowSignin(true);
-    }, []);
-
+    const handleSignin = () => {
+		navigate('/signin');
+	}
     return (
-        <header className="fixed top-0 flex justify-center h-auto w-full px-6 md:px-9 shadow-lg shabow-bg-100 bg-gradient-to-b from-black to-transparent ">
+        <header className="fixed top-0 flex justify-center h-auto w-full px-6 md:px-9 shadow-lg shabow-bg-100 bg-gradient-to-b from-black to-transparent z-50 backdrop-blur-sm">
             <nav className="flex justify-between items-center w-full h-16">
                 <NavLink
                     to="/"
@@ -36,12 +21,11 @@ const Header = () => {
                     Qraft
                 </NavLink>
                 <div className='flex items-center gap-4'>
-                    {isMobile && <SignInBtn isMobile={isMobile} onClick={handleOpenSignin}/>}
+                    {isMobile && <SignInBtn isMobile={isMobile} onClick={handleSignin}/>}
                     <BurgerMenu isMobile={isMobile} />
                 </div>
-                <Navbar isMobile={isMobile} onClick={handleOpenSignin} />
+                <Navbar isMobile={isMobile} onClick={handleSignin} />
             </nav>
-            <SigninModal isOpen={showSignin} onClose={handleCloseSignin} />
         </header>
     );
 };
