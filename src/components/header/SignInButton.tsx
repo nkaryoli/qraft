@@ -3,6 +3,7 @@ import { Button } from "../ui/button"
 import { memo, useEffect, useState } from "react";
 import { Heart, ScanQrCode } from "lucide-react";
 import { FaUser } from "react-icons/fa";
+import { dark } from "@clerk/themes";
 
 const SignInBtn = ({ isMobile, onClick }:{ isMobile: boolean, onClick: () => void}) => {
 	const [isClient, setIsClient] = useState(false);
@@ -26,7 +27,25 @@ const SignInBtn = ({ isMobile, onClick }:{ isMobile: boolean, onClick: () => voi
 					<SignedIn>
 						<div className="relative transition-opacity duration-200">
 							<div className="w-10 h-10 flex items-center justify-center">
-								<UserButton fallback='/' >
+								<UserButton 
+									fallback='/'
+									appearance={{
+										baseTheme: [dark],
+										variables: { 
+											colorPrimary: '#db073d',
+											colorBackground: '#0d1317',
+											colorTextOnPrimaryBackground: '#ffffff',
+										},
+										elements: {
+											userButtonPopoverFooter:{
+												display: 'none'
+											},
+											footer: {
+												display: 'none'
+											}
+										}
+									}}
+								>
 									<UserButton.MenuItems>
 										<UserButton.Link
 											label="My QR Codes"
