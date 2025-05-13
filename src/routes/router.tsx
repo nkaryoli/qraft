@@ -9,6 +9,7 @@ import ScannerPage from '@/features/scanner/ScannerPage';
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import SignInPage from '@/features/signin/SignInPage';
 
 export const router =  createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const router =  createBrowserRouter([
             {
                 path: "/", 
                 element: <HomePage />,
+            },
+            {
+                path: "/signin", 
+                element: <SignInPage />,
             },
             {
                 path: "/customization", 
