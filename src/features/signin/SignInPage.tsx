@@ -1,8 +1,13 @@
 import { SignIn, SignUp } from '@clerk/clerk-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { dark } from '@clerk/themes';
+import { useLocation } from 'react-router-dom';
 
 const SignInPage = () => {
+    const location = useLocation();
+    const urlData = location.state || {};
+    const redirect = typeof urlData === 'string' ? `/${urlData}` : '/';
+    
     return (
         <section className="flex justify-center items-center w-full py-32 lg:pt-52 px-6">
             <Tabs
@@ -33,7 +38,7 @@ const SignInPage = () => {
                     className="flex items-center justify-center  px-[10vw] pb-[10vw] lg:p-20"
                 >
                     <SignIn
-                        fallbackRedirectUrl="/"
+                        fallbackRedirectUrl={redirect}
                         appearance={{
                             baseTheme: [dark],
                             variables: {
@@ -67,7 +72,7 @@ const SignInPage = () => {
                     className="flex items-center justify-center px-[10vw] pb-[10vw] lg:p-20"
                 >
                     <SignUp
-                        fallbackRedirectUrl="/"
+                        fallbackRedirectUrl={redirect}
                         appearance={{
                             baseTheme: [dark],
                             variables: {
