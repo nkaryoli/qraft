@@ -46,6 +46,10 @@ const GenerateQRForm = () => {
     
     const handleCustomQR = () => {
         if (!isSignedIn) {
+            sessionStorage.setItem('pendingQRConfig', JSON.stringify({
+                config: qrConfig,
+                content: content
+            }));
             setShowAuthAlert(true);
             return;
         }
@@ -56,10 +60,11 @@ const GenerateQRForm = () => {
         qrRef.current?.download('my-qr-code');
     }
     return (
-        <div className="w-full max-w-xl">
+        <div className="w-full max-w-lg">
             <form onSubmit={handleSubmit} className="flex w-full h-fit gap-2  p-3 bg-background rounded-xl">
                 <input
                     type="text"
+                    required
                     placeholder="Enter URL or text"
                     onChange={(e) => setContent(e.target.value)}
                     className="w-full border p-2 text-md text-text-200 font-bodyText rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
@@ -90,7 +95,7 @@ const GenerateQRForm = () => {
                 open={showAuthAlert}
                 onOpenChange={setShowAuthAlert}
                 actionName="personalize your QR Code"
-                onClick={() => navigate('/signin')}
+                onClick={() => navigate('/signin', { state: 'customize' })}
             />
         </div>
     );
