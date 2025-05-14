@@ -26,16 +26,16 @@ export type QRCode = {
     qr_data: string;
     user_id: string;
     qr_template: {
-        qrColor: string,
-        backgroung: string,
-    }
-}
+        qrColor: string;
+        backgroung: string;
+    };
+};
 
 export type QRCodeInput = {
     qr_data: string;
     user_id: string;
     qr_template: {
-        qrColor: string,
-        backgroung: string,
-    }
-}
+        qrColor: string;
+        backgroung: string;
+    };
+};

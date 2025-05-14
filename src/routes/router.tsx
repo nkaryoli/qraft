@@ -2,7 +2,7 @@ import AboutPage from '@/features/about/AboutPage';
 import Dashboard from '@/features/dashboard/Dashboard';
 import FAQPage from '@/features/faq/FAQPage';
 import HomePage from '@/features/home/HomePage';
-import CustomPage from '@/features/custom/CustomPage';
+import CustomizePage from '@/features/custom/CustomizePage';
 import CustomBadgePage from '@/features/onboarding/CustomBadgePage';
 import QrGeneratorPage from '@/features/qrGenerator/QrGeneratorPage';
 import ScannerPage from '@/features/scanner/ScannerPage';
@@ -24,10 +24,10 @@ export const router = createBrowserRouter([
                 element: <SignInPage />,
             },
             {
-                path: '/customization',
+                path: '/customize',
                 element: (
                     <ProtectedRoute>
-                        <CustomPage />
+                        <CustomizePage />
                     </ProtectedRoute>
                 ),
             },
