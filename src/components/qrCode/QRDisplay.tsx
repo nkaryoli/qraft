@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import QRCodeStyling from 'qr-code-styling';
-import type { QRConfig } from '../../features/qrGenerator/components/types';
+import type { QRConfig } from '../../types';
 
 interface QRDisplayProps {
     config: QRConfig;

@@ -2,7 +2,7 @@ import { QRDisplay, type QRDisplayRef } from '@/components/qrCode/QRDisplay';
 import { Button } from '../../../components/ui/button';
 import { ArrowRight, DownloadIcon, PaintbrushIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import type { QRConfig } from '@/features/qrGenerator/components/types';
+import type { QRConfig } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { RequireAuthAlert } from '@/components/RequireAuthAlert';
