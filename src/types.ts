@@ -5,11 +5,11 @@ export interface QRConfig {
     image?: string;
     dotsOptions?: DotsOptions;
     dotsOptionsHelper?: DotsOptionsHelper;
-    backgroundOptions?:{
+    backgroundOptions?: {
         color: string;
         round?: number;
         gradient?: Gradient;
-    }
+    };
     cornersSquareOptions?: {
         type: 'square' | 'dot' | 'extra-rounded';
         color?: string;
@@ -20,10 +20,9 @@ export interface QRConfig {
     };
 }
 
+export type DotType = 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
 
-export type DotType = | 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
-
-export type GradientType = 'linear' | 'radial';
+export type GradientOption = 'linear' | 'radial';
 
 export type DotsOptions = {
     type: DotType;
@@ -32,7 +31,7 @@ export type DotsOptions = {
 };
 
 export type Gradient = {
-    type: GradientType;
+    type: GradientOption;
     rotation: number;
     colorStops: {
         offset: number;
@@ -46,20 +45,28 @@ export type DotsOptionsHelper = {
         gradient: boolean;
     };
     gradient: GradientType;
+}; 
+
+export type GradientType = {
+    linear: boolean;
+    radial: boolean;
+    color1: string;
+    color2: string;
+    rotation: number;
 };
 
 export interface qrOptions {
     typeNumber: string;
     mode: string;
     errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H';
-};
+}
 
 export interface imageOptions {
     hideBackgroundDots?: boolean;
     imageSize?: number;
     margin?: number;
     saveAsBlob?: boolean;
-};
+}
 
 export interface dotsOptions {
     type: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
@@ -67,9 +74,9 @@ export interface dotsOptions {
     gradient?: {
         type: 'linear' | 'radial';
         rotation: string;
-        colorStops: Array<{offset: number; color: string}>;
+        colorStops: Array<{ offset: number; color: string }>;
     };
-};
+}
 
 export interface dotsOptionsHelper {
     colorType: { single: boolean; gradient: boolean };
@@ -80,7 +87,7 @@ export interface dotsOptionsHelper {
         color2: string;
         rotation: string;
     };
-};
+}
 
 export interface backgroundOptions {
     color: string;
@@ -88,9 +95,9 @@ export interface backgroundOptions {
     gradient?: {
         type: 'linear' | 'radial';
         rotation: string;
-        colorStops: Array<{offset: number; color: string}>;
+        colorStops: Array<{ offset: number; color: string }>;
     };
-};
+}
 
 export interface backgroundOptionsHelper {
     colorType: { single: boolean; gradient: boolean };
@@ -101,7 +108,7 @@ export interface backgroundOptionsHelper {
         color2: string;
         rotation: string;
     };
-};
+}
 
 export interface cornersSquareOptions {
     type: '' | 'square' | 'dot' | 'extra-rounded';
@@ -109,9 +116,9 @@ export interface cornersSquareOptions {
     gradient?: {
         type: 'linear' | 'radial';
         rotation: string;
-        colorStops: Array<{offset: number; color: string}>;
+        colorStops: Array<{ offset: number; color: string }>;
     };
-};
+}
 
 export interface cornersSquareOptionsHelper {
     colorType: { single: boolean; gradient: boolean };
@@ -122,7 +129,7 @@ export interface cornersSquareOptionsHelper {
         color2: string;
         rotation: string;
     };
-};
+}
 
 export interface cornersDotOptions {
     type: '' | 'square' | 'dot';
@@ -130,9 +137,9 @@ export interface cornersDotOptions {
     gradient?: {
         type: 'linear' | 'radial';
         rotation: string;
-        colorStops: Array<{offset: number; color: string}>;
+        colorStops: Array<{ offset: number; color: string }>;
     };
-};
+}
 
 export interface cornersDotOptionsHelper {
     colorType: { single: boolean; gradient: boolean };
@@ -143,19 +150,7 @@ export interface cornersDotOptionsHelper {
         color2: string;
         rotation: string;
     };
-};
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 export interface QRCodeRecord {
     id: string;
@@ -199,16 +194,16 @@ export interface json {
     height: 300;
     data: 'https://qr-code-styling.com';
     margin: 0;
-    qrOptions: { 
-        typeNumber: '0'; 
-        mode: 'Byte'; 
-        errorCorrectionLevel: 'Q' 
+    qrOptions: {
+        typeNumber: '0';
+        mode: 'Byte';
+        errorCorrectionLevel: 'Q';
     };
-    imageOptions: { 
-        saveAsBlob: true; 
-        hideBackgroundDots: true; 
-        imageSize: 0.4; 
-        margin: 0 
+    imageOptions: {
+        saveAsBlob: true;
+        hideBackgroundDots: true;
+        imageSize: 0.4;
+        margin: 0;
     };
     image: '10cc19bd484118dbcd0a7886a38ceddc.png';
     dotsOptions: { type: 'extra-rounded'; color: '#6a1a4c'; roundSize: true };
