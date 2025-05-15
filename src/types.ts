@@ -8,10 +8,8 @@ export interface QRConfig {
     backgroundOptions?: BackgroundOptions;
     cornersSquareOptions?: CornersSquareOptions;
     cornersSquareOptionsHelper?: CornersSquareOptionsHelper;
-    cornersDotOptions?: {
-        type: 'square' | 'dot';
-        color?: string;
-    };
+    cornersDotOptions?: CornersDotOptions;
+    cornersDotOptionsHelper?: CornersSquareOptionsHelper;
 }
 
 export type DotType = 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
@@ -96,27 +94,20 @@ export interface CornersSquareOptionsHelper {
         color2: string;
         rotation: number;
     };
-};
+}
 
-export interface cornersDotOptions {
+export interface CornersDotOptions {
     type: '' | 'square' | 'dot';
-    color?: string;
-    gradient?: {
-        type: 'linear' | 'radial';
-        rotation: number;
-        colorStops: Array<{ offset: number; color: string }>;
-    };
+    color: string;
+    gradient?: Gradient;
 }
 
 export interface cornersDotOptionsHelper {
-    colorType: { single: boolean; gradient: boolean };
-    gradient: {
-        linear: boolean;
-        radial: boolean;
-        color1: string;
-        color2: string;
-        rotation: number;
+    colorType: { 
+        single: boolean; 
+        gradient: boolean
     };
+    gradient: GradientType; 
 }
 
 export interface QRCodeRecord {

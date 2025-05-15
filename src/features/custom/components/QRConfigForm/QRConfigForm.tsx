@@ -4,6 +4,7 @@ import BackgroundOptions from './BackgroundOptions';
 import LogoOptions  from './LogoOptions';
 import { DotsOptionsForm } from './DotsOptions';
 import { CornersSquareOptions } from './CornerSquareOptions';
+import { CornersDotOptions } from './CornersDotOptions';
 
 interface QRConfigFormProps {
     config: QRConfig;
@@ -73,6 +74,19 @@ const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
                             config={config}
                             onChange={(options) => handleChange('cornersSquareOptions', options)}
                             onChangeHelper={(helper) => handleChange('cornersSquareOptionsHelper', helper)}
+                        />
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem
+                    value="dots-square-options"
+                    className="border border-muted/70 bg-background/40 rounded-xl"
+                >
+                    <AccordionTrigger className="bg-muted/70 p-2">Dots Squre Options</AccordionTrigger>
+                    <AccordionContent asChild>
+                        <CornersDotOptions
+                            config={config}
+                            onChange={(options) => handleChange('cornersDotOptions', options)}
+                            onChangeHelper={(helper) => handleChange('cornersDotOptionsHelper', helper)}
                         />
                     </AccordionContent>
                 </AccordionItem>

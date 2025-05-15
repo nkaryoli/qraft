@@ -49,6 +49,20 @@ const CustomizePage = () => {
                 rotation: 0
             }
         },
+        cornersDotOptions: initialConfig?.cornersDotOptions || {
+            type: 'dot',
+            color: '#0d6986'
+        },
+        cornersDotOptionsHelper: initialConfig?.cornersDotOptionsHelper || {
+            colorType: { single: true, gradient: false },
+            gradient: {
+                linear: true,
+                radial: false,
+                color1: '#0d6986',
+                color2: '#0d6986',
+                rotation: 0
+            }
+        },
         
     });
 

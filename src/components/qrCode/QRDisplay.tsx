@@ -64,7 +64,7 @@ export const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, cla
                         : undefined,
                 }
                 : undefined,
-                cornersSquareOptions: config.cornersSquareOptions ? 
+            cornersSquareOptions: config.cornersSquareOptions ? 
                 {
                     ...config.cornersSquareOptions,
                     gradient: config.cornersSquareOptionsHelper?.colorType.gradient ? {
@@ -73,6 +73,18 @@ export const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, cla
                         colorStops: [
                             { offset: 0, color: config.cornersSquareOptionsHelper.gradient.color1 },
                             { offset: 1, color: config.cornersSquareOptionsHelper.gradient.color2 }
+                        ]
+                    } : undefined
+                } : undefined,
+            cornersDotOptions: config.cornersDotOptions ? 
+                {
+                    ...config.cornersDotOptions,
+                    gradient: config.cornersDotOptionsHelper?.colorType.gradient ? {
+                        type: config.cornersDotOptionsHelper.gradient.linear ? 'linear' : 'radial',
+                        rotation: Number(config.cornersDotOptionsHelper.gradient.rotation) || 0,
+                        colorStops: [
+                            { offset: 0, color: config.cornersDotOptionsHelper.gradient.color1 },
+                            { offset: 1, color: config.cornersDotOptionsHelper.gradient.color2 }
                         ]
                     } : undefined
                 } : undefined,
