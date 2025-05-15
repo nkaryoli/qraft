@@ -82,7 +82,7 @@ const CustomizePage = () => {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row items-start justify-center py-32 gap-8">
+        <div className="flex flex-col lg:flex-row items-start justify-center pt-32 pb-20 gap-8">
             <QRCustomizer
                 qrConfig={qrConfig}
                 onConfigChange={setQrConfig}
