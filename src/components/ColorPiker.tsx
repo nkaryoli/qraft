@@ -29,6 +29,6 @@ const ColorPicker: React.FC<ColorPickerProps> = ({ color, onChange }) => {
             </PopoverContent>
         </Popover>
     );
-}
+};
 
 export default ColorPicker;

@@ -28,10 +28,7 @@ export const LogoOptions = ({ onChange }: LogoOptionsProps) => (
                     }}
                     className="hidden"
                 />
-                <label
-                    htmlFor="image"
-                    className="border border-muted bg-card py-1 px-5 rounded-md"
-                >
+                <label htmlFor="image" className="border border-muted bg-card py-1 px-5 rounded-md">
                     Select File
                 </label>
             </div>

@@ -3,14 +3,12 @@ import { AccordionItem, AccordionTrigger, AccordionContent } from '@/components/
 import ColorPicker from '@/components/ColorPiker';
 import { Label } from '@radix-ui/react-label';
 
-
 interface BackgroundOptionsProps {
     config: QRConfig;
     onChange: (options: QRConfig['backgroundOptions']) => void;
 }
 
 const BackgroundOptions = ({ config, onChange }: BackgroundOptionsProps) => {
-    
     return (
         <AccordionItem
             value="background-options"
@@ -23,16 +21,18 @@ const BackgroundOptions = ({ config, onChange }: BackgroundOptionsProps) => {
                         <Label htmlFor="bgColor">Background Color</Label>
                         <ColorPicker
                             color={config.backgroundOptions?.color || '#ffffff'}
-                            onChange={(color) => onChange({
-                                ...config.backgroundOptions,
-                                color,
-                            })}
+                            onChange={(color) =>
+                                onChange({
+                                    ...config.backgroundOptions,
+                                    color,
+                                })
+                            }
                         />
                     </div>
                 </div>
             </AccordionContent>
         </AccordionItem>
-    )
+    );
 };
 
 export default BackgroundOptions;

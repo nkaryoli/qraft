@@ -7,7 +7,7 @@ const SignInPage = () => {
     const location = useLocation();
     const urlData = location.state || {};
     const redirect = typeof urlData === 'string' ? `/${urlData}` : '/';
-    
+
     return (
         <section className="flex justify-center items-center w-full py-32 lg:pt-52 px-6">
             <Tabs

@@ -1,17 +1,17 @@
 import { useUser } from '@clerk/clerk-react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import QRCustomizer  from './components/QRCustomizer';
+import QRCustomizer from './components/QRCustomizer';
 import QRPreview from './components/QRPreview';
 import type { QRConfig } from '@/types';
-
 
 const CustomizePage = () => {
     const { isSignedIn, isLoaded } = useUser();
     const navigate = useNavigate();
     const location = useLocation();
-    
-    const rawData = location.state?.qrConfig || JSON.parse(sessionStorage.getItem('pendingQRConfig') || 'null');
+
+    const rawData =
+        location.state?.qrConfig || JSON.parse(sessionStorage.getItem('pendingQRConfig') || 'null');
     const initialConfig = rawData?.config || rawData;
 
     const [qrConfig, setQrConfig] = useState<QRConfig>({
@@ -29,8 +29,8 @@ const CustomizePage = () => {
                 radial: false,
                 color1: '#db073d',
                 color2: '#dba507',
-                rotation: 45
-            }
+                rotation: 45,
+            },
         },
         backgroundOptions: initialConfig?.backgroundOptions || {
             color: '#ffffff',
@@ -68,20 +68,21 @@ const CustomizePage = () => {
     }
 
     const handleContentChange = (content: string) => {
-        setQrConfig(prev => ({
+        setQrConfig((prev) => ({
             ...prev,
-            data: content
+            data: content,
         }));
     };
 
     return (
         <div className="flex flex-col lg:flex-row items-start justify-center py-32 gap-8">
-            <QRCustomizer  qrConfig={qrConfig}
+            <QRCustomizer
+                qrConfig={qrConfig}
                 onConfigChange={setQrConfig}
-                onContentChange={handleContentChange} 
+                onContentChange={handleContentChange}
             />
             <div className="sticky top-32 h-full">
-				<QRPreview qrConfig={qrConfig} content={qrConfig.data} />
+                <QRPreview qrConfig={qrConfig} content={qrConfig.data} />
             </div>
         </div>
     );
