@@ -15,8 +15,8 @@ const CustomizePage = () => {
     const initialConfig = rawData?.config || rawData;
 
     const [qrConfig, setQrConfig] = useState<QRConfig>({
-        width: 300,
-        height: 300,
+        width: 250,
+        height: 250,
         data: initialConfig?.data || '',
         dotsOptions: initialConfig?.dotsOptions || {
             color: '#000000',
