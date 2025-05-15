@@ -3,6 +3,7 @@ export interface QRConfig {
     height?: number;
     data: string;
     image?: string;
+    imageOptions?: ImageOptionsType;
     dotsOptions?: DotsOptions;
     dotsOptionsHelper?: DotsOptionsHelper;
     backgroundOptions?: BackgroundOptions;
@@ -108,6 +109,13 @@ export interface cornersDotOptionsHelper {
         gradient: boolean
     };
     gradient: GradientType; 
+}
+
+export interface ImageOptionsType {
+    hideBackgroundDots?: boolean;
+    imageSize?: number;
+    margin?: number;
+    saveAsBlob?: boolean;
 }
 
 export interface QRCodeRecord {

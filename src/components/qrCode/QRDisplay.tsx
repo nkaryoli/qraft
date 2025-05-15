@@ -88,6 +88,12 @@ export const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, cla
                         ]
                     } : undefined
                 } : undefined,
+            image: config.image,
+                imageOptions: config.imageOptions ? {
+                    hideBackgroundDots: config.imageOptions.hideBackgroundDots,
+                    imageSize: config.imageOptions.imageSize,
+                    margin: config.imageOptions.margin
+                } : undefined
         };
 
         if (!qrCodeRef.current) {

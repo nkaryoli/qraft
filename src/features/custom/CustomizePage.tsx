@@ -63,7 +63,13 @@ const CustomizePage = () => {
                 rotation: 0
             }
         },
-        
+        image: initialConfig?.image,
+        imageOptions: initialConfig?.imageOptions || {
+            hideBackgroundDots: true,
+            imageSize: 0.3,
+            margin: 0,
+            saveAsBlob: true
+        },
     });
 
     useEffect(() => {
