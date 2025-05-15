@@ -16,10 +16,54 @@ const GenerateQRForm = () => {
         data: '',
         dotsOptions: {
             color: '#000000',
-            type: 'rounded',
+            type: 'square',
         },
         backgroundOptions: {
             color: '#ffffff',
+        },
+        dotsOptionsHelper: {
+            colorType: { single: true, gradient: false },
+            gradient: {
+                linear: true,
+                radial: false,
+                color1: '#000000',
+                color2: '#000000',
+                rotation: 45,
+            },
+        },
+        cornersSquareOptions: {
+            type: 'square',
+            color: '#000000',
+        },
+        cornersSquareOptionsHelper: {
+            colorType: { single: true, gradient: false },
+            gradient: {
+                linear: true,
+                radial: false,
+                color1: '#000000',
+                color2: '#000000',
+                rotation: 0
+            }
+        },
+        cornersDotOptions: {
+            type: 'square',
+            color: '#000000'
+        },
+        cornersDotOptionsHelper: {
+            colorType: { single: true, gradient: false },
+            gradient: {
+                linear: true,
+                radial: false,
+                color1: '#000000',
+                color2: '#000000',
+                rotation: 0
+            }
+        },
+        imageOptions:  {
+            hideBackgroundDots: true,
+            imageSize: 0.3,
+            margin: 0,
+            saveAsBlob: true
         },
     });
     const [showQR, setShowQR] = useState<boolean>(false);
