@@ -22,31 +22,30 @@ const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
     return (
         <div className="space-y-1 w-full text-foreground">
             <Accordion type="single" collapsible className="space-y-1">
-                <BackgroundOptions 
-                    config={config} 
-                    onChange={(options) => handleChange('backgroundOptions', options)} 
+                <BackgroundOptions
+                    config={config}
+                    onChange={(options) => handleChange('backgroundOptions', options)}
                 />
-                
+
                 <DotsOptionsForm
                     dotsOptions={config.dotsOptions || { type: 'rounded', color: '#000000' }}
-                    dotsOptionsHelper={config.dotsOptionsHelper || {
-                        colorType: { single: true, gradient: false },
+                    dotsOptionsHelper={
+                        config.dotsOptionsHelper || {
+                            colorType: { single: true, gradient: false },
                             gradient: {
                                 linear: true,
                                 radial: false,
                                 color1: '#000000',
                                 color2: '#000000',
-                                rotation: '0'
-                            }
+                                rotation: 0,
+                            },
                         }
                     }
                     onChange={(options) => handleChange('dotsOptions', options)}
                     onChangeHelper={(helper) => handleChange('dotsOptionsHelper', helper)}
                 />
-                
-                <LogoOptions 
-                    onChange={(image) => handleChange('image', image)} 
-                />
+
+                <LogoOptions onChange={(image) => handleChange('image', image)} />
             </Accordion>
         </div>
     );

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import QRCodeStyling from 'qr-code-styling';
-import type { GradientType, QRConfig } from '../../types';
+import type { GradientOption, QRConfig } from '../../types';
 
 interface QRDisplayProps {
     config: QRConfig;
@@ -29,35 +29,41 @@ export const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, cla
         // Función para transformar el gradiente a formato compatible
         const transformGradient = (helper: any) => {
             if (!helper?.colorType.gradient) return undefined;
-            
+
             return {
-                type: (helper.gradient.linear ? 'linear' : 'radial') as GradientType,
+                type: (helper.gradient.linear ? 'linear' : 'radial') as GradientOption,
                 rotation: Number(helper.gradient.rotation) || 0,
                 colorStops: [
                     { offset: 0, color: helper.gradient.color1 },
-                    { offset: 1, color: helper.gradient.color2 }
-                ]
+                    { offset: 1, color: helper.gradient.color2 },
+                ],
             };
         };
 
         const transformedConfig = {
             ...config,
-            dotsOptions: config.dotsOptions ? {
-                type: config.dotsOptions.type,
-                color: config.dotsOptions.color,
-                gradient: transformGradient(config.dotsOptionsHelper),
-            } : undefined,
-            backgroundOptions: config.backgroundOptions ? {
-                ...config.backgroundOptions,
-                gradient: config.backgroundOptions.gradient ? {
-                    type: config.backgroundOptions.gradient.type as GradientType,
-                    rotation: Number(config.backgroundOptions.gradient.rotation) || 0,
-                    colorStops: config.backgroundOptions.gradient.colorStops || [
-                        { offset: 0, color: '#000000' },
-                        { offset: 1, color: '#000000' }
-                    ]
-                } : undefined
-            } : undefined
+            dotsOptions: config.dotsOptions
+                ? {
+                      type: config.dotsOptions.type,
+                      color: config.dotsOptions.color,
+                      gradient: transformGradient(config.dotsOptionsHelper),
+                  }
+                : undefined,
+            backgroundOptions: config.backgroundOptions
+                ? {
+                      ...config.backgroundOptions,
+                      gradient: config.backgroundOptions.gradient
+                          ? {
+                                type: config.backgroundOptions.gradient.type as GradientOption,
+                                rotation: Number(config.backgroundOptions.gradient.rotation) || 0,
+                                colorStops: config.backgroundOptions.gradient.colorStops || [
+                                    { offset: 0, color: '#000000' },
+                                    { offset: 1, color: '#000000' },
+                                ],
+                            }
+                          : undefined,
+                  }
+                : undefined,
         };
 
         if (!qrCodeRef.current) {
