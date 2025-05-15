@@ -22,11 +22,11 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({ qrConfig, onContentChange, 
     return (
         <Card className="w-md px-0">
             <CardHeader>
-                <CardTitle>Customize Options</CardTitle>
+                <CardTitle className='text-xl text-foreground'>Customize Options</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="space-y-2">
-                    <Label htmlFor="title">Title</Label>
+                    <Label htmlFor="title" className='text-foreground'>Title</Label>
                     <Input
                         id="title"
                         value={title}
@@ -36,7 +36,7 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({ qrConfig, onContentChange, 
                 </div>
 
                 <div className="space-y-2 mt-5">
-                    <Label htmlFor="content">Content</Label>
+                    <Label htmlFor="content" className='text-foreground'>Content</Label>
                     <Input
                         id="content"
                         value={qrConfig.data}
