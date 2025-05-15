@@ -44,26 +44,38 @@ export const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, cla
             ...config,
             dotsOptions: config.dotsOptions
                 ? {
-                      type: config.dotsOptions.type,
-                      color: config.dotsOptions.color,
-                      gradient: transformGradient(config.dotsOptionsHelper),
-                  }
+                    type: config.dotsOptions.type,
+                    color: config.dotsOptions.color,
+                    gradient: transformGradient(config.dotsOptionsHelper),
+                }
                 : undefined,
             backgroundOptions: config.backgroundOptions
                 ? {
-                      ...config.backgroundOptions,
-                      gradient: config.backgroundOptions.gradient
-                          ? {
-                                type: config.backgroundOptions.gradient.type as GradientOption,
-                                rotation: Number(config.backgroundOptions.gradient.rotation) || 0,
-                                colorStops: config.backgroundOptions.gradient.colorStops || [
-                                    { offset: 0, color: '#000000' },
-                                    { offset: 1, color: '#000000' },
-                                ],
-                            }
-                          : undefined,
-                  }
+                    ...config.backgroundOptions,
+                    gradient: config.backgroundOptions.gradient
+                        ? {
+                            type: config.backgroundOptions.gradient.type as GradientOption,
+                            rotation: Number(config.backgroundOptions.gradient.rotation) || 0,
+                            colorStops: config.backgroundOptions.gradient.colorStops || [
+                            { offset: 0, color: '#000000' },
+                                { offset: 1, color: '#000000' },
+                            ],
+                        }
+                        : undefined,
+                }
                 : undefined,
+                cornersSquareOptions: config.cornersSquareOptions ? 
+                {
+                    ...config.cornersSquareOptions,
+                    gradient: config.cornersSquareOptionsHelper?.colorType.gradient ? {
+                        type: config.cornersSquareOptionsHelper.gradient.linear ? 'linear' : 'radial',
+                        rotation: Number(config.cornersSquareOptionsHelper.gradient.rotation) || 0,
+                        colorStops: [
+                            { offset: 0, color: config.cornersSquareOptionsHelper.gradient.color1 },
+                            { offset: 1, color: config.cornersSquareOptionsHelper.gradient.color2 }
+                        ]
+                    } : undefined
+                } : undefined,
         };
 
         if (!qrCodeRef.current) {

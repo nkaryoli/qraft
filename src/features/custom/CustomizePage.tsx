@@ -36,13 +36,20 @@ const CustomizePage = () => {
             color: '#ffffff',
         },
         cornersSquareOptions: initialConfig?.cornersSquareOptions || {
-            type: 'extra-rounded',
+            type: 'square',
             color: '#db073d',
         },
-        cornersDotOptions: initialConfig?.cornersDotOptions || {
-            type: 'dot',
-            color: '#0d6986',
+        cornersSquareOptionsHelper: initialConfig?.cornersSquareOptionsHelper || {
+            colorType: { single: true, gradient: false },
+            gradient: {
+                linear: true,
+                radial: false,
+                color1: '#db073d',
+                color2: '#db073d',
+                rotation: 0
+            }
         },
+        
     });
 
     useEffect(() => {

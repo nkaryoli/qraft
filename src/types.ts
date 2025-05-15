@@ -6,10 +6,8 @@ export interface QRConfig {
     dotsOptions?: DotsOptions;
     dotsOptionsHelper?: DotsOptionsHelper;
     backgroundOptions?: BackgroundOptions;
-    cornersSquareOptions?: {
-        type: 'square' | 'dot' | 'extra-rounded';
-        color?: string;
-    };
+    cornersSquareOptions?: CornersSquareOptions;
+    cornersSquareOptionsHelper?: CornersSquareOptionsHelper;
     cornersDotOptions?: {
         type: 'square' | 'dot';
         color?: string;
@@ -69,37 +67,6 @@ export interface imageOptions {
     saveAsBlob?: boolean;
 }
 
-export interface dotsOptions {
-    type: 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
-    color: string;
-    gradient?: {
-        type: 'linear' | 'radial';
-        rotation: string;
-        colorStops: Array<{ offset: number; color: string }>;
-    };
-}
-
-export interface dotsOptionsHelper {
-    colorType: { single: boolean; gradient: boolean };
-    gradient: {
-        linear: boolean;
-        radial: boolean;
-        color1: string;
-        color2: string;
-        rotation: string;
-    };
-}
-
-// export interface backgroundOptions {
-//     color: string;
-//     round?: number;
-//     gradient?: {
-//         type: 'linear' | 'radial';
-//         rotation: string;
-//         colorStops: Array<{ offset: number; color: string }>;
-//     };
-// }
-
 export interface backgroundOptionsHelper {
     colorType: { single: boolean; gradient: boolean };
     gradient: {
@@ -107,37 +74,36 @@ export interface backgroundOptionsHelper {
         radial: boolean;
         color1: string;
         color2: string;
-        rotation: string;
+        rotation: number;
     };
 }
 
-export interface cornersSquareOptions {
-    type: '' | 'square' | 'dot' | 'extra-rounded';
-    color?: string;
-    gradient?: {
-        type: 'linear' | 'radial';
-        rotation: string;
-        colorStops: Array<{ offset: number; color: string }>;
-    };
+export type CornerSquareType = 'square' | 'dot' | 'extra-rounded';
+export interface CornersSquareOptions {
+    type: CornerSquareType;
+    color: string;
 }
 
-export interface cornersSquareOptionsHelper {
-    colorType: { single: boolean; gradient: boolean };
+export interface CornersSquareOptionsHelper {
+    colorType: {
+        single: boolean;
+        gradient: boolean;
+    };
     gradient: {
         linear: boolean;
         radial: boolean;
         color1: string;
         color2: string;
-        rotation: string;
+        rotation: number;
     };
-}
+};
 
 export interface cornersDotOptions {
     type: '' | 'square' | 'dot';
     color?: string;
     gradient?: {
         type: 'linear' | 'radial';
-        rotation: string;
+        rotation: number;
         colorStops: Array<{ offset: number; color: string }>;
     };
 }
@@ -149,7 +115,7 @@ export interface cornersDotOptionsHelper {
         radial: boolean;
         color1: string;
         color2: string;
-        rotation: string;
+        rotation: number;
     };
 }
 
