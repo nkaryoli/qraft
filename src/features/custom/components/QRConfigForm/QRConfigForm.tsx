@@ -1,7 +1,6 @@
 import type { QRConfig } from '@/types';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import BackgroundOptions from './BackgroundOptions';
-import LogoOptions  from './LogoOptions';
 import { DotsOptionsForm } from './DotsOptions';
 import { CornersSquareOptions } from './CornerSquareOptions';
 import { CornersDotOptions } from './CornersDotOptions';
@@ -23,7 +22,6 @@ const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
     
     return (
         <div className="space-y-1 w-full text-foreground">
-            <LogoOptions onChange={(image: string) => handleChange('image', image)} />
                 
             <Accordion type="single" collapsible className="space-y-1">
                 <AccordionItem
