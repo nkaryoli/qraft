@@ -108,7 +108,7 @@ const CustomizePage = () => {
                 onConfigChange={setQrConfig}
                 onContentChange={handleContentChange}
             />
-            <div className="sticky top-32 h-full">
+            <div className="lg:sticky top-32 h-full w-full lg:w-auto">
                 <QRPreview qrConfig={qrConfig} content={qrConfig.data} />
             </div>
         </div>

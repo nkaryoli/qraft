@@ -20,7 +20,8 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({ qrConfig, onContentChange, 
     };
 
     return (
-        <Card className="w-md px-0">
+        <Card className="w-[90vw] sm:w-md">
+
             <CardHeader>
                 <CardTitle className='text-xl text-foreground'>Customize Options</CardTitle>
             </CardHeader>
