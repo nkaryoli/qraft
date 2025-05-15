@@ -1,8 +1,7 @@
 import type { QRConfig } from '@/types';
-import { Accordion } from '@/components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import BackgroundOptions from './BackgroundOptions';
-
-import { LogoOptions } from './LogoOptions';
+import LogoOptions  from './LogoOptions';
 import { DotsOptionsForm } from './DotsOptions';
 
 interface QRConfigFormProps {
@@ -18,34 +17,50 @@ const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
             [key]: value,
         });
     };
-
+    
     return (
         <div className="space-y-1 w-full text-foreground">
+            <LogoOptions onChange={(image: string) => handleChange('image', image)} />
+                
             <Accordion type="single" collapsible className="space-y-1">
-                <BackgroundOptions
-                    config={config}
-                    onChange={(options) => handleChange('backgroundOptions', options)}
-                />
+                <AccordionItem
+                    value="background-options"
+                    className="border border-muted/70 bg-background/40 rounded-xl"
+                >
+                    <AccordionTrigger className="bg-muted/70 p-2">Background Options</AccordionTrigger>
+                    <AccordionContent asChild>
+                        <BackgroundOptions
+                            config={config}
+                            onChange={(options) => handleChange('backgroundOptions', options)}
+                        />
+                    </AccordionContent>
+                </AccordionItem>
 
-                <DotsOptionsForm
-                    dotsOptions={config.dotsOptions || { type: 'rounded', color: '#000000' }}
-                    dotsOptionsHelper={
-                        config.dotsOptionsHelper || {
-                            colorType: { single: true, gradient: false },
-                            gradient: {
-                                linear: true,
-                                radial: false,
-                                color1: '#000000',
-                                color2: '#000000',
-                                rotation: 0,
-                            },
-                        }
-                    }
-                    onChange={(options) => handleChange('dotsOptions', options)}
-                    onChangeHelper={(helper) => handleChange('dotsOptionsHelper', helper)}
-                />
-
-                <LogoOptions onChange={(image) => handleChange('image', image)} />
+                <AccordionItem
+                    value="dots-options"
+                    className="border border-muted/70 bg-background/40 rounded-xl"
+                >
+                    <AccordionTrigger className="bg-muted/70 p-2">Dots Options</AccordionTrigger>
+                    <AccordionContent asChild>
+                        <DotsOptionsForm
+                            dotsOptions={config.dotsOptions || { type: 'rounded', color: '#000000' }}
+                            dotsOptionsHelper={
+                                config.dotsOptionsHelper || {
+                                    colorType: { single: true, gradient: false },
+                                    gradient: {
+                                        linear: true,
+                                        radial: false,
+                                        color1: '#000000',
+                                        color2: '#000000',
+                                        rotation: 0,
+                                    },
+                                }
+                            }
+                            onChange={(options) => handleChange('dotsOptions', options)}
+                            onChangeHelper={(helper) => handleChange('dotsOptionsHelper', helper)}
+                        />
+                    </AccordionContent>
+                </AccordionItem>
             </Accordion>
         </div>
     );

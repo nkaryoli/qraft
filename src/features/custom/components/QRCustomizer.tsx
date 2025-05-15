@@ -11,11 +11,7 @@ interface QRCustomizerProps {
     onContentChange: (content: string) => void;
 }
 
-const QRCustomizer: React.FC<QRCustomizerProps> = ({
-    qrConfig,
-    onContentChange,
-    onConfigChange,
-}) => {
+const QRCustomizer: React.FC<QRCustomizerProps> = ({ qrConfig, onContentChange, onConfigChange }) => {
     const [title, setTitle] = useState('');
 
     const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +24,7 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({
             <CardHeader>
                 <CardTitle>Customize Options</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent>
                 <div className="space-y-2">
                     <Label htmlFor="title">Title</Label>
                     <Input
@@ -39,7 +35,7 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({
                     />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 mt-5">
                     <Label htmlFor="content">Content</Label>
                     <Input
                         id="content"
