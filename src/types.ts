@@ -5,11 +5,7 @@ export interface QRConfig {
     image?: string;
     dotsOptions?: DotsOptions;
     dotsOptionsHelper?: DotsOptionsHelper;
-    backgroundOptions?: {
-        color: string;
-        round?: number;
-        gradient?: Gradient;
-    };
+    backgroundOptions?: BackgroundOptions;
     cornersSquareOptions?: {
         type: 'square' | 'dot' | 'extra-rounded';
         color?: string;
@@ -30,6 +26,14 @@ export type DotsOptions = {
     gradient?: Gradient;
 };
 
+export type DotsOptionsHelper = {
+    colorType: {
+        single: boolean;
+        gradient: boolean;
+    };
+    gradient: GradientType;
+};
+
 export type Gradient = {
     type: GradientOption;
     rotation: number;
@@ -39,14 +43,6 @@ export type Gradient = {
     }[];
 };
 
-export type DotsOptionsHelper = {
-    colorType: {
-        single: boolean;
-        gradient: boolean;
-    };
-    gradient: GradientType;
-}; 
-
 export type GradientType = {
     linear: boolean;
     radial: boolean;
@@ -55,6 +51,11 @@ export type GradientType = {
     rotation: number;
 };
 
+export interface BackgroundOptions {
+    color: string;
+    round?: number;
+    gradient?: Gradient;
+}
 export interface qrOptions {
     typeNumber: string;
     mode: string;
@@ -89,15 +90,15 @@ export interface dotsOptionsHelper {
     };
 }
 
-export interface backgroundOptions {
-    color: string;
-    round?: number;
-    gradient?: {
-        type: 'linear' | 'radial';
-        rotation: string;
-        colorStops: Array<{ offset: number; color: string }>;
-    };
-}
+// export interface backgroundOptions {
+//     color: string;
+//     round?: number;
+//     gradient?: {
+//         type: 'linear' | 'radial';
+//         rotation: string;
+//         colorStops: Array<{ offset: number; color: string }>;
+//     };
+// }
 
 export interface backgroundOptionsHelper {
     colorType: { single: boolean; gradient: boolean };
