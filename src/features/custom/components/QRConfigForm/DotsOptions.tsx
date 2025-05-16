@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/select';
 import ColorPicker from '@/components/ColorPiker';
 import type { DotsOptions, DotsOptionsHelper, DotType } from '@/types';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 
@@ -29,7 +29,7 @@ const dotTypes: DotType[] = [
     'extra-rounded',
 ];
 
-export const DotsOptionsForm = ({
+const DotsOptionsForm = ({
     dotsOptions,
     dotsOptionsHelper,
     onChange,
@@ -171,3 +171,5 @@ export const DotsOptionsForm = ({
         </div>
     );
 };
+
+export default memo(DotsOptionsForm);

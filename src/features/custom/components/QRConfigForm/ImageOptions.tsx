@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useRef, type ChangeEvent } from 'react';
+import { useState, useRef, type ChangeEvent, memo } from 'react';
 import type { QRConfig, ImageOptionsType } from '@/types';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -12,7 +12,7 @@ interface ImageOptionsProps {
     onImageChange: (image: string) => void;
 }
 
-export const ImageOptions = ({ 
+const ImageOptions = ({ 
     config, 
     onChange,
     onImageChange
@@ -135,3 +135,5 @@ export const ImageOptions = ({
 		</div>
     );
 };
+
+export default memo(ImageOptions);

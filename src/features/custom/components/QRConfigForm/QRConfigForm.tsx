@@ -1,10 +1,10 @@
 import type { QRConfig } from '@/types';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import BackgroundOptions from './BackgroundOptions';
-import { DotsOptionsForm } from './DotsOptions';
-import { CornersSquareOptions } from './CornerSquareOptions';
-import { CornersDotOptions } from './CornersDotOptions';
-import { ImageOptions } from './ImageOptions';
+import DotsOptionsForm  from './DotsOptions';
+import CornersSquareOptions  from './CornerSquareOptions';
+import CornersDotOptions  from './CornersDotOptions';
+import ImageOptions  from './ImageOptions';
 
 interface QRConfigFormProps {
     config: QRConfig;

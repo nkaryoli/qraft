@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import type { QRConfig } from '@/types';
 import ColorPicker from '@/components/ColorPiker';
 import { Label } from '@/components/ui/label';
@@ -15,7 +15,7 @@ interface CornersDotOptionsProps {
 
 const cornerDotTypes = ['square', 'dot'];
 
-export const CornersDotOptions = ({ 
+const CornersDotOptions = ({ 
     config, 
     onChange,
     onChangeHelper
@@ -167,3 +167,5 @@ export const CornersDotOptions = ({
             </div>
     );
 };
+
+export default memo(CornersDotOptions);
