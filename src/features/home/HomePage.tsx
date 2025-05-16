@@ -1,4 +1,4 @@
-import GenerateQRForm from './components/GenerateQRForm';
+import GenerateQRHome from './components/GenerateQRHome';
 import TemplateSection from './components/templateSection/TemplateSection';
 
 const HomePage = () => {
@@ -11,7 +11,7 @@ const HomePage = () => {
                 <p className="max-w-lg text-2xl text-center mb-9">
                     Customize, scan, and share your QR codes in seconds. Effortless and free!!
                 </p>
-                <GenerateQRForm />
+                <GenerateQRHome />
             </section>
             <TemplateSection />
         </>

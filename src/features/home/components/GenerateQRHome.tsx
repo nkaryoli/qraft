@@ -6,66 +6,12 @@ import type { QRConfig } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
 import { RequireAuthAlert } from '@/components/RequireAuthAlert';
+import { defaultQRConfig } from '@/constanst';
 
-const GenerateQRForm = () => {
+const GenerateQRHome = () => {
     const qrRef = useRef<QRDisplayRef>(null);
     const [content, setContent] = useState<string>('');
-    const [qrConfig, setQrConfig] = useState<QRConfig>({
-        width: 300,
-        height: 300,
-        data: '',
-        dotsOptions: {
-            color: '#000000',
-            type: 'square',
-        },
-        backgroundOptions: {
-            color: '#ffffff',
-        },
-        dotsOptionsHelper: {
-            colorType: { single: true, gradient: false },
-            gradient: {
-                linear: true,
-                radial: false,
-                color1: '#000000',
-                color2: '#000000',
-                rotation: 45,
-            },
-        },
-        cornersSquareOptions: {
-            type: 'square',
-            color: '#000000',
-        },
-        cornersSquareOptionsHelper: {
-            colorType: { single: true, gradient: false },
-            gradient: {
-                linear: true,
-                radial: false,
-                color1: '#000000',
-                color2: '#000000',
-                rotation: 0
-            }
-        },
-        cornersDotOptions: {
-            type: 'square',
-            color: '#000000'
-        },
-        cornersDotOptionsHelper: {
-            colorType: { single: true, gradient: false },
-            gradient: {
-                linear: true,
-                radial: false,
-                color1: '#000000',
-                color2: '#000000',
-                rotation: 0
-            }
-        },
-        imageOptions:  {
-            hideBackgroundDots: true,
-            imageSize: 0.3,
-            margin: 0,
-            saveAsBlob: true
-        },
-    });
+    const [qrConfig, setQrConfig] = useState<QRConfig>(defaultQRConfig);
     const [showQR, setShowQR] = useState<boolean>(false);
     const { isSignedIn } = useUser();
     const navigate = useNavigate();
@@ -106,6 +52,7 @@ const GenerateQRForm = () => {
     const handleDownload = () => {
         qrRef.current?.download('my-qr-code');
     };
+    
     return (
         <div className="w-full max-w-lg">
             <form
@@ -157,4 +104,4 @@ const GenerateQRForm = () => {
     );
 };
 
-export default GenerateQRForm;
+export default GenerateQRHome;
