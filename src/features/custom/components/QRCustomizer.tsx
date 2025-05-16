@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { QRConfig } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -6,13 +5,14 @@ import { Input } from '@/components/ui/input';
 import QRConfigForm from './QRConfigForm/QRConfigForm';
 
 interface QRCustomizerProps {
+    title : string;
+    setTitle : (title: string | null) => void;
     qrConfig: QRConfig;
     onConfigChange: (config: QRConfig) => void;
     onContentChange: (content: string) => void;
 }
 
-const QRCustomizer: React.FC<QRCustomizerProps> = ({ qrConfig, onContentChange, onConfigChange }) => {
-    const [title, setTitle] = useState('');
+const QRCustomizer: React.FC<QRCustomizerProps> = ({ title, setTitle, qrConfig, onContentChange, onConfigChange }) => {
 
     const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newContent = e.target.value;

@@ -14,6 +14,7 @@ const CustomizePage = () => {
         location.state?.qrConfig || JSON.parse(sessionStorage.getItem('pendingQRConfig') || 'null');
     const initialConfig = rawData?.config || rawData;
 
+    const [title, setTitle] = useState('');
     const [qrConfig, setQrConfig] = useState<QRConfig>({
         width: 250,
         height: 250,
@@ -104,12 +105,14 @@ const CustomizePage = () => {
     return (
         <div className="flex flex-col lg:flex-row items-start justify-center pt-32 pb-20 gap-8">
             <QRCustomizer
+                title={title}
+                setTitle={() => setTitle}
                 qrConfig={qrConfig}
                 onConfigChange={setQrConfig}
                 onContentChange={handleContentChange}
             />
             <div className="lg:sticky top-32 h-full w-full lg:w-auto">
-                <QRPreview qrConfig={qrConfig} content={qrConfig.data} />
+                <QRPreview title={title} qrConfig={qrConfig} content={qrConfig.data} />
             </div>
         </div>
     );
