@@ -6,15 +6,18 @@ import type { QRConfig } from '@/types';
 import { DownloadIcon, HeartPlus } from 'lucide-react';
 import { useRef } from 'react';
 import QRPreviewModal from './QRPreviewModal';
+import { useQRCode } from '@/hooks/useQRCode';
 
 interface QRPreviewProps {
+    title: string;
     qrConfig: QRConfig;
     content: string;
 }
 
-const QRPreview: React.FC<QRPreviewProps> = ({ qrConfig, content }) => {
+const QRPreview: React.FC<QRPreviewProps> = ({ title, qrConfig, content }) => {
     const qrRef = useRef<QRDisplayRef>(null);
     const isMobile = useIsMobile(1040);
+    const { handleSaveQRCode } = useQRCode();
 
     const handleDownload = () => {
         qrRef.current?.download('my-qr-code');
@@ -41,9 +44,13 @@ const QRPreview: React.FC<QRPreviewProps> = ({ qrConfig, content }) => {
                             onClick={handleDownload}
                         >
                             <DownloadIcon size={4}  />
-                            Download QR
+                            Download
                         </Button>
-                        <Button className="gap-2 sm:w-40" size="lg">
+                        <Button 
+                            className="gap-2 sm:w-40" 
+                            size="lg"
+                            onClick={() => handleSaveQRCode(title, content, qrConfig)}
+                        >
                             <HeartPlus size={4} />
                             {!isMobile && 'Save'}
                         </Button>
@@ -52,9 +59,10 @@ const QRPreview: React.FC<QRPreviewProps> = ({ qrConfig, content }) => {
             ) : (
                 <QRPreviewModal 
                     qrRef={qrRef} 
-                    onClick={handleDownload} 
+                    onSave={() => handleSaveQRCode(title, content, qrConfig)}
+                    onDownload={handleDownload} 
                     qrConfig={qrConfig} content={content}                    
-                />        
+                />   
             ) }
         </>
     );

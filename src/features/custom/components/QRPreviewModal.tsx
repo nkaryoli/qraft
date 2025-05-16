@@ -6,12 +6,13 @@ import { DownloadIcon, HeartPlus } from "lucide-react"
 
 interface QRPreviewProps {
 	qrRef:  React.RefObject<QRDisplayRef | null>;
-	onClick: () => void;
+	onSave: () => void;
+	onDownload: () => void;
 	qrConfig: QRConfig;
 	content: string;
 }
 
-const QRPreviewModal:React.FC<QRPreviewProps> = ({qrRef, onClick, qrConfig, content}) => {
+const QRPreviewModal:React.FC<QRPreviewProps> = ({qrRef, onSave, onDownload, qrConfig, content}) => {
 	return (
 		<Dialog>
 			<DialogTrigger className='fixed top-[30vh] -right-20 md:-right-10 -scale-30 md:-scale-50 p-1 border border-withe bg-primary'>
@@ -26,12 +27,15 @@ const QRPreviewModal:React.FC<QRPreviewProps> = ({qrRef, onClick, qrConfig, cont
 						variant="secondary"
 						className="gap-2 w-full sm:w-40 my-2"
 						size="lg"
-						onClick={onClick}
+						onClick={onDownload}
 					>
 						<DownloadIcon size={4}  />
 						Download QR
 					</Button>
-					<Button className="gap-2 w-full sm:w-40" size="lg">
+					<Button 
+						className="gap-2 w-full sm:w-40" size="lg" 						
+						onClick={onSave}
+					>
 						<HeartPlus size={4} />
 						Save
 					</Button>
