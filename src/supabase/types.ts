@@ -1,3 +1,5 @@
+import type { QRConfig } from "@/types";
+
 export type ThemeConfig = {
     background: string;
 };
@@ -23,19 +25,15 @@ export type OrganizationInput = {
 
 export type QRCode = {
     id: number;
+    title?: string;
     qr_data: string;
     user_id: string;
-    qr_template: {
-        qrColor: string;
-        backgroung: string;
-    };
+    qr_template: QRConfig;
 };
 
 export type QRCodeInput = {
+    title?: string;
     qr_data: string;
     user_id: string;
-    qr_template: {
-        qrColor: string;
-        backgroung: string;
-    };
+    qr_template: QRConfig;
 };
