@@ -5,8 +5,8 @@ import { Input } from '@/components/ui/input';
 import QRConfigForm from './QRConfigForm/QRConfigForm';
 
 interface QRCustomizerProps {
-    title : string;
-    setTitle : (title: string | null) => void;
+    title: string;
+    setTitle: (title:string) => void;
     qrConfig: QRConfig;
     onConfigChange: (config: QRConfig) => void;
     onContentChange: (content: string) => void;
@@ -30,9 +30,10 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({ title, setTitle, qrConfig, 
                     <Label htmlFor="title" className='text-foreground'>Title</Label>
                     <Input
                         id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        type='text'
+                        value={title ?? ''}
                         placeholder="Mi código QR personal"
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
 
