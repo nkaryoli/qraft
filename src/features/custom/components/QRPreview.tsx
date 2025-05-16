@@ -4,24 +4,20 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { useIsMobile } from '@/hooks/useIsMobile';
 import type { QRConfig } from '@/types';
 import { DownloadIcon, HeartPlus } from 'lucide-react';
-import { useRef } from 'react';
 import QRPreviewModal from './QRPreviewModal';
-import { useQRCode } from '@/hooks/useQRCode';
+import { memo } from 'react';
 
 interface QRPreviewProps {
-    title: string;
+    qrRef: React.RefObject<QRDisplayRef | null>;
     qrConfig: QRConfig;
     content: string;
+    onDownload: () => void;
+    onSave: () => void;
+    isSaving: boolean;
 }
 
-const QRPreview: React.FC<QRPreviewProps> = ({ title, qrConfig, content }) => {
-    const qrRef = useRef<QRDisplayRef>(null);
+const QRPreview: React.FC<QRPreviewProps> = ({ qrRef, qrConfig, content, onDownload, onSave, isSaving }) => {
     const isMobile = useIsMobile(1040);
-    const { handleSaveQRCode } = useQRCode();
-
-    const handleDownload = () => {
-        qrRef.current?.download('my-qr-code');
-    };
 
     return (
         <>
@@ -41,7 +37,7 @@ const QRPreview: React.FC<QRPreviewProps> = ({ title, qrConfig, content }) => {
                             variant="secondary"
                             className="gap-2 sm:w-40"
                             size="lg"
-                            onClick={handleDownload}
+                            onClick={onDownload}
                         >
                             <DownloadIcon size={4}  />
                             Download
@@ -49,18 +45,19 @@ const QRPreview: React.FC<QRPreviewProps> = ({ title, qrConfig, content }) => {
                         <Button 
                             className="gap-2 sm:w-40" 
                             size="lg"
-                            onClick={() => handleSaveQRCode(title, content, qrConfig)}
+                            onClick={onSave}
+                            disabled={isSaving}
                         >
                             <HeartPlus size={4} />
-                            {!isMobile && 'Save'}
+                            {!isMobile && ( isSaving ? 'Saving...' : 'Save' )}
                         </Button>
                     </CardFooter>
                 </Card>
             ) : (
                 <QRPreviewModal 
                     qrRef={qrRef} 
-                    onSave={() => handleSaveQRCode(title, content, qrConfig)}
-                    onDownload={handleDownload} 
+                    onSave={onSave}
+                    onDownload={onDownload} 
                     qrConfig={qrConfig} content={content}                    
                 />   
             ) }
@@ -68,4 +65,4 @@ const QRPreview: React.FC<QRPreviewProps> = ({ title, qrConfig, content }) => {
     );
 };
 
-export default QRPreview;
+export default memo(QRPreview);
