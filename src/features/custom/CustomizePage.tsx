@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import QRCustomizer from './components/QRCustomizer';
 import QRPreview from './components/QRPreview';
 import { useQRManager } from '@/hooks/useQRManager';
@@ -24,9 +25,11 @@ const CustomizePage = () => {
         
         const success = await handleSaveQRCode(title);
         if (success) {
-            // TODO: Redireccionar o mostrar mensaje de éxito
-            alert('QR guardado exitosamente');
-            // Opcional: navigate('/mis-codigos');
+            toast("Nice! QR saved 🎉", {
+                description: "Check it out in your list of saved codes.",
+                duration: 4000,
+                style: {backgroundColor: '#eaeaea', color:'#07485b'}
+            })
         }
     };
 
