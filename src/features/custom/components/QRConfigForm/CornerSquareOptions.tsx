@@ -1,28 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { memo, useState } from 'react';
-import type { CornerSquareType, QRConfig } from '@/types';
+import { memo, useEffect, useState } from 'react';
+import type { QRConfig } from '@/types';
 import ColorPicker from '@/components/ColorPiker';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
+import type { CornerSquareType } from 'qr-code-styling';
 interface CornersSquareOptionsProps {
     config: QRConfig;
-    onChange: (options: QRConfig['cornersSquareOptions']) => void;
-    onChangeHelper: (helper: QRConfig['cornersSquareOptionsHelper']) => void;
+    onChange: (options: NonNullable<QRConfig['cornersSquareOptions']>) => void;
+    onChangeHelper: (helper: NonNullable<QRConfig['cornersSquareOptionsHelper']>) => void;
 }
 
-const cornerSquareTypes = ['square', 'dot', 'extra-rounded'];
+const cornerSquareTypes: CornerSquareType[] = ['square', 'dot', 'extra-rounded'];
 
-const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSquareOptionsProps) => {
-    
-	const cornersSquareOptions = config.cornersSquareOptions || {
+const CornersSquareOptions = ({ config, onChange, onChangeHelper }: CornersSquareOptionsProps) => {
+    // Definimos tipos explícitos para el estado local
+    type LocalOptions = NonNullable<QRConfig['cornersSquareOptions']>;
+    type LocalHelper = NonNullable<QRConfig['cornersSquareOptionsHelper']>;
+
+    // Valores por defecto con tipos explícitos
+    const defaultOptions: LocalOptions = {
         type: 'extra-rounded',
         color: '#000000'
     };
 
-	const cornersSquareHelper = config.cornersSquareOptionsHelper || {
+    const defaultHelper: LocalHelper = {
         colorType: { single: true, gradient: false },
         gradient: {
             linear: true,
@@ -33,29 +36,103 @@ const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSqu
         }
     };
 
-	const [showGradient, setShowGradient] = useState(
-        cornersSquareHelper.colorType.gradient || false
-    );
+    // Estado local con tipos explícitos
+    const [localOptions, setLocalOptions] = useState<LocalOptions>(defaultOptions);
+    const [localHelper, setLocalHelper] = useState<LocalHelper>(defaultHelper);
 
+    // Sincronización con props
+    useEffect(() => {
+        if (config.cornersSquareOptions) {
+            setLocalOptions({
+                ...defaultOptions,
+                ...config.cornersSquareOptions
+            });
+        }
+        
+        if (config.cornersSquareOptionsHelper) {
+            setLocalHelper({
+                ...defaultHelper,
+                ...config.cornersSquareOptionsHelper
+            });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [config]);
+
+    // Handler con tipos seguros
     const handleColorTypeChange = (isGradient: boolean) => {
-        setShowGradient(isGradient);
-        onChangeHelper({
-            ...cornersSquareHelper,
+        const updatedHelper: LocalHelper = {
+            ...localHelper,
             colorType: {
                 single: !isGradient,
                 gradient: isGradient
             }
-        });
+        };
+        
+        setLocalHelper(updatedHelper);
+        onChangeHelper(updatedHelper);
+
+        if (!isGradient) {
+            const updatedOptions: LocalOptions = {
+                ...localOptions,
+                gradient: undefined
+            };
+            setLocalOptions(updatedOptions);
+            onChange(updatedOptions);
+        }
     };
 
-    const handleGradientChange = (key:  keyof typeof cornersSquareHelper.gradient, value: any) => {
-        onChangeHelper({
-            ...cornersSquareHelper,
+    // Handler con tipos seguros para gradiente
+    const handleGradientChange = <K extends keyof LocalHelper['gradient']>(
+        key: K,
+        value: LocalHelper['gradient'][K]
+    ) => {
+        const updatedHelper: LocalHelper = {
+            ...localHelper,
             gradient: {
-                ...cornersSquareHelper.gradient,
+                ...localHelper.gradient,
                 [key]: key === 'rotation' ? Number(value) : value
             }
-        });
+        };
+        
+        setLocalHelper(updatedHelper);
+        onChangeHelper(updatedHelper);
+
+        if (localHelper.colorType.gradient) {
+            const updatedOptions: LocalOptions = {
+                ...localOptions,
+                gradient: {
+                    type: updatedHelper.gradient.linear ? 'linear' : 'radial',
+                    rotation: updatedHelper.gradient.rotation,
+                    colorStops: [
+                        { offset: 0, color: updatedHelper.gradient.color1 },
+                        { offset: 1, color: updatedHelper.gradient.color2 }
+                    ]
+                }
+            };
+            setLocalOptions(updatedOptions);
+            onChange(updatedOptions);
+        }
+    };
+
+    // Handler con tipos seguros para color sólido
+    const handleSolidColorChange = (color: string) => {
+        const updatedOptions: LocalOptions = {
+            ...localOptions,
+            color,
+            gradient: undefined
+        };
+        setLocalOptions(updatedOptions);
+        onChange(updatedOptions);
+    };
+
+    // Handler con tipos seguros para cambio de tipo
+    const handleTypeChange = (value: CornerSquareType) => {
+        const updatedOptions: LocalOptions = {
+            ...localOptions,
+            type: value
+        };
+        setLocalOptions(updatedOptions);
+        onChange(updatedOptions);
     };
 
     return (
@@ -63,13 +140,8 @@ const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSqu
 			<div className="space-y-2">
 				<Label>Corner Style</Label>
 				<Select
-					value={cornersSquareOptions.type || 'extra-rounded'}
-					onValueChange={(value: CornerSquareType) => 
-						onChange({
-							...cornersSquareOptions,
-							type: value
-						})
-					}
+					value={localOptions.type}
+                    onValueChange={handleTypeChange}
 				>
 					<SelectTrigger>
 						<SelectValue placeholder="Select corner type" />
@@ -89,27 +161,27 @@ const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSqu
 				<div className="flex items-center gap-2">
 					<span className="text-sm">Solid</span>
 					<Switch
-						checked={showGradient}
+						checked={localHelper.colorType.gradient}
 						onCheckedChange={handleColorTypeChange}
 					/>
 					<span className="text-sm">Gradient</span>
 				</div>
 			</div>
 
-			{showGradient ? (
+			{localHelper.colorType.gradient ? (
 				<div className="space-y-4 p-4 border rounded-lg">
 					<div className="grid grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label>Color 1</Label>
 							<ColorPicker
-								color={cornersSquareHelper.gradient.color1 || '#000000'}
+								color={localHelper.gradient.color1}
 								onChange={(color) => handleGradientChange('color1', color)}
 							/>
 						</div>
 						<div className="space-y-2">
 							<Label>Color 2</Label>
 							<ColorPicker
-								color={cornersSquareHelper.gradient.color2 || '#000000'}
+								color={localHelper.gradient.color2}
 								onChange={(color) => handleGradientChange('color2', color)}
 							/>
 						</div>
@@ -118,7 +190,7 @@ const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSqu
 					<div className="space-y-2">
 						<Label>Gradient Type</Label>
 						<Select
-							value={cornersSquareHelper.gradient.linear ? 'linear' : 'radial'}
+							value={localHelper.gradient.linear ? 'linear' : 'radial'}
 							onValueChange={(value) => 
 								handleGradientChange('linear', value === 'linear')
 							}
@@ -134,14 +206,14 @@ const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSqu
 					</div>
 
 					<div className="space-y-2">
-						<Label>Rotation ({cornersSquareHelper.gradient.rotation || 0}°)</Label>
+						<Label>Rotation ({localHelper.gradient.rotation || 0}°)</Label>
 						<Input
 							type="range"
 							min="0"
 							max="360"
-							value={cornersSquareHelper.gradient.rotation || 0}
+							value={localHelper.gradient.rotation || 0}
 							onChange={(e) => 
-								handleGradientChange('rotation', e.target.value)
+								handleGradientChange('rotation', Number(e.target.value))
 							}
 						/>
 					</div>
@@ -150,13 +222,8 @@ const CornersSquareOptions = ({  config,  onChange, onChangeHelper }: CornersSqu
 				<div className="space-y-2">
 					<Label>Corner Color</Label>
 					<ColorPicker
-						color={cornersSquareOptions.color || '#000000'}
-						onChange={(color) =>
-							onChange({
-								...cornersSquareOptions,
-								color
-							})
-						}
+						color={localOptions.color || '#000000'}
+						onChange={handleSolidColorChange}
 					/>
 				</div>
 			)}

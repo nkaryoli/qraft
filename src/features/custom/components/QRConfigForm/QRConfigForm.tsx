@@ -1,25 +1,15 @@
-import type { QRConfig } from '@/types';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import BackgroundOptions from './BackgroundOptions';
 import DotsOptionsForm  from './DotsOptions';
 import CornersSquareOptions  from './CornerSquareOptions';
 import CornersDotOptions  from './CornersDotOptions';
 import ImageOptions  from './ImageOptions';
+import { memo } from 'react';
+import { useQR } from '@/hooks/QRContext';
 
-interface QRConfigFormProps {
-    config: QRConfig;
-    onChange: (config: QRConfig) => void;
-}
+const QRConfigForm = () => {
+    const { qrConfig: config, handleChange }= useQR();
 
-const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleChange = (key: string, value: any) => {
-        onChange({
-            ...config,
-            [key]: value,
-        });
-    };
-    
     return (
         <div className="space-y-1 w-full text-foreground">
                 
@@ -43,23 +33,7 @@ const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
                 >
                     <AccordionTrigger className="bg-muted/70 p-2">Dots Options</AccordionTrigger>
                     <AccordionContent asChild>
-                        <DotsOptionsForm
-                            dotsOptions={config.dotsOptions || { type: 'rounded', color: '#000000' }}
-                            dotsOptionsHelper={
-                                config.dotsOptionsHelper || {
-                                    colorType: { single: true, gradient: false },
-                                    gradient: {
-                                        linear: true,
-                                        radial: false,
-                                        color1: '#000000',
-                                        color2: '#000000',
-                                        rotation: 0,
-                                    },
-                                }
-                            }
-                            onChange={(options) => handleChange('dotsOptions', options)}
-                            onChangeHelper={(helper) => handleChange('dotsOptionsHelper', helper)}
-                        />
+                        <DotsOptionsForm />
                     </AccordionContent>
                 </AccordionItem>
 
@@ -107,4 +81,4 @@ const QRConfigForm = ({ config, onChange }: QRConfigFormProps) => {
     );
 };
 
-export default QRConfigForm;
+export default memo(QRConfigForm);
