@@ -9,8 +9,8 @@ import { useQR } from "./QRContext";
 export const useQRManager = () => {
     const { user } = useUser();
     const supabase = useSupabase();
-    const [isSaving, setIsSaving] = useState(false);
-
+    const [isSaving, setIsSaving] = useState<boolean>(false);
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const { qrRef, qrConfig } = useQR();
 
 	const handleDownload = useCallback(() => {
@@ -22,7 +22,6 @@ export const useQRManager = () => {
 
         try {
             setIsSaving(true);
-
             const newQR = {
                 qr_data,
                 user_id: user.id,
@@ -50,8 +49,25 @@ export const useQRManager = () => {
         }
     }, [supabase, user?.id, qrConfig]);
 
+    const loadQRs = useCallback(async () => {
+        if (!supabase || !user?.id) return [];
+        try {
+            setIsLoading(true);
+            const qrApi = QRCodeAPI(supabase);
+            const userQRs = await qrApi.getQRCode(user.id);
+            return userQRs || [];
+        } catch (error) {
+            console.error("Error loading QRs:", error);
+            toast.error("Failed to load QRs.");
+            return [];
+        } finally {
+            setIsLoading(false);
+        }
+    },[supabase, user?.id]);
+
     return useMemo(() => (
-        { isSaving, handleDownload, handleSaveQRCode}), 
+        { isSaving, handleDownload, handleSaveQRCode, loadQRs, isLoading}), 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [ isSaving, handleDownload, handleSaveQRCode ]
     );
 };
