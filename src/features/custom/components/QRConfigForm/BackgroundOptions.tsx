@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import type { QRConfig } from '@/types';
 import ColorPicker from '@/components/ColorPiker';
 import { Label } from '@/components/ui/label';
@@ -154,4 +154,4 @@ const BackgroundOptions = ({ config, onChange }: BackgroundOptionsProps) => {
     );
 };
 
-export default BackgroundOptions;
+export default memo(BackgroundOptions);
