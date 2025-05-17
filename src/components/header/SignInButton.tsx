@@ -54,7 +54,7 @@ const SignInBtn = ({ isMobile, onClick }: { isMobile: boolean; onClick: () => vo
                                         <UserButton.Link
                                             label="My QR Codes"
                                             labelIcon={<ScanQrCode size={16} />}
-                                            href="/qrGenerator"
+                                            href="/dashboard"
                                         />
                                         <UserButton.Link
                                             label="Favorite Themes"
