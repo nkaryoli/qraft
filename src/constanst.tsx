@@ -20,60 +20,66 @@ export const serviceLinks = [
     { to: '/qrScanner', label: 'QR Reader', icon: <ScanLine size={16} /> },
     { to: '/dashboard', label: 'Create a Badge', icon: <ImageUpscale size={16} /> },
 ];
-
 export const defaultQRConfig: QRConfig = {
     width: 250,
     height: 250,
     data: '',
-    dotsOptions: {
-        color: '#000000',
-        type: 'square',
+    type: 'svg', // Añadido para coincidir con DrawType
+    margin: 10, // Valor por defecto recomendado
+    qrOptions: { // Añadido para coincidir con la librería
+        typeNumber: 0,
+        mode: 'Byte',
+        errorCorrectionLevel: 'Q'
     },
+    dotsOptions: {
+        type: 'square',
+        color: '#000000'
+    },
+    backgroundOptions: {
+        color: '#ffffff'
+    },
+    cornersSquareOptions: {
+        type: 'square',
+        color: '#000000'
+    },
+    cornersDotOptions: {
+        type: 'square',
+        color: '#000000'
+    },
+    // Helpers (específicos de tu UI)
     dotsOptionsHelper: {
         colorType: { single: true, gradient: false },
         gradient: {
             linear: true,
             radial: false,
-            color1: '#db073d',
-            color2: '#dba507',
-            rotation: 45,
-        },
-    },
-    backgroundOptions: {
-        color: '#ffffff',
-    },
-    cornersSquareOptions: {
-        type: 'square',
-        color: '#000000',
+            color1: '#000000',
+            color2: '#000000',
+            rotation: 45
+        }
     },
     cornersSquareOptionsHelper: {
         colorType: { single: true, gradient: false },
         gradient: {
             linear: true,
             radial: false,
-            color1: '#db073d',
-            color2: '#db073d',
+            color1: '#000000',
+            color2: '#000000',
             rotation: 0
         }
-    },
-    cornersDotOptions: {
-        type: 'square',
-        color: '#000000'
     },
     cornersDotOptionsHelper: {
         colorType: { single: true, gradient: false },
         gradient: {
             linear: true,
             radial: false,
-            color1: '#0d6986',
-            color2: '#0d6986',
+            color1: '#000000',
+            color2: '#000000',
             rotation: 0
         }
     },
     imageOptions: {
         hideBackgroundDots: true,
         imageSize: 0.3,
-        margin: 0,
-        saveAsBlob: true
-    },
+        margin: 0
+    }
 };
