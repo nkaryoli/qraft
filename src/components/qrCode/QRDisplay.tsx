@@ -1,116 +1,39 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import QRCodeStyling from 'qr-code-styling';
-import type { GradientOption, QRConfig } from '../../types';
-
-interface QRDisplayProps {
-    config: QRConfig;
-    className?: string;
-}
+import { forwardRef, memo, useEffect, useImperativeHandle, useRef } from "react";
+import QRCodeStyling, { type Options as QRCodeOptions } from "qr-code-styling";
 
 export interface QRDisplayRef {
     download: (fileName?: string) => void;
 }
 
-export const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, className }, ref) => {
-    const qrRef = useRef<HTMLDivElement>(null);
-    const qrCodeRef = useRef<QRCodeStyling | null>(null);
+interface QRDisplayProps {
+	config: QRCodeOptions;
+	className?: string;
+}
 
-    useImperativeHandle(ref, () => ({
-        download: (fileName = 'qr-code') => {
-            qrCodeRef.current?.download({
-                name: fileName,
-                extension: 'png',
-            });
-        },
-    }));
+const QRDisplay = forwardRef<QRDisplayRef, QRDisplayProps>(({ config, className }, ref) => {
+	const qrRef = useRef<HTMLDivElement>(null);
+	const qrCodeRef = useRef<QRCodeStyling | null>(null);
 
-    useEffect(() => {
-        // Función para transformar el gradiente a formato compatible
-        const transformGradient = (helper: any) => {
-            if (!helper?.colorType.gradient) return undefined;
+	useEffect(() => {
+		if (!qrCodeRef.current) {
+		qrCodeRef.current = new QRCodeStyling(config);
+		if (qrRef.current) qrCodeRef.current.append(qrRef.current);
+		} else {
+		qrCodeRef.current.update(config);
+		}
+	}, [config]);
 
-            return {
-                type: (helper.gradient.linear ? 'linear' : 'radial') as GradientOption,
-                rotation: Number(helper.gradient.rotation) || 0,
-                colorStops: [
-                    { offset: 0, color: helper.gradient.color1 },
-                    { offset: 1, color: helper.gradient.color2 },
-                ],
-            };
-        };
+	useImperativeHandle(ref, () => ({
+		download: (fileName = "qr-code") => {
+		qrCodeRef.current?.download({ name: fileName, extension: "png" });
+		},
+	}));
 
-        const transformedConfig = {
-            ...config,
-            dotsOptions: config.dotsOptions
-                ? {
-                    type: config.dotsOptions.type,
-                    color: config.dotsOptions.color,
-                    gradient: transformGradient(config.dotsOptionsHelper),
-                }
-                : undefined,
-            backgroundOptions: config.backgroundOptions
-                ? {
-                    ...config.backgroundOptions,
-                    gradient: config.backgroundOptions.gradient
-                        ? {
-                            type: config.backgroundOptions.gradient.type as GradientOption,
-                            rotation: Number(config.backgroundOptions.gradient.rotation) || 0,
-                            colorStops: config.backgroundOptions.gradient.colorStops || [
-                            { offset: 0, color: '#000000' },
-                                { offset: 1, color: '#000000' },
-                            ],
-                        }
-                        : undefined,
-                }
-                : undefined,
-            cornersSquareOptions: config.cornersSquareOptions ? 
-                {
-                    ...config.cornersSquareOptions,
-                    gradient: config.cornersSquareOptionsHelper?.colorType.gradient ? {
-                        type: config.cornersSquareOptionsHelper.gradient.linear ? 'linear' : 'radial',
-                        rotation: Number(config.cornersSquareOptionsHelper.gradient.rotation) || 0,
-                        colorStops: [
-                            { offset: 0, color: config.cornersSquareOptionsHelper.gradient.color1 },
-                            { offset: 1, color: config.cornersSquareOptionsHelper.gradient.color2 }
-                        ]
-                    } : undefined
-                } : undefined,
-            cornersDotOptions: config.cornersDotOptions ? 
-                {
-                    ...config.cornersDotOptions,
-                    gradient: config.cornersDotOptionsHelper?.colorType.gradient ? {
-                        type: config.cornersDotOptionsHelper.gradient.linear ? 'linear' : 'radial',
-                        rotation: Number(config.cornersDotOptionsHelper.gradient.rotation) || 0,
-                        colorStops: [
-                            { offset: 0, color: config.cornersDotOptionsHelper.gradient.color1 },
-                            { offset: 1, color: config.cornersDotOptionsHelper.gradient.color2 }
-                        ]
-                    } : undefined
-                } : undefined,
-            image: config.image,
-                imageOptions: config.imageOptions ? {
-                    hideBackgroundDots: config.imageOptions.hideBackgroundDots,
-                    imageSize: config.imageOptions.imageSize,
-                    margin: config.imageOptions.margin
-                } : undefined
-        };
-
-        if (!qrCodeRef.current) {
-            qrCodeRef.current = new QRCodeStyling(transformedConfig as any);
-        } else {
-            qrCodeRef.current.update(transformedConfig as any);
-        }
-
-        if (qrRef.current) {
-            qrRef.current.innerHTML = '';
-            qrCodeRef.current.append(qrRef.current);
-        }
-    }, [config]);
-
-    return (
-        <div className={`flex justify-center ${className}`}>
-            <div ref={qrRef} />
-        </div>
-    );
+	return (
+		<div className={`flex justify-center ${className || ""}`}>
+		<div ref={qrRef} />
+		</div>
+	);
 });
+
+export default memo(QRDisplay);
