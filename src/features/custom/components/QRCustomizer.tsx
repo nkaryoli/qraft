@@ -1,23 +1,11 @@
-import type { QRConfig } from '@/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import QRConfigForm from './QRConfigForm/QRConfigForm';
+import { useQR } from '@/hooks/QRContext';
 
-interface QRCustomizerProps {
-    title: string;
-    setTitle: (title:string) => void;
-    qrConfig: QRConfig;
-    onConfigChange: (config: QRConfig) => void;
-    onContentChange: (content: string) => void;
-}
-
-const QRCustomizer: React.FC<QRCustomizerProps> = ({ title, setTitle, qrConfig, onContentChange, onConfigChange }) => {
-
-    const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newContent = e.target.value;
-        onContentChange(newContent);
-    };
+const QRCustomizer= () => {
+    const { title, setTitle, qrConfig, handleContentChange } = useQR();
 
     return (
         <Card className="w-[90vw] sm:w-md">
@@ -42,12 +30,12 @@ const QRCustomizer: React.FC<QRCustomizerProps> = ({ title, setTitle, qrConfig, 
                     <Input
                         id="content"
                         value={qrConfig.data}
-                        onChange={handleContentChange}
+                        onChange={(e) => handleContentChange(e.target.value)}
                         placeholder="https://ejemplo.com"
                     />
                 </div>
 
-                <QRConfigForm config={qrConfig} onChange={onConfigChange} />
+                <QRConfigForm />
             </CardContent>
         </Card>
     );
