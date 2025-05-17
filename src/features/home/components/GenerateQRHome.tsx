@@ -1,4 +1,4 @@
-import { QRDisplay, type QRDisplayRef } from '@/components/qrCode/QRDisplay';
+import QRDisplay, { type QRDisplayRef } from '@/components/qrCode/QRDisplay';
 import { Button } from '../../../components/ui/button';
 import { ArrowRight, DownloadIcon, PaintbrushIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
