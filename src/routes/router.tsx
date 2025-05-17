@@ -10,6 +10,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import SignInPage from '@/features/signin/SignInPage';
+import { QRProvider } from '@/hooks/QRContext';
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,9 @@ export const router = createBrowserRouter([
                 path: '/customize',
                 element: (
                     <ProtectedRoute>
-                        <CustomizePage />
+                        <QRProvider>
+                            <CustomizePage />
+                        </QRProvider>
                     </ProtectedRoute>
                 ),
             },
@@ -41,7 +44,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/about',
-                element: <AboutPage />,
+                element: <QRProvider><AboutPage /></QRProvider>,
             },
             {
                 path: '/faq',
