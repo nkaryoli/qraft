@@ -1,44 +1,127 @@
-export interface QRConfig {
+import type {
+    Options as QRCodeOptionsBase,
+    DotType,
+    CornerDotType,
+    CornerSquareType,
+    Gradient,
+    DrawType,
+    Mode,
+    ErrorCorrectionLevel,
+    TypeNumber,
+} from "qr-code-styling";
+
+export interface QRConfig extends Omit<QRCodeOptionsBase, 'qrOptions' | 'imageOptions'> {
+    data: string;
     width?: number;
     height?: number;
-    data: string;
+    margin?: number;
+    type?: DrawType;
+
+    qrOptions?: {
+        typeNumber?: TypeNumber;
+        mode?: Mode;
+        errorCorrectionLevel?: ErrorCorrectionLevel;
+    };
+
     image?: string;
-    imageOptions?: ImageOptionsType;
-    dotsOptions?: DotsOptions;
-    dotsOptionsHelper?: DotsOptionsHelper;
-    backgroundOptions?: BackgroundOptions;
-    cornersSquareOptions?: CornersSquareOptions;
-    cornersSquareOptionsHelper?: CornersSquareOptionsHelper;
-    cornersDotOptions?: CornersDotOptions;
-    cornersDotOptionsHelper?: CornersSquareOptionsHelper;
+    imageOptions?: {
+        saveAsBlob?: boolean;
+        hideBackgroundDots?: boolean;
+        imageSize?: number;
+        crossOrigin?: string;
+        margin?: number;
+    };
+
+    dotsOptions?: {
+        type?: DotType;
+        color?: string;
+        gradient?: Gradient;
+        roundSize?: boolean;
+    };
+
+    backgroundOptions?: {
+        round?: number;
+        color?: string;
+        gradient?: Gradient;
+    };
+
+    cornersSquareOptions?: {
+        type?: CornerSquareType;
+        color?: string;
+        gradient?: Gradient;
+    };
+
+    cornersDotOptions?: {
+        type?: CornerDotType;
+        color?: string;
+        gradient?: Gradient;
+    };
+
+    dotsOptionsHelper?: {
+        colorType: {
+            single: boolean;
+            gradient: boolean;
+        };
+        gradient: {
+            linear: boolean;
+            radial: boolean;
+            color1: string;
+            color2: string;
+            rotation: number;
+        };
+    };
+
+    cornersSquareOptionsHelper?: {
+        colorType: {
+        single: boolean;
+        gradient: boolean;
+        };
+        gradient: {
+        linear: boolean;
+        radial: boolean;
+        color1: string;
+        color2: string;
+        rotation: number;
+        };
+    };
+
+    cornersDotOptionsHelper: {
+        colorType: { single: boolean; gradient: boolean };
+        gradient: {
+            linear: boolean;
+            radial: boolean;
+            color1: string;
+            color2: string;
+            rotation: number;
+        };
+    };
 }
 
-export type DotType = 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
+export type DotShapeType = 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
 
-export type GradientOption = 'linear' | 'radial';
-
-export type DotsOptions = {
+export interface DotsOptions {
     type: DotType;
     color: string;
-    gradient?: Gradient;
-};
+    gradient?: {
+        type: 'linear' | 'radial';
+        rotation: number;
+        colorStops: { offset: number; color: string }[];
+    };
+}
 
-export type DotsOptionsHelper = {
+export interface DotsOptionsHelper {
     colorType: {
         single: boolean;
         gradient: boolean;
     };
-    gradient: GradientType;
-};
-
-export type Gradient = {
-    type: GradientOption;
-    rotation: number;
-    colorStops: {
-        offset: number;
-        color: string;
-    }[];
-};
+    gradient: {
+        linear: boolean;
+        radial: boolean;
+        color1: string;
+        color2: string;
+        rotation: number;
+    };
+}
 
 export type GradientType = {
     linear: boolean;
@@ -48,75 +131,12 @@ export type GradientType = {
     rotation: number;
 };
 
-export interface BackgroundOptions {
-    color: string;
-    round?: number;
-    gradient?: Gradient;
-}
-export interface qrOptions {
-    typeNumber: string;
-    mode: string;
-    errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H';
-}
-
-export interface imageOptions {
-    hideBackgroundDots?: boolean;
-    imageSize?: number;
-    margin?: number;
-    saveAsBlob?: boolean;
-}
-
-export interface backgroundOptionsHelper {
-    colorType: { single: boolean; gradient: boolean };
-    gradient: {
-        linear: boolean;
-        radial: boolean;
-        color1: string;
-        color2: string;
-        rotation: number;
-    };
-}
-
-export type CornerSquareType = 'square' | 'dot' | 'extra-rounded';
-export interface CornersSquareOptions {
-    type: CornerSquareType;
-    color: string;
-}
-
-export interface CornersSquareOptionsHelper {
-    colorType: {
-        single: boolean;
-        gradient: boolean;
-    };
-    gradient: {
-        linear: boolean;
-        radial: boolean;
-        color1: string;
-        color2: string;
-        rotation: number;
-    };
-}
-
-export interface CornersDotOptions {
-    type: '' | 'square' | 'dot';
-    color: string;
-    gradient?: Gradient;
-}
-
-export interface cornersDotOptionsHelper {
-    colorType: { 
-        single: boolean; 
-        gradient: boolean
-    };
-    gradient: GradientType; 
-}
-
 export interface ImageOptionsType {
     hideBackgroundDots?: boolean;
     imageSize?: number;
     margin?: number;
-    saveAsBlob?: boolean;
-}
+    crossOrigin?: string;
+};
 
 export interface QRCodeRecord {
     id: string;
@@ -151,69 +171,4 @@ export interface BadgeTemplate {
         // TODO: agregar atributos de diseño
     };
     qr_config: QRConfig;
-}
-
-export interface json {
-    type: 'canvas';
-    shape: 'square';
-    width: 300;
-    height: 300;
-    data: 'https://qr-code-styling.com';
-    margin: 0;
-    qrOptions: {
-        typeNumber: '0';
-        mode: 'Byte';
-        errorCorrectionLevel: 'Q';
-    };
-    imageOptions: {
-        saveAsBlob: true;
-        hideBackgroundDots: true;
-        imageSize: 0.4;
-        margin: 0;
-    };
-    image: '10cc19bd484118dbcd0a7886a38ceddc.png';
-    dotsOptions: { type: 'extra-rounded'; color: '#6a1a4c'; roundSize: true };
-    dotsOptionsHelper: {
-        colorType: { single: true; gradient: false };
-        gradient: {
-            linear: true;
-            radial: false;
-            color1: '#6a1a4c';
-            color2: '#6a1a4c';
-            rotation: '0';
-        };
-    };
-    backgroundOptions: { round: 0; color: '#ffffff' };
-    backgroundOptionsHelper: {
-        colorType: { single: true; gradient: false };
-        gradient: {
-            linear: true;
-            radial: false;
-            color1: '#ffffff';
-            color2: '#ffffff';
-            rotation: '0';
-        };
-    };
-    cornersSquareOptions: { type: 'extra-rounded'; color: '#000000' };
-    cornersSquareOptionsHelper: {
-        colorType: { single: true; gradient: false };
-        gradient: {
-            linear: true;
-            radial: false;
-            color1: '#000000';
-            color2: '#000000';
-            rotation: '0';
-        };
-    };
-    cornersDotOptions: { type: ''; color: '#000000' };
-    cornersDotOptionsHelper: {
-        colorType: { single: true; gradient: false };
-        gradient: {
-            linear: true;
-            radial: false;
-            color1: '#000000';
-            color2: '#000000';
-            rotation: '0';
-        };
-    };
 }
