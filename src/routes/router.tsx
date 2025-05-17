@@ -1,5 +1,5 @@
 import AboutPage from '@/features/about/AboutPage';
-import Dashboard from '@/features/dashboard/Dashboard';
+import DashboardPage from '@/features/dashboard/DashboardPage';
 import FAQPage from '@/features/faq/FAQPage';
 import HomePage from '@/features/home/HomePage';
 import CustomizePage from '@/features/custom/CustomizePage';
@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
                 path: '/dashboard',
                 element: (
                     <ProtectedRoute>
-                        <Dashboard />
+                        <DashboardPage />
                     </ProtectedRoute>
                 ),
             },
