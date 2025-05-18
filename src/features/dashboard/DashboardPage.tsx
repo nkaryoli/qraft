@@ -45,7 +45,7 @@ const DashboardPage = () => {
 		<SidebarProvider open>
 			<DashboardSideBar onSelect={setActive} active={active}/>
 			{isMobile && <CustomTrigger className="left-3" />}
-			<section className="w-full flex justify-center py-20 px-6">
+			<section className="w-full flex justify-center py-32 px-6">
 				{isLoading && (
 					<div className="fixed top-16 left-0 w-full z-50 pointer-events-none">
 						<BarLoader width="100%" color="#db073d" speedMultiplier={0.5} />
