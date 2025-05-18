@@ -46,12 +46,12 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ qrTemplate }) => {
         navigate('/customize', { state: { qrTemplate } });
     };
 	return (
-		<Card className="hover:shadow-lg transition-shadow">
+		<div className="hover:shadow-lg transition-shadow bg-gradient-to-br from-primary via-background to-muted rounded-xl p-0.5">
+		
+		<Card className="bg-gradient-to-br from-background via-card to-background">
 			<CardContent className="grid gap-4">
-				<div className="flex items-center gap-4">
-					<div className="w-24 h-24 flex items-center justify-center bg-white rounded-md border">
-						<QRDisplay config={{ ...qrTemplate, width: 80, height: 80 }} />
-					</div>
+				<div className="flex items-center gap-6">
+					<QRDisplay config={{ ...qrTemplate, width: 80, height: 80 }} />
 					<div className="grid gap-1 text-sm">
 						<div className="flex items-center gap-2">
 							<span className="font-medium">Type:</span>
@@ -65,12 +65,11 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ qrTemplate }) => {
 							<span className="font-medium">Corners:</span>
 							<Badge variant="outline">{cornerType}</Badge>
 						</div>
-						{hasImage && (
-							<div className="flex items-center gap-2">
-								<span className="font-medium">Logo:</span>
-								<Badge variant="secondary">Yes</Badge>
-							</div>
-						)}
+						<div className="flex items-center gap-2">
+							<span className="font-medium">Logo:</span>
+							<Badge variant="outline">{hasImage ? 'Yes' : 'No'}</Badge>
+						</div>
+						
 					</div>
 				</div>
 
@@ -110,7 +109,8 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ qrTemplate }) => {
 					Use Template
 				</Button>
 			</CardFooter>
-		</Card>
+		</Card>	
+		</div>
 	);
 };
 
