@@ -5,17 +5,18 @@ import type { QRConfig } from "@/types";
 import { QRCodeAPI } from "@/api/apiQRCode";
 import { toast } from "sonner";
 import { useQR } from "./QRContext";
+import type { QRDisplayRef } from "@/components/qrCode/QRDisplay";
 
 export const useQRManager = () => {
     const { user } = useUser();
     const supabase = useSupabase();
     const [isSaving, setIsSaving] = useState<boolean>(false);
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
-    const { qrRef, qrConfig } = useQR();
+    const { qrConfig } = useQR();
 
-	const handleDownload = useCallback(() => {
+	const handleDownload = (qrRef: React.RefObject<QRDisplayRef | null>) => {
         qrRef.current?.download('my-qr-code');
-    }, [qrRef]);
+    };
 
     const handleSaveQRCode = useCallback(async (title: string, qr_data: string = qrConfig.data, qr_template: QRConfig = qrConfig) => {
         if (!supabase || !user?.id) return;
@@ -40,7 +41,6 @@ export const useQRManager = () => {
                 duration: 4000,
                 style: {backgroundColor: '#eaeaea', color:'#07485b'}
             })
-            // return true;
         } catch (error) {
             console.error('Error saving QR:', error);
             return false;
