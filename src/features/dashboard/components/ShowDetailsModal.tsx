@@ -23,11 +23,11 @@ const ShowDetailsModal: React.FC<ShowDetailsModalProps> = ({children,qrRef, onDo
 				<div className="p-4 bg-white rounded-lg border border-border shadow-sm">
 					<QRDisplay ref={qrRef} config={{...qrConfig,width: 220, height: 220}}  />
 				</div>
-				<div className='w-full flex flex-col sm:flex-row gap-3 mt-4'>
+				<div className='w-full flex flex-col-reverse items-center justify-center sm:flex-row gap-3 mt-4'>
 					<DialogClose asChild>
 						<Button
 							variant="outline"
-							className="gap-2 w-1/2 hover:bg-muted/20"
+							className="gap-2 w-full sm:w-40 hover:bg-muted/20"
 							size="lg"
 						>
 							Close
@@ -35,7 +35,7 @@ const ShowDetailsModal: React.FC<ShowDetailsModalProps> = ({children,qrRef, onDo
 					</DialogClose>
 					<Button
 						variant='outline'
-						className="gap-2 w-1/2 sm:w-40 border-primary/70 hover:bg-primary/80 text-primary bg-primary-50"
+						className="gap-2 w-full sm:w-40 border-primary/70 hover:bg-primary/80 text-primary bg-primary-50"
 						size="lg"
 						onClick={ ()=>onDownload(qrRef)}
 					>
