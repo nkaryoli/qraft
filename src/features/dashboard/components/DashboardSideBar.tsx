@@ -1,42 +1,25 @@
 import { Building, ScanQrCode, SwatchBook} from "lucide-react"
-
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarFooter,
-	SidebarGroup,
-	SidebarGroupContent,
-	SidebarGroupLabel,
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
-} from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar"
 import { UserButton } from "@clerk/clerk-react"
 import CustomTrigger from "./CustomTrigger"
 import { useIsMobile } from "@/hooks/useIsMobile"
 
+type SectionKey = "saved-qr" | "my-templates" | "my-orgs"; 
 
-// Menu items.
+interface DashboardSideBarProps {
+	onSelect: (id: SectionKey) => void;
+	active: string;
+}
+
 const items = [
-	{
-		title: "Saved QR",
-		url: "#",
-		icon: 	ScanQrCode,
-	},
-	{
-		title: "My Templates",
-		url: "#",
-		icon: SwatchBook,
-	},
-	{
-		title: "My Organizations",
-		url: "#",
-		icon: Building,
-	}
+	{ title: "Saved QR",	id: "saved-qr",	icon: ScanQrCode },
+	{ title: "My Templates",	id: "my-templates",	icon: SwatchBook },
+	{ title: "My Organizations",	id: "my-orgs",	icon: Building },
 ]
 
-const DashboardSideBar = () => {
+const DashboardSideBar: React.FC<DashboardSideBarProps> = ({ onSelect, active }) => {
 	const isMobile = useIsMobile(845);
+	const { toggleSidebar } = useSidebar();
 
 	return (
 		<Sidebar collapsible="icon">
@@ -54,12 +37,20 @@ const DashboardSideBar = () => {
 						<SidebarMenu>
 							{items.map((item) => (
 								<SidebarMenuItem key={item.title}>
-								<SidebarMenuButton asChild>
-									<a href={item.url} className="text-foreground h-9 pl-3 lg:pl-6">
-									<item.icon />
-									<span>{item.title}</span>
-									</a>
-								</SidebarMenuButton>
+									<SidebarMenuButton asChild>
+										<button 
+											onClick={() => {
+												onSelect(item.id as SectionKey);
+												toggleSidebar();
+											}}
+											className={`h-9 pl-3 lg:pl-6 text-left w-full text-foreground hoved:bg-muted
+												${active === item.id ? "bg-muted/20 text-primary font-semibold" : ""}
+											`}
+										>
+										<item.icon />
+										<span>{item.title}</span>
+										</button>
+									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
 						</SidebarMenu>
@@ -81,7 +72,6 @@ const DashboardSideBar = () => {
 						}}
 					/>
 				</div>
-
 			</SidebarFooter>
 		</Sidebar>
 	)
