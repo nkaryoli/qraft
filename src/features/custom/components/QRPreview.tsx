@@ -31,7 +31,7 @@ const QRPreview = () => {
                             variant="secondary"
                             className="gap-2 sm:w-40"
                             size="lg"
-                            onClick={handleDownload}
+                            onClick={() => handleDownload(qrRef)}
                         >
                             <DownloadIcon size={4}  />
                             Download
@@ -48,7 +48,6 @@ const QRPreview = () => {
                     </CardFooter>
                 </Card>
             ) : (
-
                 <QRPreviewModal 
                     qrRef={qrRef} 
                     onSave={handleSaveQRCode}
