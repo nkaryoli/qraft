@@ -1,7 +1,7 @@
 import { DownloadIcon } from "lucide-react";
 import QRDisplay, { type QRDisplayRef } from "../../../components/qrCode/QRDisplay";
 import { Button } from "../../../components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../../../components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from "../../../components/ui/dialog";
 import type { QRConfig } from "@/types";
 
 interface ShowDetailsModalProps {
@@ -14,17 +14,28 @@ interface ShowDetailsModalProps {
 const ShowDetailsModal: React.FC<ShowDetailsModalProps> = ({children,qrRef, onDownload, qrConfig}) => {
 	return (
         <Dialog>
-			<DialogTrigger >
+			<DialogTrigger asChild>
 				{children}
 			</DialogTrigger>
-			<DialogContent className='w-fit p-10 lg:p-20' aria-describedby="qr-code">
-				<DialogTitle className="hidden"/>
-				<DialogDescription className="hidden"/>
-				<QRDisplay ref={qrRef} config={qrConfig} />
-				<div className='w-full flex justify-center mt-4'>
+			<DialogContent className='max-w-[95vw] sm:max-w-md p-6 rounded-xl border-border bg-card shadow-xl' aria-describedby="qr-code">
+			
+			<div className="flex flex-col items-center space-y-6">
+				<div className="p-4 bg-white rounded-lg border border-border shadow-sm">
+					<QRDisplay ref={qrRef} config={{...qrConfig,width: 220, height: 220}}  />
+				</div>
+				<div className='w-full flex flex-col sm:flex-row gap-3 mt-4'>
+					<DialogClose asChild>
+						<Button
+							variant="outline"
+							className="gap-2 w-1/2 hover:bg-muted/20"
+							size="lg"
+						>
+							Close
+						</Button>
+					</DialogClose>
 					<Button
-						variant="secondary"
-						className="gap-2 w-full sm:w-40 my-2"
+						variant='outline'
+						className="gap-2 w-1/2 sm:w-40 border-primary/70 hover:bg-primary/80 text-primary bg-primary-50"
 						size="lg"
 						onClick={ ()=>onDownload(qrRef)}
 					>
@@ -32,6 +43,7 @@ const ShowDetailsModal: React.FC<ShowDetailsModalProps> = ({children,qrRef, onDo
 						Download QR
 					</Button>
 				</div>
+			</div>
 			</DialogContent>
 		</Dialog>
     );
