@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SidebarProvider } from "@/components/ui/sidebar"
 import DashboardSideBar from "./components/DashboardSideBar"
 import { useIsMobile } from "@/hooks/useIsMobile";
@@ -8,19 +9,24 @@ import MyQRs from "./components/userQRs/MyQRs";
 import type { QRCode } from "@/supabase/types";
 import { useQRManager } from "@/hooks/useQRManager";
 import { BarLoader, PacmanLoader } from "react-spinners";
+import MyOrganizations from "./components/organizations/MyOrganizations";
+import CreateOrganization from "./components/organizations/CreateOrg";
+import { Button } from "@/components/ui/button" // Asegúrate de importar tu componente Button
+import { ChevronLeft } from "lucide-react" // Importamos un ícono para el botón
+import OrgProfile from "./components/organizations/orgProfile/OrgProfile";
 
-const sections = {
-	"saved-qr": MyQRs,
-	"my-templates": MyTemplates,
-	"my-orgs": () => <h1>my organizations</h1>,
-};
+type DashboardComponent = {
+	component: React.ComponentType<any>
+	props?: Record<string, any>
+}
 
 const DashboardPage = () => {
-	const [active, setActive] = useState<keyof typeof sections>("saved-qr");
+	const [active, setActive] = useState<string>("saved-qr");
 	const isMobile = useIsMobile(975);
 	const [qrs, setQrs] = useState<QRCode[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const { loadQRs } = useQRManager();
+	const [ selectedOrgId, setSelectedOrgId ] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchQRs = async () => {
@@ -38,12 +44,29 @@ const DashboardPage = () => {
 
 		fetchQRs();
 	}, [loadQRs]);
+	
+	const handleSidebarSelect = (id: string) => {
+		setActive(id)
+		// Si se hace clic en "My Organizations", volver a la lista
+		if (id === "my-orgs") {
+		setSelectedOrgId(null)
+		}
+	}
+	const components: Record<string, DashboardComponent> = {
+		"saved-qr": { component: MyQRs, props: { qrs } },
+		"my-templates": { component: MyTemplates, props: { qrs } },
+		"my-orgs": {
+			component: selectedOrgId ? OrgProfile : MyOrganizations,
+			props: selectedOrgId ? {} : { onOrgSelect: setSelectedOrgId }
+		},
+		"create-org": { component: CreateOrganization }
+	}
 
-	const ActiveComponent = sections[active];
+	const { component: ActiveComponent, props } = components[active] || components["saved-qr"]
 
 	return (
 		<SidebarProvider open>
-			<DashboardSideBar onSelect={setActive} active={active}/>
+			<DashboardSideBar onSelect={handleSidebarSelect} active={active}/>
 			{isMobile && <CustomTrigger className="left-3" />}
 			<section className="w-full flex justify-center py-32 px-6">
 				{isLoading && (
@@ -56,7 +79,21 @@ const DashboardPage = () => {
 						<PacmanLoader  size={50} color="#db073d" className="absolute left-[40%]" speedMultiplier={0.5}  />
 					</div>
 				) : (
-					<ActiveComponent qrs={qrs} />
+					<div className="w-full max-w-5xl">
+						{/* Botón Atrás (solo se muestra en la vista de perfil) */}
+						{selectedOrgId && (
+							<Button 
+								variant="ghost" 
+								className="mb-4 gap-1.5 text-sm hover:bg-transparent" 
+								onClick={() => setSelectedOrgId(null)}
+							>
+								<ChevronLeft className="h-4 w-4" />
+								Back to organizations list
+							</Button>
+						)}
+						
+						<ActiveComponent {...props} />
+					</div>
 				)}
 			</section>
 		</SidebarProvider>
