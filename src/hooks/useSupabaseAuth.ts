@@ -1,37 +1,26 @@
-import { useEffect, useState } from 'react';
+// hooks/useSupabase.ts
 import { useSession } from '@clerk/clerk-react';
-import type { SupabaseClient } from '@supabase/supabase-js';
-import { getAuthenticatedClient, resetSupabaseClient } from '@/supabase/supabaseClient';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { useMemo } from 'react';
 
-export const useSupabase = () => {
+export const useSupabase = (): SupabaseClient | null => {
     const { session } = useSession();
-    const [client, setClient] = useState<SupabaseClient | null>(null);
 
-    useEffect(() => {
-        const initSupabase = async () => {
-            if (!session) {
-                resetSupabaseClient();
-                setClient(null);
-                return;
-            }
+    return useMemo(() => {
+        if (!session) return null;
 
-            try {
-                const token = await session.getToken({ template: 'supabase' });
-
-                if (!token) {
-                    throw new Error('No authentication token available');
-                }
-
-                const supabase = await getAuthenticatedClient(token);
-                setClient(supabase);
-            } catch (error) {
-                console.error('Supabase auth error:', error);
-                resetSupabaseClient();
-            }
-        };
-
-        initSupabase();
-    }, [session]);
-
-    return client;
+        return createClient( import.meta.env.VITE_SUPABASE_URL!, import.meta.env.VITE_SUPABASE_ANON_KEY!,
+            {
+                global: {
+                fetch: async (url, options = {}) => {
+                    const token = await session.getToken({ template: 'supabase' });
+                    const headers = new Headers(options?.headers);
+                    if (token) headers.set('Authorization', `Bearer ${token}`);
+                    return fetch(url, { ...options, headers });
+                },
+                },
+            },
+        );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [session?.id]);
 };
