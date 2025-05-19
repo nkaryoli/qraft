@@ -48,7 +48,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ qrTemplate }) => {
 	return (
 		<div className="hover:shadow-lg transition-shadow bg-gradient-to-br from-primary via-background to-muted rounded-xl p-0.5">
 		
-		<Card className="bg-gradient-to-br from-background via-card to-background">
+		<Card className="bg-gradient-to-br from-black via-background to-muted">
 			<CardContent className="grid gap-4">
 				<div className="flex items-center gap-6">
 					<QRDisplay config={{ ...qrTemplate, width: 80, height: 80 }} />
