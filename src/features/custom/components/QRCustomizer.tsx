@@ -25,7 +25,7 @@ const QRCustomizer= () => {
                     />
                 </div>
 
-                <div className="space-y-2 mt-5">
+                <div className="space-y-2 my-5">
                     <Label htmlFor="content" className='text-foreground'>Content</Label>
                     <Input
                         id="content"
