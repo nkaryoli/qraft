@@ -103,7 +103,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({ qrTemplate }) => {
 			<CardFooter>
 				<Button 
 					variant='outline'
-					className="w-full gap-2 border-primary/70 hover:bg-primary/80 text-primary bg-primary-50"
+					className="w-full gap-2 border-primary hover:bg-primary text-primary "
 					onClick={handleCustomQR}
 				>
 					Use Template
