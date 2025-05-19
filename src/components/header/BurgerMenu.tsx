@@ -37,10 +37,12 @@ const BurgerMenu = ({ isMobile }: { isMobile: boolean }) => {
             <SheetTrigger aria-label="Open menu">
                 <Menu size={35} />
             </SheetTrigger>
-            <SheetContent aria-describedby="navegation links" className="w-[280px] ">
-                <SheetTitle className="hidden">Side Menu</SheetTitle>
-                <SheetDescription className="hidden"></SheetDescription>
+            <SheetContent aria-describedby="navegation links" className="w-[280px] z-[99999] bg-background">
+                <div className='bg-gradient-to-b from-black/60 via-card to-background h-full'>
+                    <SheetTitle className="hidden">Side Menu</SheetTitle>
+                    <SheetDescription className="hidden"></SheetDescription>
                 <ul className="text-center w-full h-full pt-9">{menuLinks}</ul>
+                </div>
                 <SheetFooter className="relative border-t text-xs flex flex-col items-center justify-center">
                     <div className="absolute w-full h-full burgerFooter"></div>
                     <span>
