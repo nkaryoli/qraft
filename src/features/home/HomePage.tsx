@@ -1,19 +1,19 @@
-import GenerateQRHome from './components/GenerateQRHome';
-import TemplateSection from './components/templateSection/TemplateSection';
+import Banner from './components/Baner';
+import FeaturesSection from './components/FeaturesSection';
+import HowItWorks from './components/HowItWorks';
+import Testimonials from './components/Testimonials';
+import CTASection from './components/CTASection';
+import HeroSection from './components/HeroSection';
 
 const HomePage = () => {
     return (
         <>
-            <section className="flex flex-col items-center justify-center w-full min-h-96 mt-32 px-6 md:px-20">
-                <h1 className="font-extrabold text-5xl text-center mb-6">
-                    Create and Personalize your QR Code
-                </h1>
-                <p className="max-w-lg text-2xl text-center mb-9">
-                    Customize, scan, and share your QR codes in seconds. Effortless and free!!
-                </p>
-                <GenerateQRHome />
-            </section>
-            <TemplateSection />
+            <HeroSection/>
+            <Banner/>
+            <FeaturesSection/>
+            <HowItWorks/>
+            <Testimonials/>
+            <CTASection/>
         </>
     );
 };
