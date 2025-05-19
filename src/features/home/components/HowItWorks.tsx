@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react"
 
 const HowItWorks = () => {
   return (
-	<section className="py-16 md:py-24 bg-gradient-to-tl from-black via-background to-black">
+	<section className="py-16 md:py-24 bg-gradient-to-tl from-black via-background to-black mb-24 max-w-7xl rounded-xl">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
