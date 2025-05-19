@@ -11,7 +11,6 @@ interface QRContextType {
 	setQrConfig: (config: QRConfig) => void;
 	qrRef: React.RefObject<QRDisplayRef | null>;
 	handleContentChange: (content: string) => void;           
-	// handleChange: (key: keyof QRConfig, value: unknown) => void; 
     handleChange: <K extends keyof QRConfig>(key: K, value: QRConfig[K]) => void;
     handleNestedChange: <
         T extends keyof QRConfig,
@@ -22,15 +21,6 @@ interface QRContextType {
         value: NonNullable<QRConfig[T]>[K]
     ) => void;
 }
-
-
-
-// // Para propiedades directas:
-// handleChange('data', 'https://nuevo-url.com');
-
-// // Para propiedades anidadas:
-// handleNestedChange('dotsOptions', 'color', '#ff0000');
-// handleNestedChange('imageOptions', 'imageSize', 0.4);
 
 const QRContext = createContext<QRContextType | undefined>(undefined);
 
