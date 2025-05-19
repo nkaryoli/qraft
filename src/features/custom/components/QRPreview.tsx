@@ -28,8 +28,9 @@ const QRPreview = () => {
                     </CardContent>
                     <CardFooter className='gap-3 w-full justify-center'>
                         <Button
-                            variant="secondary"
-                            className="gap-2 sm:w-40"
+                            variant="outline"
+                            className="gap-2 w-full sm:w-40 border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
+                            
                             size="lg"
                             onClick={() => handleDownload(qrRef)}
                         >

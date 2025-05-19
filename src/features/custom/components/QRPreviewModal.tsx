@@ -29,8 +29,8 @@ const QRPreviewModal:React.FC<QRPreviewProps> = ({qrRef, onSave, onDownload, qrC
 				<QRDisplay ref={qrRef} config={qrConfig} />
 				<DialogFooter className='sm:flex-row justify-center items-center mt-4'>
 					<Button
-						variant="secondary"
-						className="gap-2 w-full sm:w-40 my-2"
+						variant="outline"
+						className="gap-2 w-full sm:w-40  my-2 border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
 						size="lg"
 						onClick={()=>onDownload(qrRef)}
 					>

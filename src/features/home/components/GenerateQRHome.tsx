@@ -79,8 +79,8 @@ const GenerateQRHome = () => {
                     />
                     <div className="flex gap-3">
                         <Button
-                            variant="secondary"
-                            className="gap-2 w-40"
+                            variant="outline"
+                            className="gap-2 w-full sm:w-40 border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
                             size="lg"
                             onClick={handleDownload}
                         >
