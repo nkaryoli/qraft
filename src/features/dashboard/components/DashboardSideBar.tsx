@@ -10,6 +10,7 @@ type SectionKey = "saved-qr" | "my-templates" | "my-orgs" | "create-org";
 interface DashboardSideBarProps {
 	onSelect: (id: SectionKey) => void;
 	active: string;
+	onOpenOrgModal: () => void;
 }
 
 const items = [
@@ -18,11 +19,10 @@ const items = [
 ]
 
 const orgsItems = [
-	{ title: "My Organizations",	id: "my-orgs",	icon: Building },
 	{ title: "Create Organizations",	id: "create-org",	icon: CirclePlus },
 ]
 
-const DashboardSideBar: React.FC<DashboardSideBarProps> = ({ onSelect, active }) => {
+const DashboardSideBar: React.FC<DashboardSideBarProps> = ({ onSelect, active, onOpenOrgModal }) => {
 	const isMobile = useIsMobile(845);
 	const { toggleSidebar } = useSidebar();
 
@@ -70,6 +70,22 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({ onSelect, active })
 								<CollapsibleContent>
 									<SidebarGroupContent>
 										<SidebarMenu>
+											<SidebarMenuItem>
+													<SidebarMenuButton asChild>
+														<button 
+															onClick={() => {
+																onOpenOrgModal();
+																toggleSidebar();
+															}}
+															className={`h-9 pl-3 lg:pl-6 text-left w-full text-foreground hoved:bg-muted
+																${active === "my-orgs" ? "bg-muted/20 text-primary font-semibold" : ""}
+															`}
+														>
+														<Building/>
+														<span>My Organizations</span>
+														</button>
+													</SidebarMenuButton>
+												</SidebarMenuItem>
 											{orgsItems.map((item) => (
 												<SidebarMenuItem key={item.title}>
 													<SidebarMenuButton asChild>

@@ -11,8 +11,8 @@ import { useQRManager } from "@/hooks/useQRManager";
 import { BarLoader, PacmanLoader } from "react-spinners";
 import MyOrganizations from "./components/organizations/MyOrganizations";
 import CreateOrganization from "./components/organizations/CreateOrg";
-import { Button } from "@/components/ui/button" // Asegúrate de importar tu componente Button
-import { ChevronLeft } from "lucide-react" // Importamos un ícono para el botón
+import { Button } from "@/components/ui/button"
+import { ChevronLeft } from "lucide-react"
 import OrgProfile from "./components/organizations/orgProfile/OrgProfile";
 
 type DashboardComponent = {
@@ -26,7 +26,8 @@ const DashboardPage = () => {
 	const [qrs, setQrs] = useState<QRCode[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const { loadQRs } = useQRManager();
-	const [ selectedOrgId, setSelectedOrgId ] = useState<string | null>(null);
+	const [selectedOrgId, setSelectedOrgId] = useState<string | null>(null);
+	const [isOrgModalOpen, setIsOrgModalOpen] = useState(false);
 
 	useEffect(() => {
 		const fetchQRs = async () => {
@@ -46,18 +47,30 @@ const DashboardPage = () => {
 	}, [loadQRs]);
 	
 	const handleSidebarSelect = (id: string) => {
-		setActive(id)
-		// Si se hace clic en "My Organizations", volver a la lista
+		setActive(id);
 		if (id === "my-orgs") {
-		setSelectedOrgId(null)
+			if (selectedOrgId) {
+				setActive("my-orgs");
+			}
 		}
 	}
+
+	const handleOpenOrgModal = () => {
+		setIsOrgModalOpen(true);
+	}
+
+	const handleOrgSelect = (orgId: string) => {
+		setSelectedOrgId(orgId);
+		setActive("my-orgs");
+		setIsOrgModalOpen(false);
+	}
+
 	const components: Record<string, DashboardComponent> = {
 		"saved-qr": { component: MyQRs, props: { qrs } },
 		"my-templates": { component: MyTemplates, props: { qrs } },
 		"my-orgs": {
-			component: selectedOrgId ? OrgProfile : MyOrganizations,
-			props: selectedOrgId ? {} : { onOrgSelect: setSelectedOrgId }
+			component: selectedOrgId ? OrgProfile : MyQRs,
+			props: selectedOrgId ? {} : { qrs }
 		},
 		"create-org": { component: CreateOrganization }
 	}
@@ -66,7 +79,11 @@ const DashboardPage = () => {
 
 	return (
 		<SidebarProvider open>
-			<DashboardSideBar onSelect={handleSidebarSelect} active={active}/>
+			<DashboardSideBar 
+				onSelect={handleSidebarSelect} 
+				active={active}
+				onOpenOrgModal={handleOpenOrgModal}
+			/>
 			{isMobile && <CustomTrigger className="left-3" />}
 			<section className="w-full flex justify-center py-32 px-6">
 				{isLoading && (
@@ -76,16 +93,17 @@ const DashboardPage = () => {
 				)}
 				{qrs?.length === 0 ? (
 					<div className="w-full h-full flex flex-col justify-center max-w-5xl space-y-4">
-						<PacmanLoader  size={50} color="#db073d" className="absolute left-[40%]" speedMultiplier={0.5}  />
+						<PacmanLoader size={50} color="#db073d" className="absolute left-[40%]" speedMultiplier={0.5} />
 					</div>
 				) : (
 					<div className="w-full max-w-5xl">
-						{/* Botón Atrás (solo se muestra en la vista de perfil) */}
-						{selectedOrgId && (
+						{selectedOrgId && active === "my-orgs" && (
 							<Button 
 								variant="ghost" 
 								className="mb-4 gap-1.5 text-sm hover:bg-transparent" 
-								onClick={() => setSelectedOrgId(null)}
+								onClick={() => {
+									setIsOrgModalOpen(true);
+								}}
 							>
 								<ChevronLeft className="h-4 w-4" />
 								Back to organizations list
@@ -96,6 +114,12 @@ const DashboardPage = () => {
 					</div>
 				)}
 			</section>
+			{isOrgModalOpen && (
+				<MyOrganizations 
+					onOrgSelect={handleOrgSelect} 
+					onClose={() => setIsOrgModalOpen(false)}
+				/>
+			)}
 		</SidebarProvider>
 	)
 }
