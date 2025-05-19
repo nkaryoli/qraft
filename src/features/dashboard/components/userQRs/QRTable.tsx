@@ -19,7 +19,7 @@ const QRTable: React.FC<QRTableProps> = ({ qrs }) => {
 	const { handleDownload } = useQRManager();
 
 	return (
-		<div className="w-full max-w-5xl bg-card rounded-xl border border-border shadow-lg overflow-hidden p-3">
+		<div className="w-full max-w-5xl bg-background rounded-xl border border-border shadow-lg overflow-hidden p-3">
 			<div className="hidden sm:block">
 			<Table className="w-full">
 				<TableHeader className="bg-gradient-to-r from-primary/60 via-background to-muted ">
