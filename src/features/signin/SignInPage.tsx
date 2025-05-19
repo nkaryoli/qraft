@@ -10,11 +10,12 @@ const SignInPage = () => {
 
     return (
         <section className="flex justify-center items-center w-full py-32 lg:pt-52 px-6">
+		<div className="hover:shadow-lg transition-shadow bg-gradient-to-r from-primary via-background to-muted rounded-xl p-0.5">
             <Tabs
                 defaultValue="signIn"
-                className="lg:flex-row-reverse bg-gradient-to-br from-background via-muted/80 to-background lg:bg-gradient-to-br lg:from-background lg:via-background lg:to-background  rounded-xl lg:border-2 gap-3 lg:gap-0"
+                className="lg:flex-row-reverse bg-gradient-to-r from-black via-background to-muted rounded-xl  gap-3 lg:gap-0"
             >
-                <div className="w-full lg:w-1/2 flex flex-col items-center gap-9 lg:bg-gradient-to-br lg:from-background lg:via-muted/80 to-background rounded-xl pt-16 lg:pt-32 px-[10vw] lg:px-[5vw]">
+                <div className="w-full lg:w-1/2 flex flex-col items-center gap-9  rounded-xl pt-16 lg:pt-32 px-[10vw] lg:px-[5vw]">
                     <h1 className="text-4xl lg:text-5xl text-center font-extrabold">
                         Welcome back!
                     </h1>
@@ -63,6 +64,9 @@ const SignInPage = () => {
                                 formButtonPrimary: {
                                     height: '40px',
                                 },
+                                card: {
+                                    backgroundColor: '#0d1317aa'
+                                }
                             },
                         }}
                     />
@@ -97,7 +101,7 @@ const SignInPage = () => {
                         }}
                     />
                 </TabsContent>
-            </Tabs>
+            </Tabs></div>
         </section>
     );
 };
