@@ -19,7 +19,7 @@ export const useQRManager = () => {
     };
 
     const handleSaveQRCode = useCallback(async (title: string, qr_data: string = qrConfig.data, qr_template: QRConfig = qrConfig) => {
-        if (!supabase || !user?.id) return;
+        if (!supabase || !user?.id || qr_data === '') return;
 
         try {
             setIsSaving(true);
