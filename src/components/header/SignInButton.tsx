@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut, UserButton } from '@clerk/clerk-react';
 import { Button } from '../ui/button';
 import { memo, useEffect, useState } from 'react';
-import { Heart, ScanQrCode } from 'lucide-react';
+import { ScanQrCode } from 'lucide-react';
 import { FaUser } from 'react-icons/fa';
 import { dark } from '@clerk/themes';
 
@@ -37,8 +37,11 @@ const SignInBtn = ({ isMobile, onClick }: { isMobile: boolean; onClick: () => vo
                                         baseTheme: [dark],
                                         variables: {
                                             colorPrimary: '#db073d',
-                                            colorBackground: '#0d1317',
+                                            colorBackground: '#040708',
                                             colorTextOnPrimaryBackground: '#ffffff',
+                                            borderRadius: '4px',
+                                            colorText: '#eaeaea'
+                                            
                                         },
                                         elements: {
                                             userButtonPopoverFooter: {
@@ -47,21 +50,30 @@ const SignInBtn = ({ isMobile, onClick }: { isMobile: boolean; onClick: () => vo
                                             footer: {
                                                 display: 'none',
                                             },
+                                            userButtonPopoverActionButton__manageAccount: {
+                                                display: 'none'
+                                            },
+                                            userButtonPopoverMain:{
+                                                background: "linear-gradient(to bottom, #000000, #060c0f)",
+                                                width:'280px',
+                                                paddingTop: '10px',
+                                                borderRadius: '4px',
+                                            },
+                                            userButtonPopoverCard: {
+                                                width:'280px'
+                                            },
+                                            userPreview: {
+                                                display: 'none'
+                                            }
                                         },
                                     }}
                                 >
                                     <UserButton.MenuItems>
                                         <UserButton.Link
-                                            label="My QR Codes"
+                                            label="My Dashboard"
                                             labelIcon={<ScanQrCode size={16} />}
                                             href="/dashboard"
                                         />
-                                        <UserButton.Link
-                                            label="Favorite Themes"
-                                            labelIcon={<Heart size={16} />}
-                                            href="/about"
-                                        />
-                                        <UserButton.Action label="manageAccount" />
                                     </UserButton.MenuItems>
                                 </UserButton>
                             </div>
