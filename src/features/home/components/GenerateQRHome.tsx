@@ -71,23 +71,23 @@ const GenerateQRHome = () => {
                 </Button>
             </form>
             {showQR && (
-                <div className="flex flex-col items-center space-y-4 mt-3 py-9 bg-background rounded-xl">
+                <div className="flex flex-col items-center space-y-6 mt-3 py-9 bg-background rounded-xl">
                     <QRDisplay
                         ref={qrRef}
                         config={qrConfig}
                         className="border rounded-lg p-4 bg-white"
                     />
-                    <div className="flex gap-3">
+                    <div className="flex flex-col-reverse w-full justify-center items-center md:flex-row gap-3">
                         <Button
                             variant="outline"
-                            className="gap-2 w-full sm:w-40 border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
+                            className="gap-2 w-full max-w-80 sm:w-40 border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
                             size="lg"
                             onClick={handleDownload}
                         >
                             <DownloadIcon size={4} />
                             Download QR
                         </Button>
-                        <Button className="gap-2 w-40" size="lg" onClick={handleCustomQR}>
+                        <Button className="gap-2 w-full max-w-80 sm:w-40" size="lg" onClick={handleCustomQR}>
                             <PaintbrushIcon size={4} />
                             Customize
                         </Button>
