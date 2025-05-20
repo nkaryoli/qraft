@@ -16,7 +16,7 @@ const SignInPage = () => {
                     className="lg:flex-row-reverse bg-gradient-to-r from-black via-background to-muted rounded-xl  gap-3 lg:gap-0"
                 >
                     <div className="w-full lg:w-1/2 flex flex-col items-center gap-9  rounded-xl pt-16 lg:pt-32 px-[10vw] lg:px-[5vw]">
-                        <h1 className="text-4xl lg:text-5xl text-center font-extrabold">
+                        <h1 className="text-4xl lg:text-5xl text-center font-extrabold pt-9">
                             Welcome back!
                         </h1>
                         <TabsList className="w-full h-13 max-w-xl bg-card p-2">
@@ -34,10 +34,10 @@ const SignInPage = () => {
                             </TabsTrigger>
                         </TabsList>
                         <TabsContent value="signIn">
-                            <h1>esto es SigIn</h1> {/* <= ToDo: textos */}
+                            <h1></h1> {/* <= ToDo: textos */}
                         </TabsContent>
                         <TabsContent value="signUp">
-                            <h1>esto es SignUp</h1> {/* <= ToDo: textos */}
+                            <h1></h1> {/* <= ToDo: textos */}
                         </TabsContent>
                     </div>
                     <TabsContent
