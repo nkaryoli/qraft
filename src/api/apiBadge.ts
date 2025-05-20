@@ -1,4 +1,3 @@
-
 import type { Badge, BadgeInput } from '@/supabase/types';
 import type { BadgeConfig } from '@/types';
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -49,34 +48,61 @@ export const QRBadgeAPI = (client: SupabaseClient) => ({
 
 })
 
-export async function shareBadge( supabase: SupabaseClient, badge: BadgeConfig ): Promise<string> {
-  const encodedUrl = encodeBadgeToURL(badge);
-  if (encodedUrl.length <= 1800) {
-    return encodedUrl;
+export async function shareBadge(supabase: SupabaseClient, badge: BadgeConfig): Promise<string> {
+  if (badge.content.profileImageUrl || badge.content.logoUrl) {
+    const { data, error } = await supabase
+      .from('badges')
+      .insert({
+        config: badge,
+        user_id: (await supabase.auth.getUser()).data.user?.id,
+        expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      })
+      .select('id')
+      .single();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return `${window.location.origin}/viewer/${data.id}`;
   }
 
-  const { data, error } = await supabase
-    .from('badges')
-    .insert({
-      config: badge,
-      expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-    })
-    .select('id')
-    .single();
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return `${window.location.origin}/viewer/${data.id}`;
+  return encodeBadgeToURL(badge);
 }
 
 export function encodeBadgeToURL(badge: BadgeConfig): string {
-  const compressed = JSON.stringify(badge);
+  const badgeWithoutImages = {
+    ...badge,
+    content: {
+      ...badge.content,
+      profileImageUrl: '',
+      logoUrl: ''
+    }
+  };
+
+  const compressed = JSON.stringify(badgeWithoutImages);
   return `${window.location.origin}/viewer#${encodeURIComponent(compressed)}`;
 }
 
-export function decodeBadgeFromURL(): BadgeConfig | null {
+export async function decodeBadgeFromURL(supabase?: SupabaseClient): Promise<BadgeConfig | null> {
+  const pathParts = window.location.pathname.split('/');
+  const badgeId = pathParts[pathParts.length - 1];
+
+  if (badgeId && supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('badges')
+        .select('config')
+        .eq('id', badgeId)
+        .single();
+
+      if (error) throw error;
+      return data.config as BadgeConfig;
+    } catch (error) {
+      console.error('Error fetching badge from database:', error);
+    }
+  }
+
   const hash = window.location.hash.substring(1);
   if (!hash) return null;
 
@@ -86,18 +112,4 @@ export function decodeBadgeFromURL(): BadgeConfig | null {
     console.error('Error decoding badge from URL:', error);
     return null;
   }
-}
-
-export async function getSharedBadge(
-  supabase: SupabaseClient,
-  id: string
-): Promise<BadgeConfig | null> {
-  const { data, error } = await supabase
-    .from('shared_badges')
-    .select('config')
-    .eq('id', id)
-    .single();
-
-  if (error || !data) return null;
-  return data.config;
 }
