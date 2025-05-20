@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import { Upload } from 'lucide-react';
+import { BadgeIcon, Sparkles, Upload } from 'lucide-react';
 import ColorPicker from '@/components/ColorPiker';
 import { BadgePreview } from './components/BadgePreview';
 import { useQRBadge } from '@/hooks/useQRBadge';
@@ -45,7 +44,7 @@ const BadgePage = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const fileImgRef = useRef<HTMLInputElement>(null);
 
-    const handleDesignChange = (key: keyof BadgeConfig['design'], value: any) => {
+    const handleDesignChange = (key: keyof BadgeConfig['design'], value: string | number | boolean) => {
         setConfig(prev => ({
         ...prev,
         design: { ...prev.design, [key]: value }
@@ -59,7 +58,7 @@ const BadgePage = () => {
         }));
     };
 
-    const handleQRConfigChange = (key: keyof BadgeConfig['qrConfig'], value: any) => {
+    const handleQRConfigChange = (key: keyof BadgeConfig['qrConfig'], value: string | boolean) => {
         setConfig(prev => ({
         ...prev,
         qrConfig: { ...prev.qrConfig, [key]: value }
@@ -97,11 +96,21 @@ const BadgePage = () => {
     const { handleSaveBadge} = useQRBadge();
 
     return (
-        <div className="flex flex-col items-center gap-8 lg:gap-6 mt-32">
-            <h1 className="text-5xl font-bold mb-4 px-9 text-center">Create Your Badge</h1>
-            <p className="text-lg text-muted-foreground mb-9 px-9 text-center">
-                Customize your badge design by selecting a template and adjusting the colors.
-            </p>
+        <div className="flex flex-col items-center gap-8 lg:gap-14 pt-32">
+            <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
+                <div className="flex items-center justify-center gap-2 text-primary mb-4">
+                    <BadgeIcon size={82} className="animate-pulse" />
+                    <Sparkles size={24} className='absolute animate-pulse' />
+                </div>
+                <h1 className="text-4xl font-bold tracking-tight">
+                    Create Your Digital Badge
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                    Design a professional digital badge with custom colors, 
+                    your organization's logo, and integrated QR code functionality.
+                </p>
+            </div>
+            
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-6">
                 <div className='w-full max-w-md flex flex-col items-center justify-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl'>
                     <h2 className="text-2xl mb-6 w-full text-start">Badge Preview</h2>

@@ -1,4 +1,4 @@
-import { QrCode, Sparkles } from 'lucide-react';
+import { QrCode } from 'lucide-react';
 import QRCustomizer from './components/QRCustomizer';
 import QRPreview from './components/QRPreview';
 import { QRProvider } from '@/hooks/QRContext';
@@ -8,9 +8,8 @@ const CustomizePage = () => {
         <QRProvider>
             <div className="flex flex-col items-start pt-32 pb-20 gap-14">
                 <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
-                    <div className="flex items-center justify-center gap-2 text-primary mb-2">
-                        <QrCode size={32} className="animate-pulse" />
-                        <Sparkles size={24} />
+                    <div className="flex items-center justify-center gap-2 text-primary mb-4">
+                        <QrCode size={82} className="animate-pulse" />
                     </div>
                     <h1 className="text-4xl font-bold tracking-tight">
                         Create Your Custom QR Code
