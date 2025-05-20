@@ -35,6 +35,22 @@ Qraft is a modern solution for digital identity management, combining powerful Q
 - **Database:** [Supabase](https://supabase.com/)
 - **Styling:** TailwindCSS + [shadcn/ui](https://ui.shadcn.com/)
 - **Animations:** Framer Motion
+## 📸 Screenshots
+
+![QRaft Code home](/public/qraft-home.png)
+
+![QRaft Code home](/public/qraft-signin.png)
+
+![QRaft Code home](/public/qraft-qr-demo.png)
+
+![QRaft Code home](/public/qraft-badge-demo.png)
+
+![QRaft Code home](/public/qraft-qr-saved.png)
+
+![QRaft Code home](/public/qraft-dashboard.png)
+
+### Click [ 🌐 here](https://qraft-two.vercel.app/) to see the app. 🚀
+
 
 ## 🚀 Getting Started
 
@@ -100,25 +116,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This project was created for the [Clerk Hackathon 2025](https://github.com/midudev/hackaton-clerk-2025), focusing on innovative authentication implementations and user management solutions.
 
-## 📸 Screenshots
 
-[Add your screenshots here]
-
-## Demo
-
-![QRaft Code home](https://raw.githubusercontent.com/nkaryoli/qraft/main/public/qraft-home.png)
-
-![QRaft Code home](https://raw.githubusercontent.com/nkaryoli/qraft/main/public/qraft-signin.png)
-
-![QRaft Code home](https://raw.githubusercontent.com/nkaryoli/qraft/main/public/qraft-qr-demo.png)
-
-![QRaft Code home](https://raw.githubusercontent.com/nkaryoli/qraft/main/public/qraft-badge-demo.png)
-
-![QRaft Code home](https://raw.githubusercontent.com/nkaryoli/qraft/main/public/qraft-qr-saved.png)
-
-![QRaft Code home](https://raw.githubusercontent.com/nkaryoli/qraft/main/public/qraft-dashboard.png)
-
-### Click [ 🌐 here](https://qraft-two.vercel.app/) to see the app. 🚀
 
 ## 👥 Author
 
