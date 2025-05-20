@@ -1,7 +1,20 @@
 import { Button } from '@/components/ui/button';
+import { useUser } from '@clerk/clerk-react';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const HowItWorks = () => {
+    const navigate = useNavigate();
+    const { user } = useUser();
+
+    const handleGetStarted = () => {
+        if (!user) {
+            navigate('/signin');
+            return;
+        }
+        navigate('/customize');
+    };
+
     return (
         <section className="py-16 md:py-24 bg-gradient-to-tl from-black via-background to-black mb-24 max-w-7xl rounded-xl">
             <div className="container px-4 md:px-6">
@@ -50,6 +63,7 @@ const HowItWorks = () => {
                     <Button
                         size="lg"
                         className="bg-primary text-primary-foreground hover:bg-primary/90"
+                        onClick={handleGetStarted}
                     >
                         Get Started Now
                         <ArrowRight className="ml-2 h-4 w-4" />
