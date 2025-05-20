@@ -9,10 +9,16 @@ import Layout from '@/components/Layout';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import SignInPage from '@/features/signin/SignInPage';
 import { QRProvider } from '@/hooks/QRContext';
-import ViewBadgePage from '@/features/viewer/ViewBadgePage';
+import BadgeViewer from '@/features/viewer/BadgeViewer';
 
 
 export const router = createBrowserRouter([
+    {
+        path: '/viewer/:id',
+        element: (
+            <BadgeViewer />
+        ),
+    },
     {
         element: <Layout />,
         children: [
@@ -54,12 +60,6 @@ export const router = createBrowserRouter([
                             <DashboardPage />
                         </QRProvider>
                     </ProtectedRoute>
-                ),
-            },
-            {
-                path: '/viewer',
-                element: (
-                    <ViewBadgePage />
                 ),
             }
         ],
