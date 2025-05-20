@@ -9,8 +9,8 @@ const HeroSection = () => {
     const [showInput, setShowInput] = useState<boolean>(false);
 
     return (
-        <div className="w-full bg-background text-foreground">
-            <section className="relative pb-24 pt-44 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black/50 to-background space-y-6 xl:min-h-[85vh]">
+        <div className="w-full text-foreground">
+            <section className="relative pb-24 pt-52 px-4 sm:px-6 lg:px-8 space-y-6 xl:min-h-[85vh]">
                 <motion.div 
                     className="max-w-7xl mx-auto"
                     initial={{ opacity: 0, y: 20 }}
