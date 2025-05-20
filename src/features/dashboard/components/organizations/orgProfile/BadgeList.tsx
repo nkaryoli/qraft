@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import type { Badge } from '@/typesBadge';
+
 import { useQRBadge } from '@/hooks/useQRBadge';
-import { BadgePreview } from '@/features/badge/BadgePreview';
+import { BadgePreview } from '@/features/badge/components/BadgePreview';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import type { Badge } from '@/supabase/types';
 
 const OrganizationBadge = () => {
 	const [loading, setLoading] = useState(true);
