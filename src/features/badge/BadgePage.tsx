@@ -10,6 +10,7 @@ import { BadgePreview } from './components/BadgePreview';
 import { useQRBadge } from '@/hooks/useQRBadge';
 import { ShareBadgeButton } from './components/ShareBadgeButton';
 import type { BadgeConfig } from '@/types';
+import { motion } from 'framer-motion';
 
 const BadgePage = () => {
     const [config, setConfig] = useState<BadgeConfig>({
@@ -97,27 +98,83 @@ const BadgePage = () => {
 
     return (
         <div className="flex flex-col items-center gap-8 lg:gap-14 pt-32">
-            <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
-                <div className="flex items-center justify-center gap-2 text-primary mb-4">
-                    <BadgeIcon size={82} className="animate-pulse" />
-                    <Sparkles size={24} className='absolute animate-pulse' />
-                </div>
-                <h1 className="text-4xl font-bold tracking-tight">
+            <motion.div 
+                className="text-center space-y-4 max-w-3xl mx-auto px-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+            >
+                <motion.div 
+                    className="relative flex items-center justify-center gap-2 text-primary mb-4"
+                    animate={{ 
+                        scale: [1, 1.02, 1],
+                        rotate: [0, -2, 2, 0] 
+                    }}
+                    transition={{ 
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut"
+                    }}
+                >
+                    <BadgeIcon size={82} />
+                        <Sparkles 
+                            size={24} 
+                            className="absolute"
+                            style={{ filter: 'drop-shadow(0 0 8px var(--primary))' }}
+                        />
+                    </motion.div>
+
+                <motion.h1
+                    className="text-4xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary to-white"
+                    initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                    animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                    transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+                >
                     Create Your Digital Badge
-                </h1>
-                <p className="text-lg text-muted-foreground">
+                </motion.h1>
+
+                <motion.p
+                    className="text-lg text-foreground"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                >
                     Design a professional digital badge with custom colors, 
                     your organization's logo, and integrated QR code functionality.
-                </p>
-            </div>
+                </motion.p>
+            </motion.div>
             
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-6">
-                <div className='w-full max-w-md flex flex-col items-center justify-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl'>
-                    <h2 className="text-2xl mb-6 w-full text-start">Badge Preview</h2>
+            <motion.div 
+                className="flex flex-col lg:flex-row gap-8 lg:gap-6"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+            >
+                <motion.div 
+                    className='w-full max-w-md flex flex-col items-center justify-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl'
+                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                    <motion.h2 
+                        className="text-2xl mb-6 w-full text-start"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                    >
+                        Badge Preview
+                    </motion.h2>
                     <BadgePreview config={config} />
-                </div>
+                </motion.div>
 
-                <div className="space-y-6 p-11 bg-gradient-to-b from-background via-muted/80 to-black/80 rounded-xl w-full h-full">
+                <motion.div 
+                    className="space-y-6 p-11 bg-gradient-to-b from-background via-muted/80 to-black/80 rounded-xl w-full h-full"
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.6 }}
+                >
                     <h2 className="text-2xl mb-4">Badge Design</h2>
                     <Tabs defaultValue="design">
                         <TabsList className="w-full lg:w-lg">
@@ -289,8 +346,8 @@ const BadgePage = () => {
                         </Button>
                         <ShareBadgeButton config={config}/>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         </div>      
         
     );
