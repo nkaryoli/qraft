@@ -1,6 +1,6 @@
 import { OrganizationProfile, OrganizationSwitcher } from "@clerk/clerk-react"
 import { SwatchBook } from "lucide-react"
-import OrganizationBadge from "./OrganizationBadge"
+import OrganizationBadge from "./BadgeList"
 
 
 const OrgProfile = () => {
