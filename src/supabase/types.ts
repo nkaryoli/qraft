@@ -1,4 +1,4 @@
-import type { QRConfig } from "@/types";
+import type { BadgeConfig, QRConfig } from "@/types";
 
 export type ThemeConfig = {
     background: string;
@@ -36,4 +36,18 @@ export type QRCodeInput = {
     qr_data: string;
     user_id: string;
     qr_template: QRConfig;
+};
+
+export type Badge = {
+    id: string;
+    created_at: string;
+    config: BadgeConfig;
+    user_id: string;
+    expires_at: string;
+};
+
+export type BadgeInput = {
+    config: BadgeConfig;
+    user_id: string;
+    expires_at: string;
 };

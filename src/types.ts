@@ -138,37 +138,40 @@ export interface ImageOptionsType {
     crossOrigin?: string;
 };
 
-export interface QRCodeRecord {
+export type BadgeTemplate = {
     id: string;
-    user_id: string;
-    organization_id?: string;
-    title: string;
-    content: string;
-    config: QRConfig;
-    is_badge: boolean;
-    badge_data?: BadgeData;
-    created_at: string;
-    updated_at: string;
-}
-
-export interface BadgeData {
-    full_name: string;
-    position: string;
-    department?: string;
-    employee_id?: string;
-    avatar_url?: string;
-    // TODO: agregar atributos de diseño
-}
-
-export interface BadgeTemplate {
-    id: string;
-    organization_id: string;
     name: string;
-    config: {
-        background: string;
+    previewImage: string;
+    defaultConfig: BadgeConfig;
+};
+
+export type BadgeConfig = {
+    design: {
+        templateId: string;
+        backgroundColor: string;
         textColor: string;
-        layout: 'horizontal' | 'vertical';
-        // TODO: agregar atributos de diseño
+        primaryColor: string;
+        cornerRadius: number;
+        shadow: boolean;
     };
-    qr_config: QRConfig;
-}
+    content: {
+        profileImageUrl: string;
+        logoUrl?: string;
+        employeeName: string;
+        position: string;
+        department: string;
+        organization: string;
+        contactInfo: {
+        email: string;
+        phone?: string;
+        additionalFields: Record<string, string>;
+        };
+    };
+    qrConfig: {
+        data: string;
+        color: string; 
+        backgroundColor: string;
+        includeLogoInQR: boolean;
+        logoSize?: number;
+    };
+};
