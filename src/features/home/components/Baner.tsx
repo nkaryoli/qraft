@@ -2,7 +2,7 @@ import { Briefcase, Hospital, School, Users } from 'lucide-react';
 
 const Testimonials = () => {
     return (
-        <section className="py-12 bg-card/30 w-full">
+        <section className="py-12 bg-gradient-to-t from-transparent via-background/30 to-transparent w-full flex justify-center">
             <div className="container px-4 md:px-6">
                 <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
                     <div className="flex items-center gap-2 text-muted-foreground">
