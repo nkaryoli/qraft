@@ -31,7 +31,7 @@ const Testimonials = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-[5%] lg:px-[10%]">
                     {testimonials.map((testimonial) => (
-                        <Card key={testimonial.name} className="p-6 border-accent">
+                        <Card key={testimonial.name} className="p-6 border-accent/50">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
                                     <span className="text-lg font-medium text-foreground">
