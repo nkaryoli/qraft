@@ -100,7 +100,7 @@ const BadgePage = () => {
     const { handleSaveBadge } = useQRBadge();
 
     return (
-        <div className="flex flex-col items-center gap-8 lg:gap-14 pt-32">
+        <div className="flex flex-col items-center gap-8 lg:gap-14 py-32">
             <motion.div
                 className="text-center space-y-4 max-w-3xl mx-auto px-4"
                 initial={{ opacity: 0 }}
