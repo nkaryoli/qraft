@@ -5,7 +5,7 @@ export const navigationLinks = [
     { to: '/', label: 'Home', icon: <House size={20} /> },
     { to: '/Customizer', label: 'Create QR', icon: <ScanQrCode size={20} /> },
     { to: '/qrScanner', label: 'QR Reader', icon: <ScanLine size={20} /> },
-    { to: '/about', label: 'About', icon: <Info size={20} /> },
+    { to: '/custom-badge', label: 'CreateBadge', icon: <Info size={20} /> },
     { to: '/faq', label: 'Faqs', icon: <CircleHelp size={20} /> },
 ];
 
@@ -13,7 +13,7 @@ export const desktopNavLinks = [
     { to: '/', label: 'Home' },
     { to: '/customize', label: 'Create QR' },
     { to: '/qrScanner', label: 'QR Reader' },
-    { to: '/about', label: 'About' },
+    { to: '/custom-badge', label: 'Create Badge' },
     { to: '/faq', label: 'Faqs' },
 ];
 
