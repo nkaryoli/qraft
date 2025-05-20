@@ -6,6 +6,7 @@ import { useState } from 'react';
 import QRCode from './QRCode';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import type { BadgeConfig } from '@/types';
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 
 export function ShareBadgeButton({ config }: { config: BadgeConfig }) {
   const [shareUrl, setShareUrl] = useState<string | null>(null);
@@ -52,6 +53,8 @@ export function ShareBadgeButton({ config }: { config: BadgeConfig }) {
             )}
           </Button>
         </DialogTrigger>
+        <DialogTitle></DialogTitle>
+        <DialogDescription></DialogDescription>
         <DialogContent>
           {error && (
             <div className="text-sm text-destructive">{error}</div>
