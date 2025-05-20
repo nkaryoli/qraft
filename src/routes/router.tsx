@@ -1,16 +1,16 @@
-import AboutPage from '@/features/about/AboutPage';
+import BadgePage from '@/features/badge/BadgePage';
 import DashboardPage from '@/features/dashboard/DashboardPage';
 import FAQPage from '@/features/faq/FAQPage';
 import HomePage from '@/features/home/HomePage';
 import CustomizePage from '@/features/custom/CustomizePage';
-import CustomBadgePage from '@/features/onboarding/CustomBadgePage';
-import QrGeneratorPage from '@/features/qrGenerator/QrGeneratorPage';
 import ScannerPage from '@/features/scanner/ScannerPage';
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import SignInPage from '@/features/signin/SignInPage';
 import { QRProvider } from '@/hooks/QRContext';
+import ViewBadgePage from '@/features/viewer/ViewBadgePage';
+
 
 export const router = createBrowserRouter([
     {
@@ -35,16 +35,12 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/qrGenerator',
-                element: <QrGeneratorPage />,
-            },
-            {
                 path: '/qrScanner',
                 element: <ScannerPage />,
             },
             {
-                path: '/about',
-                element: <QRProvider><AboutPage /></QRProvider>,
+                path: '/custom-badge',
+                element: <QRProvider><BadgePage /></QRProvider>,
             },
             {
                 path: '/faq',
@@ -61,13 +57,11 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: '/customBadge',
+                path: '/viewer',
                 element: (
-                    <ProtectedRoute>
-                        <CustomBadgePage />
-                    </ProtectedRoute>
+                    <ViewBadgePage />
                 ),
-            },
+            }
         ],
     },
 ]);
