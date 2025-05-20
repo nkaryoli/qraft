@@ -57,7 +57,7 @@ const CustomizePage = () => {
                     </motion.div>
 
                     <motion.div
-                        className="lg:sticky top-32 h-full w-full lg:w-auto"
+                        className="lg:sticky top-20 h-full w-full lg:w-auto"
                         initial={{ x: 20 }}
                         animate={{ x: 0 }}
                         transition={{ duration: 0.6, delay: 0.6 }}
