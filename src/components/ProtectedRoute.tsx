@@ -15,7 +15,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requireAdmin 
         return <Navigate to="/signin" />;
     }
 
-    if (requireAdmin && orgRole !== 'admin') {
+    if (requireAdmin && orgRole !== 'org:admin') {
         return <AdminRequired />;
     }
 
