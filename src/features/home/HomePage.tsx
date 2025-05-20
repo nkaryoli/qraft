@@ -11,7 +11,7 @@ const HomePage = () => {
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
-        restDelta: 0.001
+        restDelta: 0.001,
     });
 
     return (
@@ -22,7 +22,7 @@ const HomePage = () => {
             />
             <HeroSection />
             <Banner />
-            <motion.div 
+            <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}

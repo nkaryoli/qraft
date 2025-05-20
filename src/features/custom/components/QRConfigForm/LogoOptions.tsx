@@ -26,6 +26,6 @@ const LogoOptions = ({ onChange }: LogoOptionsProps) => {
             </label>
         </div>
     );
-}
+};
 
 export default LogoOptions;

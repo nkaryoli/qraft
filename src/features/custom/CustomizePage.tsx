@@ -8,13 +8,13 @@ const CustomizePage = () => {
     return (
         <QRProvider>
             <div className="flex flex-col items-start pt-32 pb-20 gap-14">
-                <motion.div 
+                <motion.div
                     className="text-center space-y-4 max-w-3xl mx-auto px-4"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <motion.div 
+                    <motion.div
                         className="relative flex items-center justify-center gap-2 text-primary mb-4"
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
@@ -38,11 +38,11 @@ const CustomizePage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                     >
-                        Design a unique QR code that matches your brand. Customize colors, 
-                        add your logo, and make it stand out.
+                        Design a unique QR code that matches your brand. Customize colors, add your
+                        logo, and make it stand out.
                     </motion.p>
                 </motion.div>
-                <motion.div 
+                <motion.div
                     className="flex flex-col lg:flex-row items-center lg:items-start justify-center w-full gap-8"
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -55,8 +55,8 @@ const CustomizePage = () => {
                     >
                         <QRCustomizer />
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                         className="lg:sticky top-32 h-full w-full lg:w-auto"
                         initial={{ x: 20 }}
                         animate={{ x: 0 }}

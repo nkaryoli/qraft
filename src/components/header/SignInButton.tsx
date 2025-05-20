@@ -40,8 +40,7 @@ const SignInBtn = ({ isMobile, onClick }: { isMobile: boolean; onClick: () => vo
                                             colorBackground: '#040708',
                                             colorTextOnPrimaryBackground: '#ffffff',
                                             borderRadius: '4px',
-                                            colorText: '#eaeaea'
-                                            
+                                            colorText: '#eaeaea',
                                         },
                                         elements: {
                                             userButtonPopoverFooter: {
@@ -51,20 +50,21 @@ const SignInBtn = ({ isMobile, onClick }: { isMobile: boolean; onClick: () => vo
                                                 display: 'none',
                                             },
                                             userButtonPopoverActionButton__manageAccount: {
-                                                display: 'none'
+                                                display: 'none',
                                             },
-                                            userButtonPopoverMain:{
-                                                background: "linear-gradient(to bottom, #000000, #060c0f)",
-                                                width:'280px',
+                                            userButtonPopoverMain: {
+                                                background:
+                                                    'linear-gradient(to bottom, #000000, #060c0f)',
+                                                width: '280px',
                                                 paddingTop: '10px',
                                                 borderRadius: '4px',
                                             },
                                             userButtonPopoverCard: {
-                                                width:'280px'
+                                                width: '280px',
                                             },
                                             userPreview: {
-                                                display: 'none'
-                                            }
+                                                display: 'none',
+                                            },
                                         },
                                     }}
                                 >

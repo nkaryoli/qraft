@@ -19,52 +19,50 @@ const QRPreview = () => {
             {!isMobile ? (
                 <Card className="w-[90vw] sm:w-auto">
                     {qrConfig.data == '' ? (
-                            <QREmptyState/>
-                        ) : (
+                        <QREmptyState />
+                    ) : (
                         <>
                             <CardHeader>
-                                <CardTitle className='text-foreground text-xl'>Preview</CardTitle>
+                                <CardTitle className="text-foreground text-xl">Preview</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-6">
-                                        
-                                        <QRDisplay ref={qrRef} config={qrConfig} />
-                                        <div className="text-sm text-foreground text-center">
-                                            <p>Scan your QR Code to test it</p>
-                                        </div>
+                                <QRDisplay ref={qrRef} config={qrConfig} />
+                                <div className="text-sm text-foreground text-center">
+                                    <p>Scan your QR Code to test it</p>
+                                </div>
                             </CardContent>
-                            <CardFooter className='gap-3 w-full justify-center'>
+                            <CardFooter className="gap-3 w-full justify-center">
                                 <Button
                                     variant="outline"
                                     className="gap-2 w-full sm:w-40 border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
-                                    
                                     size="lg"
                                     onClick={() => handleDownload(qrRef)}
-                                    >
-                                    <DownloadIcon size={4}  />
+                                >
+                                    <DownloadIcon size={4} />
                                     Download
                                 </Button>
-                                <Button 
-                                    className="gap-2 sm:w-40" 
+                                <Button
+                                    className="gap-2 sm:w-40"
                                     size="lg"
                                     onClick={() => handleSaveQRCode(title, qrConfig.data, qrConfig)}
                                     disabled={isSaving}
-                                    >
+                                >
                                     <HeartPlus size={4} />
-                                    {!isMobile && ( isSaving ? 'Saving...' : 'Save' )}
+                                    {!isMobile && (isSaving ? 'Saving...' : 'Save')}
                                 </Button>
                             </CardFooter>
                         </>
-                        )
-                    }
+                    )}
                 </Card>
             ) : (
-                <QRPreviewModal 
-                qrRef={qrRef} 
-                onSave={handleSaveQRCode}
-                onDownload={handleDownload} 
-                qrConfig={qrConfig} title={title}                    
-                />   
-            ) }
+                <QRPreviewModal
+                    qrRef={qrRef}
+                    onSave={handleSaveQRCode}
+                    onDownload={handleDownload}
+                    qrConfig={qrConfig}
+                    title={title}
+                />
+            )}
         </>
     );
 };

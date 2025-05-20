@@ -4,21 +4,22 @@ import { Input } from '@/components/ui/input';
 import QRConfigForm from './QRConfigForm/QRConfigForm';
 import { useQR } from '@/hooks/QRContext';
 
-const QRCustomizer= () => {
+const QRCustomizer = () => {
     const { title, setTitle, qrConfig, handleContentChange } = useQR();
 
     return (
         <Card className="w-[90vw] sm:w-md">
-
             <CardHeader>
-                <CardTitle className='text-xl text-foreground'>Customize Options</CardTitle>
+                <CardTitle className="text-xl text-foreground">Customize Options</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="space-y-2">
-                    <Label htmlFor="title" className='text-foreground'>Title</Label>
+                    <Label htmlFor="title" className="text-foreground">
+                        Title
+                    </Label>
                     <Input
                         id="title"
-                        type='text'
+                        type="text"
                         value={title ?? ''}
                         placeholder="Mi código QR personal"
                         onChange={(e) => setTitle(e.target.value)}
@@ -26,7 +27,9 @@ const QRCustomizer= () => {
                 </div>
 
                 <div className="space-y-2 my-5">
-                    <Label htmlFor="content" className='text-foreground'>Content</Label>
+                    <Label htmlFor="content" className="text-foreground">
+                        Content
+                    </Label>
                     <Input
                         id="content"
                         value={qrConfig.data}

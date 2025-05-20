@@ -8,7 +8,7 @@ import type {
     Mode,
     ErrorCorrectionLevel,
     TypeNumber,
-} from "qr-code-styling";
+} from 'qr-code-styling';
 
 export interface QRConfig extends Omit<QRCodeOptionsBase, 'qrOptions' | 'imageOptions'> {
     data: string;
@@ -73,15 +73,15 @@ export interface QRConfig extends Omit<QRCodeOptionsBase, 'qrOptions' | 'imageOp
 
     cornersSquareOptionsHelper?: {
         colorType: {
-        single: boolean;
-        gradient: boolean;
+            single: boolean;
+            gradient: boolean;
         };
         gradient: {
-        linear: boolean;
-        radial: boolean;
-        color1: string;
-        color2: string;
-        rotation: number;
+            linear: boolean;
+            radial: boolean;
+            color1: string;
+            color2: string;
+            rotation: number;
         };
     };
 
@@ -97,7 +97,13 @@ export interface QRConfig extends Omit<QRCodeOptionsBase, 'qrOptions' | 'imageOp
     };
 }
 
-export type DotShapeType = 'square' | 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'extra-rounded';
+export type DotShapeType =
+    | 'square'
+    | 'dots'
+    | 'rounded'
+    | 'classy'
+    | 'classy-rounded'
+    | 'extra-rounded';
 
 export interface DotsOptions {
     type: DotType;
@@ -136,7 +142,7 @@ export interface ImageOptionsType {
     imageSize?: number;
     margin?: number;
     crossOrigin?: string;
-};
+}
 
 export type BadgeTemplate = {
     id: string;
@@ -162,14 +168,14 @@ export type BadgeConfig = {
         department: string;
         organization: string;
         contactInfo: {
-        email: string;
-        phone?: string;
-        additionalFields: Record<string, string>;
+            email: string;
+            phone?: string;
+            additionalFields: Record<string, string>;
         };
     };
     qrConfig: {
         data: string;
-        color: string; 
+        color: string;
         backgroundColor: string;
         includeLogoInQR: boolean;
         logoSize?: number;

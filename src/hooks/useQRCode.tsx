@@ -9,8 +9,7 @@ export function useQRCode() {
     const { user } = useUser();
     const supabase = useSupabase();
 
-    // Guardar QR en Supabase
-    const handleSaveQRCode = async ( title: string, qr_data: string, qr_template: QRConfig,) => {
+    const handleSaveQRCode = async (title: string, qr_data: string, qr_template: QRConfig) => {
         if (!supabase || !user?.id) return;
 
         try {
@@ -21,7 +20,7 @@ export function useQRCode() {
                 user_id: user.id,
                 qr_template,
                 title,
-            }
+            };
             const qrApi = QRCodeAPI(supabase);
             await qrApi.create(newQR);
         } catch (error) {
@@ -29,7 +28,7 @@ export function useQRCode() {
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return { loading, handleSaveQRCode };
 }

@@ -11,7 +11,7 @@ const HeroSection = () => {
     return (
         <div className="w-full text-foreground">
             <section className="relative pb-24 pt-52 px-4 sm:px-6 lg:px-8 space-y-6 xl:min-h-[85vh]">
-                <motion.div 
+                <motion.div
                     className="max-w-7xl mx-auto"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -28,22 +28,23 @@ const HeroSection = () => {
                             </Badge>
                         </motion.div>
 
-                        <motion.h1 
+                        <motion.h1
                             className="text-4xl md:text-6xl font-bold tracking-tight"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
-                            Create Stunning and Customized <br/>
-                            <motion.span 
+                            Create Stunning and Customized <br />
+                            <motion.span
                                 className="text-primary"
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6, delay: 0.4 }}
                             >
                                 QR Codes
-                            </motion.span> and{' '}
-                            <motion.span 
+                            </motion.span>{' '}
+                            and{' '}
+                            <motion.span
                                 className="text-primary"
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -53,17 +54,17 @@ const HeroSection = () => {
                             </motion.span>
                         </motion.h1>
 
-                        <motion.p 
+                        <motion.p
                             className="mt-6 text-xl text-muted-foreground max-w-3xl mx-auto"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
                         >
-                            The all-in-one solution for professional digital identification, 
-                            instant access, and brand consistency.
+                            The all-in-one solution for professional digital identification, instant
+                            access, and brand consistency.
                         </motion.p>
 
-                        <motion.div 
+                        <motion.div
                             className="mt-10 w-full max-w-sm px-9 "
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -73,8 +74,8 @@ const HeroSection = () => {
                                 <GenerateQRHome />
                             ) : (
                                 <>
-                                    <Button 
-                                        size="lg" 
+                                    <Button
+                                        size="lg"
                                         onClick={() => setShowInput(true)}
                                         className="relative overflow-hidden group w-full"
                                     >
@@ -84,8 +85,8 @@ const HeroSection = () => {
                                             whileHover={{ x: '100%' }}
                                             transition={{ duration: 0.6 }}
                                         />
-                                        Get Started Free 
-										<ArrowRight className="ml-2 h-4 w-4  group-hover:translate-x-1 transition-transform duration-300" />
+                                        Get Started Free
+                                        <ArrowRight className="ml-2 h-4 w-4  group-hover:translate-x-1 transition-transform duration-300" />
                                     </Button>
                                 </>
                             )}

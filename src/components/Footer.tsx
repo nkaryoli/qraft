@@ -4,7 +4,7 @@ import { IoIosMail } from 'react-icons/io';
 
 const Footer = () => {
     return (
-        <footer className="w-full flex justify-center pt-20 pb-9 px-6 md:px-9 bg-gradient-to-t from-black to-transparent text-md">
+        <footer className="w-full flex justify-center pt-20 pb-9 px-6 md:px-9 bg-gradient-to-t from-black to-background text-md">
             <div className="w-full flex flex-col md:flex-row justify-between items-center gap-3">
                 <p className="text-center md:text-start leading-6">
                     © 2025 Qraft <br /> Developed by{' '}

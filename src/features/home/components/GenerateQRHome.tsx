@@ -52,7 +52,7 @@ const GenerateQRHome = () => {
     const handleDownload = () => {
         qrRef.current?.download('my-qr-code');
     };
-    
+
     return (
         <div className="w-full max-w-lg">
             <form
@@ -87,7 +87,11 @@ const GenerateQRHome = () => {
                             <DownloadIcon size={4} />
                             Download QR
                         </Button>
-                        <Button className="gap-2 w-full max-w-80 sm:w-40" size="lg" onClick={handleCustomQR}>
+                        <Button
+                            className="gap-2 w-full max-w-80 sm:w-40"
+                            size="lg"
+                            onClick={handleCustomQR}
+                        >
                             <PaintbrushIcon size={4} />
                             Customize
                         </Button>

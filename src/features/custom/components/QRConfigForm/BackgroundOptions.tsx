@@ -83,7 +83,7 @@ const BackgroundOptions = ({ config, onChange }: BackgroundOptionsProps) => {
     };
 
     return (
-        <div  className="p-6 space-y-4">
+        <div className="p-6 space-y-4">
             <div className="flex items-center justify-between">
                 <Label>Color Type</Label>
                 <div className="flex items-center gap-2">

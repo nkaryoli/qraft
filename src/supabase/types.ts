@@ -1,4 +1,4 @@
-import type { BadgeConfig, QRConfig } from "@/types";
+import type { BadgeConfig, QRConfig } from '@/types';
 
 export type ThemeConfig = {
     background: string;

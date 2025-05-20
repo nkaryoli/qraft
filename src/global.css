@@ -276,7 +276,6 @@ h6 {
     }
 }
 
-
 #reader__dashboard_section {
     display: flex;
     gap: 10px;
@@ -284,7 +283,8 @@ h6 {
     width: 100%;
 }
 
-#reader button, #reader__dashboard_section_swaplink {
+#reader button,
+#reader__dashboard_section_swaplink {
     color: #ffffff;
     font-size: 1rem;
     font-weight: 500;
@@ -294,15 +294,18 @@ h6 {
     border-radius: 8px;
     width: calc(100% - 20px);
     box-shadow: 5px 5px 5px rgba(71, 67, 66, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease; 
+    transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
 }
 
-#reader button, #reader__dashboard_section_swaplink {
+#reader button,
+#reader__dashboard_section_swaplink {
     background-color: #07485b;
 }
 
-#reader__dashboard_section_swaplink  {
-    background-color: #61C0BF;
+#reader__dashboard_section_swaplink {
+    background-color: #61c0bf;
     text-decoration: none !important;
 }
 

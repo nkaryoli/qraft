@@ -12,7 +12,7 @@ const Dashboard = () => {
     const supabase = useSupabase();
     const [orgs, setOrgs] = useState<Organization[]>([]);
     const [loading, setLoading] = useState(true);
-    const [ qr, setQr] = useState<QRCode[]>([]);
+    const [qr, setQr] = useState<QRCode[]>([]);
 
     console.log(user);
     // Cargar organizaciones del usuario
@@ -43,12 +43,12 @@ const Dashboard = () => {
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         loadQRs();
         loadOrgs();
     }, [supabase, user?.id]);
-    console.log(qr)
+    console.log(qr);
     // Crear nueva organización
     const handleCreateOrg = async () => {
         if (!supabase || !user?.id) return;
@@ -79,11 +79,10 @@ const Dashboard = () => {
         try {
             const qrApi = QRCodeAPI(supabase);
             await qrApi.delete(qrId);
-            } catch (error) {
+        } catch (error) {
             alert('Error deleting QRCODE: ' + (error as Error).message);
         }
     };
-
 
     if (loading) return <div>Loading organizations...</div>;
 
@@ -104,7 +103,10 @@ const Dashboard = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {qr.map((qr) => (
                             <div key={qr.id} className="border p-4 rounded-lg">
-                                <h2 className="text-xl font-semibold">{qr.qr_data}{qr.title}</h2>
+                                <h2 className="text-xl font-semibold">
+                                    {qr.qr_data}
+                                    {qr.title}
+                                </h2>
                                 <QRDisplay config={qr.qr_template} />
                                 <button
                                     onClick={() => handleDeleteQR(qr.id)}

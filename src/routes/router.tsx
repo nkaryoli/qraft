@@ -11,13 +11,10 @@ import SignInPage from '@/features/signin/SignInPage';
 import { QRProvider } from '@/hooks/QRContext';
 import BadgeViewer from '@/features/viewer/BadgeViewer';
 
-
 export const router = createBrowserRouter([
     {
         path: '/viewer/:id',
-        element: (
-            <BadgeViewer />
-        ),
+        element: <BadgeViewer />,
     },
     {
         element: <Layout />,
@@ -46,7 +43,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/custom-badge',
-                element: <QRProvider><BadgePage /></QRProvider>,
+                element: (
+                    <QRProvider>
+                        <BadgePage />
+                    </QRProvider>
+                ),
             },
             {
                 path: '/faq',
@@ -61,7 +62,7 @@ export const router = createBrowserRouter([
                         </QRProvider>
                     </ProtectedRoute>
                 ),
-            }
+            },
         ],
     },
 ]);

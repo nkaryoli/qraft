@@ -10,7 +10,7 @@ module.exports = {
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:import/typescript',
-        'prettier', // Siempre al final
+        'prettier',
     ],
     parserOptions: {
         ecmaVersion: 'latest',
@@ -25,7 +25,7 @@ module.exports = {
         },
     },
     rules: {
-        'react/react-in-jsx-scope': 'off', // No necesario con React 17+
+        'react/react-in-jsx-scope': 'off',
         'import/order': ['warn', { 'newlines-between': 'always' }],
         '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
