@@ -18,8 +18,8 @@ const testimonials = [
 
 const Testimonials = () => {
     return (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card w-full">
-            <div className="max-w-4xl mx-auto">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-card w-full rounded-xl">
+            <div>
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
                         Trusted by <span className="text-primary">Leading Organizations</span>
@@ -29,23 +29,23 @@ const Testimonials = () => {
                         See what our customers say about QR Badge Creator
                     </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-[5%] lg:px-[10%]">
                     {testimonials.map((testimonial) => (
-                        <Card key={testimonial.name} className="p-6">
+                        <Card key={testimonial.name} className="p-6 border-accent">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-                                    <span className="text-lg font-medium">
+                                    <span className="text-lg font-medium text-foreground">
                                         {testimonial.initials}
                                     </span>
                                 </div>
                                 <div>
-                                    <h4 className="font-medium">{testimonial.name}</h4>
+                                    <h4 className="font-medium text-foreground">{testimonial.name}</h4>
                                     <p className="text-sm text-muted-foreground">
                                         {testimonial.position}
                                     </p>
                                 </div>
                             </div>
-                            <CardDescription>{testimonial.quote}</CardDescription>
+                            <CardDescription className='text-foreground'>{testimonial.quote}</CardDescription>
                         </Card>
                     ))}
                 </div>
