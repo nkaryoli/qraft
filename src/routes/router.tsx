@@ -45,7 +45,9 @@ export const router = createBrowserRouter([
                 path: '/custom-badge',
                 element: (
                     <QRProvider>
-                        <BadgePage />
+                        <ProtectedRoute requireAdmin>
+                            <BadgePage />
+                        </ProtectedRoute>
                     </QRProvider>
                 ),
             },
