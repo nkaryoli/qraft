@@ -1,4 +1,6 @@
-import type { Badge, BadgeConfig, BadgeInput } from '@/typesBadge';
+
+import type { Badge, BadgeInput } from '@/supabase/types';
+import type { BadgeConfig } from '@/types';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 export const QRBadgeAPI = (client: SupabaseClient) => ({
