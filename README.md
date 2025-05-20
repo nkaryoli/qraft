@@ -67,10 +67,13 @@ pnpm install
 
 3. **Set up environment variables**
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
+4. Update the `.env` file with your credentials:
+- Get your Clerk keys from [Clerk Dashboard](https://dashboard.clerk.com)
+- Get your Supabase keys from [Supabase Dashboard](https://app.supabase.com)
 
-4. **Configure environment variables**
+5. **Configure environment variables**
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
@@ -78,7 +81,7 @@ NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-5. **Run the development server**
+6. **Run the development server**
 ```bash
 pnpm run dev
 ```
