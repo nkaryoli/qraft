@@ -1,7 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const CTASection = () => {
+    const navigate = useNavigate();
+    
     return (
         <section className="py-16 md:py-24">
             <div className="container px-4 md:px-6">
@@ -18,6 +21,7 @@ const CTASection = () => {
                             <Button
                                 size="lg"
                                 className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                                onClick={() => navigate('/customize')}
                             >
                                 Start Your Free Trial
                                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -26,7 +30,7 @@ const CTASection = () => {
 
                         <div className="hidden md:block relative">
                             <img
-                                src="/api/placeholder/500/300"
+                                src="/public/qraft-qr-demo.png"
                                 alt="QR Badge examples"
                                 className="rounded-lg shadow-lg"
                             />
