@@ -19,6 +19,18 @@ export const QRBadgeAPI = (client: SupabaseClient) => ({
         return data;
     },
 
+    
+    async getBadgeById(id: string): Promise<BadgeConfig | null> {
+        const { data, error } = await client
+            .from('badges')
+            .select('config')
+            .eq('id', id)
+            .single();
+
+        if (error) throw new Error(`Error fetching badge: ${error.message}`);
+        return data?.config || null;
+    }
+  ,  
     async update(id: string, updates: Partial<BadgeConfig>): Promise<BadgeConfig> {
         const { data, error } = await client
             .from('sbadges')
@@ -39,26 +51,25 @@ export const QRBadgeAPI = (client: SupabaseClient) => ({
 });
 
 export async function shareBadge(supabase: SupabaseClient, badge: BadgeConfig): Promise<string> {
-    if (badge.content.profileImageUrl || badge.content.logoUrl) {
-        const { data, error } = await supabase
-            .from('badges')
-            .insert({
-                config: badge,
-                user_id: (await supabase.auth.getUser()).data.user?.id,
-                expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-            })
-            .select('id')
-            .single();
+    // Save badge to Supabase and get ID
+    const { data, error } = await supabase
+        .from('badges')
+        .insert({
+            config: badge,
+            user_id: (await supabase.auth.getUser()).data.user?.id,
+            expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        })
+        .select('id')
+        .single();
 
-        if (error) {
-            throw new Error(error.message);
-        }
-
-        return `${window.location.origin}/viewer/${data.id}`;
+    if (error) {
+        throw new Error(error.message);
     }
 
-    return encodeBadgeToURL(badge);
+    // Return URL with badge ID
+    return `${window.location.origin}/viewer/${data.id}`;
 }
+
 
 export function encodeBadgeToURL(badge: BadgeConfig): string {
     const badgeWithoutImages = {

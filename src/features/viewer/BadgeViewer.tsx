@@ -2,47 +2,51 @@ import { useEffect, useState } from 'react';
 import { BadgePreview } from '../badge/components/BadgePreview';
 import { useSupabase } from '@/hooks/useSupabaseAuth';
 import type { BadgeConfig } from '@/types';
-import { decodeBadgeFromURL } from '@/api/apiBadge';
 import { useParams } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
+import { QRBadgeAPI } from '@/api/apiBadge';
+import { PuffLoader } from 'react-spinners';
 
 const BadgeViewer = () => {
     const [badge, setBadge] = useState<BadgeConfig | null>(null);
     const [error, setError] = useState<string | null>(null);
     const supabase = useSupabase();
     const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (!supabase) return;
+        if (!supabase || !id) return;
 
         const loadBadge = async () => {
             try {
-                if (id) {
-                    const { data, error } = await supabase
-                        .from('badges')
-                        .select('config')
-                        .eq('id', id)
-                        .single();
-
-                    if (error) throw error;
-                    setBadge(data.config as BadgeConfig);
-                    return;
+                setIsLoading(true);
+                const badgeApi = QRBadgeAPI(supabase);
+                const loadedBadge = await badgeApi.getBadgeById(id);
+                
+                if (!loadedBadge) {
+                    throw new Error('Badge not found');
                 }
 
-                const decodedBadge = await decodeBadgeFromURL(supabase);
-                if (!decodedBadge) {
-                    setError('Badge not found');
-                    return;
-                }
-                setBadge(decodedBadge);
+                setBadge(loadedBadge);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load badge');
+            } finally {
+                setIsLoading(false);
             }
         };
 
         loadBadge();
     }, [supabase, id]);
 
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center">
+                <h1>Loading...</h1>
+                <PuffLoader size={80} color="#db073d" />
+            </div>
+        );
+    }
+    
     if (error) {
         return (
             <div className="min-h-screen flex items-center justify-center">
