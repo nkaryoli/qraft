@@ -1,17 +1,21 @@
 import { Button } from '@/components/ui/button';
-import { useUser } from '@clerk/clerk-react';
+import { useAuth, useUser } from '@clerk/clerk-react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const HowItWorks = () => {
     const navigate = useNavigate();
+    const { isLoaded, isSignedIn } = useAuth();
     const { user } = useUser();
 
     const handleGetStarted = () => {
-        if (!user) {
-            navigate('/signin');
+        if (!isLoaded) return;
+
+        if (!isSignedIn || !user) {
+            navigate('/signin', { state: { redirect: '/customize' } });
             return;
         }
+        
         navigate('/customize');
     };
 
@@ -65,8 +69,14 @@ const HowItWorks = () => {
                         className="bg-primary text-primary-foreground hover:bg-primary/90"
                         onClick={handleGetStarted}
                     >
-                        Get Started Now
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        {isLoaded ? (
+                            <>
+                                Get Started Now
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                            </>
+                        ) : (
+                            'Loading...'
+                        )}
                     </Button>
                 </div>
             </div>

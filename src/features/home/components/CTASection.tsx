@@ -1,10 +1,22 @@
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@clerk/clerk-react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const CTASection = () => {
     const navigate = useNavigate();
-    
+    const { isLoaded, isSignedIn } = useAuth();
+
+    const handleClick = () => {
+        if (!isLoaded) return;
+
+        if (!isSignedIn) {
+            navigate('/signin', { state: { redirect: '/customize' } });
+            return;
+        }
+        
+        navigate('/customize');
+    };
     return (
         <section className="py-16 md:py-24">
             <div className="container px-4 md:px-6">
@@ -21,10 +33,16 @@ const CTASection = () => {
                             <Button
                                 size="lg"
                                 className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                                onClick={() => navigate('/customize')}
+                                onClick={handleClick}
                             >
-                                Start Your Free Trial
-                                <ArrowRight className="ml-2 h-4 w-4" />
+                                {isLoaded ? (
+                                    <>
+                                        Start Your Free Trial
+                                        <ArrowRight className="ml-2 h-4 w-4" />
+                                    </>
+                                ) : (
+                                    'Loading...'
+                                )}
                             </Button>
                         </div>
 
