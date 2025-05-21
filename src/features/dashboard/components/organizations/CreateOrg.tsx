@@ -5,7 +5,7 @@ const CreateOrg = () => {
         <div className="w-full flex justify-center items-center h-full">
             <div className="bg-gradient-to-r from-primary/50 via-background to-background p-0.5 rounded-xl">
                 <CreateOrganization
-                    afterCreateOrganizationUrl={'/customize'}
+                    afterCreateOrganizationUrl={'/custom-badge'}
                     skipInvitationScreen
                     appearance={{
                         variables: {
