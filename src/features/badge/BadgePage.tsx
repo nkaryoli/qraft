@@ -11,6 +11,7 @@ import { useQRBadge } from '@/hooks/useQRBadge';
 import { ShareBadgeButton } from './components/ShareBadgeButton';
 import type { BadgeConfig } from '@/types';
 import { motion } from 'framer-motion';
+import { toast } from 'sonner';
 
 const BadgePage = () => {
     const [config, setConfig] = useState<BadgeConfig>({
@@ -98,6 +99,54 @@ const BadgePage = () => {
     };
 
     const { handleSaveBadge } = useQRBadge();
+
+
+    const validateBadgeConfig = (config: BadgeConfig, showToast = true): boolean => {
+    if (!config.content.employeeName.trim()) {
+        if (showToast) {
+                toast('Missing Information 🚫', {
+                    description: 'Please add an employee name',
+                    duration: 4000,
+                    style: { backgroundColor: '#eaeaea', color: '#07485b' }
+                });
+            }
+        return false;
+    }
+    if (!config.content.organization.trim()) {
+        if (showToast) {
+            toast('Missing Information 🚫', {
+                    description: 'Please add an organization name',
+                    duration: 4000,
+                    style: { backgroundColor: '#eaeaea', color: '#07485b' }
+                });
+        }
+        return false;
+    }
+    if (!config.qrConfig.data.trim()) {
+        if (showToast) {
+            toast('Missing Information 🚫', {
+                    description: 'Please add QR code data',
+                    duration: 4000,
+                    style: { backgroundColor: '#eaeaea', color: '#07485b' }
+                });
+        }
+        return false;
+    }
+    return true;
+};
+
+    const handleSaveClick = async (config: BadgeConfig) => {
+    if (!validateBadgeConfig(config, true)) return;
+    
+    try {
+        await handleSaveBadge(config);
+        toast.success('Badge saved successfully!');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+        toast.error('Failed to save badge');
+    }
+};
+
 
     return (
         <div className="flex flex-col items-center gap-8 lg:gap-14 py-32">
@@ -363,11 +412,11 @@ const BadgePage = () => {
                         <Button
                             variant="outline"
                             className="gap-2 w-full  border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
-                            onClick={() => handleSaveBadge(config)}
+                            onClick={() => handleSaveClick(config)}
                         >
                             Save Badge Design
                         </Button>
-                        <ShareBadgeButton config={config} />
+                        <ShareBadgeButton config={config} disabled={!validateBadgeConfig(config, false)} />
                     </div>
                 </motion.div>
             </motion.div>
