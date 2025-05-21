@@ -48,7 +48,7 @@ const CTASection = () => {
 
                         <div className="hidden md:block relative">
                             <img
-                                src="/public/qraft-qr-demo.png"
+                                src="/qraft-qr-demo.png"
                                 alt="QR Badge examples"
                                 className="rounded-lg shadow-lg"
                             />
