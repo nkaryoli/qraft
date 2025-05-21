@@ -8,7 +8,7 @@ import MyTemplates from './components/userTemplates/MyTemplates';
 import MyQRs from './components/userQRs/MyQRs';
 import type { QRCode } from '@/supabase/types';
 import { useQRManager } from '@/hooks/useQRManager';
-import { BarLoader, PacmanLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import MyOrganizations from './components/organizations/MyOrganizations';
 import CreateOrganization from './components/organizations/CreateOrg';
 import { Button } from '@/components/ui/button';
@@ -70,7 +70,7 @@ const DashboardPage = () => {
         'my-templates': { component: MyTemplates, props: { qrs } },
         'my-orgs': {
             component: selectedOrgId ? OrgProfile : MyQRs,
-            props: selectedOrgId ? {} : { qrs },
+            props: selectedOrgId ? {} : { qrs, isLoading },
         },
         'create-org': { component: CreateOrganization },
     };
@@ -91,16 +91,6 @@ const DashboardPage = () => {
                         <BarLoader width="100%" color="#db073d" speedMultiplier={0.5} />
                     </div>
                 )}
-                {qrs?.length === 0 ? (
-                    <div className="w-full h-full flex flex-col justify-center max-w-5xl space-y-4">
-                        <PacmanLoader
-                            size={50}
-                            color="#db073d"
-                            className="absolute left-[40%]"
-                            speedMultiplier={0.5}
-                        />
-                    </div>
-                ) : (
                     <div className="w-full max-w-5xl">
                         {selectedOrgId && active === 'my-orgs' && (
                             <Button
@@ -117,7 +107,6 @@ const DashboardPage = () => {
 
                         <ActiveComponent {...props} />
                     </div>
-                )}
             </section>
             {isOrgModalOpen && (
                 <MyOrganizations
