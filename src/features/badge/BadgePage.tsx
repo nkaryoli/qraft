@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
 import { BadgeIcon, Sparkles, Upload } from 'lucide-react';
 import ColorPicker from '@/components/ColorPiker';
 import { BadgePreview } from './components/BadgePreview';
@@ -12,16 +11,90 @@ import { ShareBadgeButton } from './components/ShareBadgeButton';
 import type { BadgeConfig } from '@/types';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
+import { badgeTemplates } from './components/BadgeTemplates';
+import { cn } from '@/lib/utils';
+
+const TemplatePreview = ({ 
+    template, 
+    isSelected, 
+    onClick 
+}: { 
+    template: BadgeConfig; 
+    isSelected: boolean;
+    onClick: () => void;
+}) => {
+    const layouts = {
+        classic: (
+            <div className="flex flex-col items-center justify-center gap-1 h-full w-32">
+                <div className="w-7 h-9  bg-primary mb-1" />
+                <div className="h-2 w-16 rounded bg-primary" />
+                <div className="h-1 w-7 rounded bg-primary/50" />
+                <div className="h-1 w-9 rounded bg-primary/50" />
+                <div className="mt-2 w-5 h-5 border-2 border-primary" />
+            </div>
+        ),
+        modern: (
+            <div className="flex items-center justify-between h-full p-2">
+                <div className="flex flex-col items-start gap-1">
+                    <div className="w-3 h-3 rounded-full bg-primary mb-2" />
+                    <div className="h-2 w-12 rounded bg-primary mb-1" />
+                    <div className="h-1 w-8 rounded bg-primary/50" />
+                    <div className="h-1 w-8 rounded bg-primary/50" />
+                </div>
+                <div className='flex flex-col items-center'>
+                    <div className="w-9 h-9 border-2 border-primary" />
+                    <div className="h-4 w-4 border-2 border-primary mt-2" />
+                </div>
+            </div>
+        ),
+        minimal: (
+            <div className="relative h-full flex items-center justify-center">
+                <div className="flex flex-col items-center gap-2">
+                    <div className="w-3 h-3 border-2 border-primary" />
+                    <div className="h-2 w-16 rounded bg-primary" />
+                    <div className="h-1 w-12 rounded bg-primary/50" />
+                </div>
+                <div className="absolute top-2 right-2 w-4 h-4 border-2 border-primary" />
+            </div>
+        ),
+    };
+
+    return (
+        <motion.div
+            className={cn(
+                "border rounded-lg p-4 cursor-pointer hover:bg-accent/5 transition-all",
+                isSelected && "ring-2 ring-primary"
+            )}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onClick}
+        >
+            <div 
+                className="h-24 rounded-md mb-2 overflow-hidden"
+                style={{
+                    background: template.design.backgroundColor,
+                    border: `2px solid ${template.design.primaryColor}`,
+                }}
+            >
+                {layouts[template.design.layout]}
+            </div>
+            <p className="text-xs font-medium text-center capitalize">
+                {template.design.templateId}
+            </p>
+        </motion.div>
+    );
+};
 
 const BadgePage = () => {
     const [config, setConfig] = useState<BadgeConfig>({
         design: {
-            templateId: 'default',
-            backgroundColor: '#0d1317',
-            textColor: '#eaeaea',
-            primaryColor: '#0d6986',
-            cornerRadius: 8,
+            templateId: 'classic',
+            backgroundColor: '#ffffff',
+            textColor: '#1a1a1a',
+            primaryColor: '#2563eb',
+            cornerRadius: 4,
             shadow: true,
+            layout: 'classic'
         },
         content: {
             profileImageUrl: '',
@@ -37,9 +110,10 @@ const BadgePage = () => {
         },
         qrConfig: {
             data: '',
-            color: '#000000',
-            backgroundColor: '#ffffff',
+            color: '#2563eb',
+            backgroundColor: '#f3f4f6',
             includeLogoInQR: false,
+            position: 'bottom'
         },
     });
 
@@ -136,16 +210,35 @@ const BadgePage = () => {
 };
 
     const handleSaveClick = async (config: BadgeConfig) => {
-    if (!validateBadgeConfig(config, true)) return;
-    
-    try {
-        await handleSaveBadge(config);
-        toast.success('Badge saved successfully!');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-        toast.error('Failed to save badge');
-    }
-};
+        if (!validateBadgeConfig(config, true)) return;
+        
+        try {
+            await handleSaveBadge(config);
+            toast.success('Badge saved successfully!');
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+            toast.error('Failed to save badge');
+        }
+    };
+
+    const handleTemplateChange = (templateId: string) => {
+        const template = badgeTemplates[templateId];
+        const userContent = config.content;
+        const userQRData = config.qrConfig.data;
+        
+        setConfig({
+            ...template,
+            content: {
+                ...template.content,
+                ...userContent,
+            },
+            qrConfig: {
+                ...template.qrConfig,
+                data: userQRData,
+            },
+        });
+    };
+
 
 
     return (
@@ -203,9 +296,10 @@ const BadgePage = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
             >
+
                 <motion.div
-                    className="w-full max-w-md flex flex-col items-center justify-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl"
-                    whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                    className="w-fit h-fit flex flex-col items-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl"
+                    
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
@@ -229,7 +323,7 @@ const BadgePage = () => {
                 >
                     <h2 className="text-2xl mb-4">Badge Design</h2>
                     <Tabs defaultValue="design">
-                        <TabsList className="w-full lg:w-lg">
+                        <TabsList className="w-full">
                             <TabsTrigger value="design">Design</TabsTrigger>
                             <TabsTrigger value="content">Content</TabsTrigger>
                             <TabsTrigger value="qr">QR Settings</TabsTrigger>
@@ -241,18 +335,14 @@ const BadgePage = () => {
                         >
                             <div className="space-y-2">
                                 <Label>Template</Label>
-                                <div className="grid grid-cols-3 gap-2 mt-2">
-                                    {['default', 'modern', 'classic'].map((template) => (
-                                        <div
-                                            key={template}
-                                            className={`border rounded-md p-2 cursor-pointer ${config.design.templateId === template ? 'ring-2 ring-primary' : ''}`}
-                                            onClick={() =>
-                                                handleDesignChange('templateId', template)
-                                            }
-                                        >
-                                            <div className="h-20 bg-card rounded" />
-                                            <p className="text-xs text-center mt-1">{template}</p>
-                                        </div>
+                                <div className="grid grid-cols-3 gap-4 mt-2">
+                                    {Object.entries(badgeTemplates).map(([id, template]) => (
+                                        <TemplatePreview
+                                            key={id}
+                                            template={template}
+                                            isSelected={config.design.templateId === id}
+                                            onClick={() => handleTemplateChange(id)}
+                                        />
                                     ))}
                                 </div>
                             </div>

@@ -150,8 +150,7 @@ export type BadgeTemplate = {
     previewImage: string;
     defaultConfig: BadgeConfig;
 };
-
-export type BadgeConfig = {
+export interface BadgeConfig {
     design: {
         templateId: string;
         backgroundColor: string;
@@ -159,17 +158,18 @@ export type BadgeConfig = {
         primaryColor: string;
         cornerRadius: number;
         shadow: boolean;
+        layout: 'classic' | 'modern' | 'minimal';
     };
     content: {
-        profileImageUrl: string;
-        logoUrl?: string;
+        profileImageUrl?: string;
         employeeName: string;
         position: string;
         department: string;
         organization: string;
+        logoUrl?: string;
         contactInfo: {
             email: string;
-            phone?: string;
+            phone: string;
             additionalFields: Record<string, string>;
         };
     };
@@ -178,6 +178,6 @@ export type BadgeConfig = {
         color: string;
         backgroundColor: string;
         includeLogoInQR: boolean;
-        logoSize?: number;
+        position?: 'bottom' | 'side' | 'overlay';
     };
-};
+}
