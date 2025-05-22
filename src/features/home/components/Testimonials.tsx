@@ -6,13 +6,13 @@ const testimonials = [
         name: 'Sarah Johnson',
         initials: 'SJ',
         position: 'HR Director at TechCorp',
-        quote: 'QR Badge Creator has streamlined our employee identification process. The customization options are incredible and our team loves the professional look.',
+        quote: 'Qraft has streamlined our employee identification process. The customization options are incredible and our team loves the professional look.',
     },
     {
         name: 'Michael Chen',
         initials: 'MC',
         position: 'Event Coordinator at Global Events',
-        quote: 'For our last conference, we used QR Badge Creator for all attendee badges. The scanning feature made check-ins effortless and the design options were perfect.',
+        quote: 'For our last conference, we used Qraft for all attendee badges. The scanning feature made check-ins effortless and the design options were perfect.',
     },
 ];
 
@@ -26,7 +26,7 @@ const Testimonials = () => {
                     </h2>
                     <Baner />
                     <p className="mt-4 text-lg text-muted-foreground">
-                        See what our customers say about QR Badge Creator
+                        See what our customers say about Qraft
                     </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-[5%] lg:px-[10%]">
