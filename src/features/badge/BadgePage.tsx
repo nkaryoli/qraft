@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BadgeIcon, Sparkles, Upload } from 'lucide-react';
+import { BadgeIcon, Loader2, Sparkles, Upload } from 'lucide-react';
 import ColorPicker from '@/components/ColorPiker';
 import { BadgePreview } from './components/BadgePreview';
 import { useQRBadge } from '@/hooks/useQRBadge';
@@ -13,6 +13,7 @@ import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { badgeTemplates } from './components/BadgeTemplates';
 import { cn } from '@/lib/utils';
+import { BarLoader } from 'react-spinners';
 
 const TemplatePreview = ({ 
     template, 
@@ -172,7 +173,7 @@ const BadgePage = () => {
         }
     };
 
-    const { handleSaveBadge } = useQRBadge();
+    const { handleSaveBadge, loading } = useQRBadge();
 
 
     const validateBadgeConfig = (config: BadgeConfig, showToast = true): boolean => {
@@ -243,6 +244,7 @@ const BadgePage = () => {
 
     return (
         <div className="flex flex-col items-center gap-8 lg:gap-14 py-32">
+            
             <motion.div
                 className="text-center space-y-4 max-w-3xl mx-auto px-4"
                 initial={{ opacity: 0 }}
@@ -291,14 +293,14 @@ const BadgePage = () => {
             </motion.div>
 
             <motion.div
-                className="flex flex-col lg:flex-row gap-8 lg:gap-6"
+                className="flex flex-col lg:flex-row justify-center items-center gap-8 lg:gap-6"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
             >
 
                 <motion.div
-                    className="w-fit h-fit flex flex-col items-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl"
+                    className="w-fit h-fit flex flex-col items-center justify-center bg-gradient-to-b from-background via-muted/80 to-black/80 p-11 rounded-xl"
                     
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -504,10 +506,18 @@ const BadgePage = () => {
                             className="gap-2 w-full  border-secondary/70 hover:border-secondary hover:bg-secondary/10 text-secondary"
                             onClick={() => handleSaveClick(config)}
                         >
-                            Save Badge Design
+                            {loading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Saving...
+                                </>
+                            ) : (
+                                'Save Badge Design'
+                            )}
                         </Button>
                         <ShareBadgeButton config={config} disabled={!validateBadgeConfig(config, false)} />
                     </div>
+                    {loading && <BarLoader className="absolute" width={'100%'} color="#db073d" />}
                 </motion.div>
             </motion.div>
         </div>
